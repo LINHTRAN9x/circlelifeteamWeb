@@ -107,6 +107,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
   font-size: 16px;
   box-shadow: 0 0 12px rgba(0,154,199,0.30);
 }
+.logo-icon{
+  width: 36px; height: 36px;
+}
 .nav-logo span { color: var(--blue-vivid); }
 
 .nav-links {
@@ -451,7 +454,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
 
 .game-card-body {
   padding: 14px 16px 16px;
-  flex: 1; display: flex; flex-direction: column; gap: 6px;
+  flex: 1; display: none; flex-direction: column; gap: 6px;
+}
+.game-card-featured .game-card-body {
+  display: flex;
 }
 .game-card-title {
   font-family: var(--font-display);
@@ -481,19 +487,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; }
 .game-card-stars { display: flex; gap: 1px; margin-left: auto; }
 .game-card-stars span { font-size: 11px; }
 
-/* Featured */
-.game-card-featured { grid-column: span 2; flex-direction: row; }
-.game-card-featured .game-card-thumb { aspect-ratio: unset; width: 260px; min-width: 260px; height: auto; }
-.game-card-featured .game-card-body { padding: 24px; justify-content: center; }
-.game-card-featured .game-card-title { font-size: 22px; }
-.game-card-featured .game-card-title-vi { font-size: 14px; }
-.game-card-featured .game-card-desc {
-  font-size: 13px; color: var(--text-muted);
-  line-height: 1.6; margin-top: 8px;
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-  font-family: var(--font-vi);
-}
-.game-card-featured .btn-primary { margin-top: 16px; font-size: 13px; padding: 10px 20px; }
+/* Featured — same as normal card */
+.game-card-featured { grid-column: span 1; flex-direction: column; }
+.game-card-featured .game-card-thumb { aspect-ratio: 3/4; width: 100%; min-width: unset; height: auto; }
+.game-card-featured .game-card-body { display: none; }
 
 /* ══════════════════════════════
    NEW RELEASES SCROLLER

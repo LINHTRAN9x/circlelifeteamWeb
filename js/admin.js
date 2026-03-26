@@ -250,7 +250,7 @@ async function deleteGameConfirm(id, title) {
 // ── Settings Form ──
 async function initSettingsForm() {
   const settings = await API.getSettings();
-  const fields = ['heroTitle', 'heroSubtitle', 'discordLink', 'facebookLink', 'youtubeLink'];
+  const fields = ['heroBgImage', 'heroTitle', 'heroSubtitle', 'discordLink', 'facebookLink', 'youtubeLink'];
   fields.forEach(f => {
     const el = document.getElementById(`setting-${f}`);
     if (el) el.value = settings[f] || '';

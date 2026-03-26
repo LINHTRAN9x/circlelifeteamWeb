@@ -172,6 +172,14 @@
         <div style="background:var(--bg-card);border:1px solid rgba(0,168,232,0.1);border-radius:var(--radius-lg);padding:28px;max-width:600px">
           <form id="settings-form">
             <div class="form-group">
+              <label class="form-label" for="setting-heroBgImage">🖼️ Ảnh Background Hero (URL)</label>
+              <input type="url" id="setting-heroBgImage" class="form-input" placeholder="https://i.imgur.com/abc123.jpg">
+              <div style="font-size:11px;color:var(--text-dim);margin-top:6px">Để trống sẽ dùng background mặc định. Nên dùng ảnh rộng ≥1920px.</div>
+              <div id="setting-heroBgImage-preview" style="margin-top:10px;display:none">
+                <img id="bg-preview-img" src="" alt="preview" style="width:100%;max-height:120px;object-fit:cover;border-radius:8px;border:1px solid rgba(0,168,232,0.2)">
+              </div>
+            </div>
+            <div class="form-group">
               <label class="form-label" for="setting-heroTitle">Tiêu đề Hero</label>
               <input type="text" id="setting-heroTitle" class="form-input" placeholder="Việt Hóa Game PS5 Chất Lượng Cao">
             </div>
@@ -440,6 +448,20 @@
   document.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById('sample-json');
     if (el) el.textContent = JSON.stringify(SAMPLE_DATA, null, 2);
+
+    // Live preview for hero bg image
+    const bgInput = document.getElementById('setting-heroBgImage');
+    const previewBox = document.getElementById('setting-heroBgImage-preview');
+    const previewImg = document.getElementById('bg-preview-img');
+    bgInput?.addEventListener('input', () => {
+      const url = bgInput.value.trim();
+      if (url) {
+        previewImg.src = url;
+        previewBox.style.display = 'block';
+      } else {
+        previewBox.style.display = 'none';
+      }
+    });
   });
   function copyInitialData() {
     navigator.clipboard.writeText(JSON.stringify(SAMPLE_DATA, null, 2))

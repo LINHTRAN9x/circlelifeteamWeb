@@ -35,10 +35,38 @@ function renderHeroSettings(settings) {
   if (title && settings.heroTitle) title.innerHTML = settings.heroTitle.replace(/(PS5|Việt Hóa)/gi, '<span>$1</span>');
   if (sub && settings.heroSubtitle) sub.textContent = settings.heroSubtitle;
 
-  const discord = document.getElementById('hero-discord');
-  const fb = document.getElementById('hero-fb');
-  if (discord && settings.discordLink) discord.href = settings.discordLink;
-  if (fb && settings.facebookLink) fb.href = settings.facebookLink;
+  // Ảnh background hero
+  if (settings.heroBgImage && settings.heroBgImage.trim()) {
+    const heroBg = document.querySelector('.hero-bg');
+    if (heroBg) {
+      heroBg.style.backgroundImage = `url(${settings.heroBgImage})`;
+      heroBg.style.backgroundSize = 'cover';
+      heroBg.style.backgroundPosition = 'center';
+      heroBg.style.opacity = '0.18'; // giữ tối để chữ vẫn đọc được
+    }
+  }
+
+  // Map setting key → danh sách element ID cần cập nhật
+  const linkMap = {
+    discordLink:  ['footer-discord'],
+    facebookLink: ['footer-fb'],
+    youtubeLink:  ['footer-yt'],
+  };
+
+  Object.entries(linkMap).forEach(([key, ids]) => {
+    if (!settings[key] || settings[key] === '#') return;
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.href = settings[key];
+    });
+  });
+
+  // Footer social buttons (💬 👥 ▶) — theo đúng thứ tự trong HTML
+  const socialBtns = document.querySelectorAll('.footer-social .social-btn');
+  const socialOrder = [settings.discordLink, settings.facebookLink, settings.youtubeLink];
+  socialBtns.forEach((btn, i) => {
+    if (socialOrder[i] && socialOrder[i] !== '#') btn.href = socialOrder[i];
+  });
 }
 
 function updateHeroStats(games) {
@@ -147,7 +175,7 @@ function filterAndRenderGames(genre) {
 // ── Game Card HTML ──
 function gameCardHTML(game, extraClass = '') {
   const img = game.coverImage
-    ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\"game-card-thumb-placeholder\\"><span>🎮</span><p>No Image</p></div>'">`
+    ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\"game-card-thumb-placeholder\\"><span>🎮</span><p>No Image</p></div>`
     : '<div class="game-card-thumb-placeholder"><span>🎮</span><p>No Image</p></div>';
 
   const badgeNew = game.isNew ? '<span class="badge badge-new">🔥 Mới</span>' : '';
@@ -177,7 +205,7 @@ function gameCardHTML(game, extraClass = '') {
           ${badgePlatform}
         </div>
         <div class="game-card-overlay">
-          <div class="game-card-play-btn">🎮 Xem chi tiết</div>
+          <div class="game-card-play-btn">Xem chi tiết</div>
         </div>
       </div>
       <div class="game-card-body">
