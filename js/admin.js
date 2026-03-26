@@ -253,20 +253,42 @@ async function deleteGameConfirm(id, title) {
 async function initSettingsForm() {
   const settings = await API.getSettings();
   const fields = ['heroBgImage', 'heroTitle', 'heroSubtitle', 'discordLink', 'facebookLink', 'youtubeLink'];
+  
   fields.forEach(f => {
     const el = document.getElementById(`setting-${f}`);
     if (el) el.value = settings[f] || '';
   });
 
-  document.getElementById('settings-form')?.addEventListener('submit', async e => {
-    e.preventDefault();
-    const newSettings = {};
-    fields.forEach(f => {
-      newSettings[f] = document.getElementById(`setting-${f}`)?.value.trim() || '';
-    });
-    const ok = await API.saveSettings(newSettings);
-    showToast(ok ? 'Đã lưu cài đặt!' : 'Lưu thất bại', ok ? 'success' : 'error');
-  });
+  // Tìm form và thêm sự kiện submit
+  const form = document.getElementById('settings-form');
+  if (form) {
+    form.onsubmit = async (e) => {
+      e.preventDefault(); // CHẶN LOAD LẠI TRANG - Cực kỳ quan trọng
+      
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = '⌛ Đang lưu...';
+      submitBtn.disabled = true;
+
+      const newSettings = {};
+      fields.forEach(f => {
+        newSettings[f] = document.getElementById(`setting-${f}`)?.value.trim() || '';
+      });
+
+      const ok = await API.saveSettings(newSettings);
+      
+      if (ok) {
+        // Xóa cache localStorage để trang chủ nhận diện thay đổi ngay lập tức
+        localStorage.removeItem('clt_cache_data'); 
+        showToast('Đã lưu cài đặt thành công!', 'success');
+      } else {
+        showToast('Lưu thất bại! Hãy kiểm tra API Key trong config.js', 'error');
+      }
+      
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    };
+  }
 }
 
 // ── Helpers ──
