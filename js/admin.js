@@ -317,3 +317,42 @@ function showToast(message, type = 'success') {
 // Make functions global
 window.editGame = editGame;
 window.deleteGameConfirm = deleteGameConfirm;
+
+
+// Hàm tự động tạo nội dung Sitemap từ dữ liệu thực tế
+async function generateSitemap() {
+  const games = await API.getGames();
+  const baseUrl = CONFIG.SITE_URL;
+  const today = new Date().toISOString().split('T')[0];
+
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+  // Thêm trang chủ
+  xml += `  <url>\n    <loc>${baseUrl}/index.html</loc>\n    <lastmod>${today}</lastmod>\n    <priority>1.0</priority>\n  </url>\n`;
+
+  // Thêm danh sách game
+  games.forEach(game => {
+    const lastMod = game.releaseDate || today;
+    xml += `  <url>\n`;
+    xml += `    <loc>${baseUrl}/game.html?id=${game.slug}</loc>\n`;
+    xml += `    <lastmod>${lastMod}</lastmod>\n`;
+    xml += `    <priority>0.8</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  xml += `</urlset>`;
+
+  // Hiển thị ra console hoặc cho phép tải về
+  console.log("%c--- NỘI DUNG SITEMAP.XML MỚI ---", "color: #009AC7; font-weight: bold;");
+  console.log(xml);
+  
+  // Tự động tải file về máy
+  const blob = new Blob([xml], { type: 'text/xml' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'sitemap.xml';
+  link.click();
+  
+  showToast('Đã tạo và tải xuống sitemap.xml!', 'success');
+}

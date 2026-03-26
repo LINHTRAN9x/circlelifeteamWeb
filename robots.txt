@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /js/
+Disallow: /css/
+
+# Đường dẫn đến sitemap
+Sitemap: https://circlelifeteam.top/sitemap.xml
