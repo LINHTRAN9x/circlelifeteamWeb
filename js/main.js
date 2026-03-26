@@ -24,8 +24,16 @@ requestAnimationFrame(raf);
 // Bắt sự kiện click vào các thẻ <a> (Menu) để cuộn mượt theo chuẩn Lenis
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
+    const currentHref = this.getAttribute('href');
+    
+    // Nếu href đã bị đổi thành link web thật (không còn bắt đầu bằng #), 
+    // thì bỏ qua để trình duyệt mở link bình thường, không cuộn nữa!
+    if (!currentHref.startsWith('#')) return;
+
     e.preventDefault();
-    lenis.scrollTo(this.getAttribute('href'), { offset: -100 });
+    if (currentHref.length > 1) {
+      lenis.scrollTo(currentHref, { offset: -100 });
+    }
   });
 });
 // ============================================================

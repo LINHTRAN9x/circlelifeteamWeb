@@ -26,8 +26,16 @@ requestAnimationFrame(raf);
 // Bắt sự kiện click vào các thẻ <a> (Menu) để cuộn mượt theo chuẩn Lenis
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
+    const currentHref = this.getAttribute('href');
+    
+    // Nếu href đã bị đổi thành link web thật (không còn bắt đầu bằng #), 
+    // thì bỏ qua để trình duyệt mở link bình thường, không cuộn nữa!
+    if (!currentHref.startsWith('#')) return;
+
     e.preventDefault();
-    lenis.scrollTo(this.getAttribute('href'), { offset: -100 });
+    if (currentHref.length > 1) {
+      lenis.scrollTo(currentHref, { offset: -100 });
+    }
   });
 });
 // ============================================================
@@ -180,17 +188,24 @@ function renderGameDetail(game) {
   }
 
   // Download button
-  const dlBtn = document.getElementById('download-btn');
-  if (dlBtn) {
-    if (game.downloadLink && game.downloadLink !== '#') {
-      dlBtn.href = game.downloadLink;
-      dlBtn.target = '_blank';
-      dlBtn.rel = 'noopener noreferrer';
-    } else {
-      dlBtn.onclick = () => showToast('Link tải đang được cập nhật...', 'info');
-      dlBtn.removeAttribute('href');
+  // Download buttons (Gán link cho cả nút ở trên Hero và nút ở dưới Footer)
+  const dlBtns = [
+    document.getElementById('download-btn'), 
+    document.getElementById('download-btn-2')
+  ];
+  
+  dlBtns.forEach(btn => {
+    if (btn) {
+      if (game.downloadLink && game.downloadLink !== '#') {
+        btn.href = game.downloadLink; // Đè link Discord/Drive vào đây
+        btn.target = '_blank'; // Mở tab mới
+        btn.rel = 'noopener noreferrer';
+      } else {
+        btn.onclick = () => showToast('Link tải đang được cập nhật...', 'info');
+        btn.removeAttribute('href');
+      }
     }
-  }
+  });
 
   // Description
   const descEl = document.getElementById('game-description');

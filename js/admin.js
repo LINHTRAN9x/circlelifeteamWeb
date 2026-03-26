@@ -5,34 +5,6 @@
 
 const ADMIN_SESSION_KEY = 'clt_admin_token';
 
-
-// ============================================================
-//  Khởi tạo cuộn mượt Lenis (Dán lên đầu file)
-// ============================================================
-const lenis = new Lenis({
-  duration: 1.2, /* Độ dài của quán tính (tăng để trượt dài hơn) */
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), /* Gia tốc trượt */
-  direction: 'vertical',
-  gestureDirection: 'vertical',
-  smooth: true,
-  mouseMultiplier: 1,
-  smoothTouch: false, /* Tắt trên điện thoại vì đt cuộn cảm ứng vốn đã mượt */
-});
-
-function raf(time) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
-
-// Bắt sự kiện click vào các thẻ <a> (Menu) để cuộn mượt theo chuẩn Lenis
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    lenis.scrollTo(this.getAttribute('href'), { offset: -100 });
-  });
-});
-// ============================================================
 document.addEventListener('DOMContentLoaded', () => {
   if (isLoggedIn()) {
     showDashboard();
