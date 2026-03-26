@@ -103,7 +103,7 @@ function newCardHTML(game) {
       <div class="new-card-thumb">${img}</div>
       <div class="new-card-body">
         <div class="new-card-title">${game.title}</div>
-        ${date ? `<div class="new-card-date">📅 ${date}</div>` : ''}
+        ${date ? `<div class="new-card-date"><i class="fa-regular fa-calendar"></i> ${date}</div>` : ''}
       </div>
     </div>`;
 }
