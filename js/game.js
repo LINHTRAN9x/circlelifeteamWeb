@@ -40,7 +40,9 @@ async function loadGameDetail(slug) {
 function updateSEO(game) {
   const h1 = document.getElementById('game-title');
   if (h1) h1.textContent = `${game.title} Việt Hóa PS5`;
+
   const title = `${game.title} Việt Hóa PS5 – Patch ${game.version || 'Mới Nhất'} | CircleLifeTeam`;
+  document.title = title;
   const desc = `Tải về bản việt hóa ${game.title} (${game.titleVi || ''}) cho PS5. ${game.status || 'Hoàn thành'}. Bản dịch chất lượng cao bởi CircleLifeTeam.`;
   const keywords = `${game.title} việt hóa, ${game.title} ps5 tiếng việt, patch việt hóa ${game.title}, circlelifeteam ${game.title}`;
 
