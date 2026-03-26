@@ -2,6 +2,34 @@
 //  CircleLifeTeam — main.js
 //  Logic cho trang chủ (index.html)
 // ============================================================
+// ============================================================
+//  Khởi tạo cuộn mượt Lenis (Dán lên đầu file)
+// ============================================================
+const lenis = new Lenis({
+  duration: 1.2, /* Độ dài của quán tính (tăng để trượt dài hơn) */
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), /* Gia tốc trượt */
+  direction: 'vertical',
+  gestureDirection: 'vertical',
+  smooth: true,
+  mouseMultiplier: 1,
+  smoothTouch: false, /* Tắt trên điện thoại vì đt cuộn cảm ứng vốn đã mượt */
+});
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// Bắt sự kiện click vào các thẻ <a> (Menu) để cuộn mượt theo chuẩn Lenis
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    lenis.scrollTo(this.getAttribute('href'), { offset: -100 });
+  });
+});
+// ============================================================
+
 
 document.addEventListener('DOMContentLoaded', async () => {
   await initHomePage();
@@ -185,7 +213,11 @@ function gameCardHTML(game, extraClass = '') {
     : '';
 
   const stars = game.rating
-    ? Array.from({length: 5}, (_, i) => `<span>${i < game.rating ? '⭐' : '☆'}</span>`).join('')
+    ? Array.from({length: 5}, (_, i) => {
+        return i < game.rating 
+          ? `<img src="ratingstar1.svg" alt="star" style="width:16px;height:16px;object-fit:contain">` 
+          : `<span style="font-size:14px;color:var(--text-dim);display:inline-block;width:16px;text-align:center">☆</span>`;
+      }).join('')
     : '';
 
   const isFeatured = extraClass.includes('featured');

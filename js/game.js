@@ -3,6 +3,34 @@
 //  Logic cho trang chi tiết game (game.html)
 // ============================================================
 
+
+// ============================================================
+//  Khởi tạo cuộn mượt Lenis (Dán lên đầu file)
+// ============================================================
+const lenis = new Lenis({
+  duration: 1.2, /* Độ dài của quán tính (tăng để trượt dài hơn) */
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), /* Gia tốc trượt */
+  direction: 'vertical',
+  gestureDirection: 'vertical',
+  smooth: true,
+  mouseMultiplier: 1,
+  smoothTouch: false, /* Tắt trên điện thoại vì đt cuộn cảm ứng vốn đã mượt */
+});
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// Bắt sự kiện click vào các thẻ <a> (Menu) để cuộn mượt theo chuẩn Lenis
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    lenis.scrollTo(this.getAttribute('href'), { offset: -100 });
+  });
+});
+// ============================================================
 document.addEventListener('DOMContentLoaded', async () => {
   const slug = getSlugFromURL();
   if (!slug) { window.location.href = 'index.html'; return; }
@@ -143,9 +171,12 @@ function renderGameDetail(game) {
   // Rating
   const ratingEl = document.getElementById('game-rating');
   if (ratingEl && game.rating) {
-    ratingEl.innerHTML = Array.from({length: 5}, (_, i) =>
-      `<span style="font-size:18px">${i < game.rating ? '⭐' : '☆'}</span>`
-    ).join('') + `<span style="font-size:13px;color:var(--text-muted);margin-left:6px">${game.rating}/5</span>`;
+    ratingEl.innerHTML = Array.from({length: 5}, (_, i) => {
+      // Dùng ảnh SVG cho sao đã đánh giá, dùng emoji ☆ (hoặc làm ảnh SVG khác) cho sao trống
+      return i < game.rating 
+        ? `<img src="ratingstar1.svg" alt="star" style="width:24px;height:24px;object-fit:contain">` 
+        : `<span style="font-size:18px;color:var(--text-dim);display:inline-block;width:24px;text-align:center">☆</span>`;
+    }).join('') + `<span style="font-size:14px;font-weight:800;color:var(--text-dim);margin-left:8px">${game.rating}/5</span>`;
   }
 
   // Download button
