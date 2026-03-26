@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | CircleLifeTeam</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+
+<!-- NAVBAR (hidden until logged in) -->
+<nav class="navbar" style="display:none" role="navigation">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon"><i class="fa-solid fa-gamepad"></i></div>
+    <span>Circle<span>Life</span>Team</span>
+  </a>
+  <div class="nav-spacer"></div>
+  <span style="font-size:13px;color:var(--text-muted);margin-right:12px">⚙️ Admin Panel</span>
+  <a href="index.html" class="btn-outline" style="font-size:13px;padding:7px 14px;margin-right:8px">🌐 Xem Website</a>
+  <button class="nav-admin-btn" id="logout-btn" style="background:rgba(255,71,87,0.15);color:#ff6b6b;border:1px solid rgba(255,71,87,0.3)">🚪 Đăng Xuất</button>
+</nav>
+
+<!-- ════════════════════════════
+  LOGIN SECTION
+════════════════════════════ -->
+<div id="login-section" class="admin-login-page">
+  <div class="admin-login-bg" aria-hidden="true"></div>
+
+  <div class="admin-login-card">
+    <div class="admin-login-logo">
+      <div class="admin-login-icon">🛡️</div>
+      <div class="admin-login-title">Admin Panel</div>
+      <div class="admin-login-sub">CircleLifeTeam – Quản lý nội dung</div>
+    </div>
+
+    <form id="login-form" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="admin-pass">Mật Khẩu Admin</label>
+        <input
+          type="password"
+          id="admin-pass"
+          class="form-input"
+          placeholder="Nhập mật khẩu..."
+          autocomplete="current-password"
+          required
+        >
+        <div class="form-error" id="login-error" style="display:none"></div>
+      </div>
+
+      <button type="submit" class="btn-block">
+        🔐 Đăng Nhập
+      </button>
+    </form>
+
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(0,168,232,0.1);text-align:center">
+      <p style="font-size:12px;color:var(--text-dim)">
+        Mật khẩu mặc định: <code style="color:var(--cyan-accent);background:rgba(0,168,232,0.1);padding:2px 6px;border-radius:4px">admin123</code>
+      </p>
+      <p style="font-size:11px;color:var(--text-dim);margin-top:6px">Đổi trong <code style="color:var(--cyan-accent)">js/config.js</code></p>
+    </div>
+
+    <div style="margin-top:16px;text-align:center">
+      <a href="index.html" style="font-size:13px;color:var(--blue-vivid)">← Về trang chủ</a>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════
+  DASHBOARD SECTION
+════════════════════════════ -->
+<div id="dashboard-section" class="page" style="display:none">
+  <div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" role="navigation" aria-label="Admin navigation">
+      <div class="admin-sidebar-title">Quản Lý</div>
+
+      <div class="admin-nav-item active" data-target="games">
+        <span class="icon">🎮</span>
+        <span>Quản Lý Game</span>
+      </div>
+
+      <div class="admin-nav-item" data-target="settings">
+        <span class="icon">⚙️</span>
+        <span>Cài Đặt Website</span>
+      </div>
+
+      <div class="admin-nav-item" data-target="jsonbin">
+        <span class="icon">🗄️</span>
+        <span>JSONBin Config</span>
+      </div>
+
+      <div class="admin-nav-item" data-target="guide">
+        <span class="icon">📖</span>
+        <span>Hướng Dẫn</span>
+      </div>
+
+      <div style="margin-top:auto;padding-top:16px;border-top:1px solid rgba(0,168,232,0.1);margin-top:24px">
+        <a href="index.html" class="admin-nav-item" style="color:var(--blue-vivid)">
+          <span class="icon">🌐</span>
+          <span>Xem Website</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="admin-content">
+
+      <!-- ── STATS (always visible) ── -->
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div class="admin-stat-num" id="stat-total">—</div>
+          <div class="admin-stat-label">🎮 Tổng Game</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-num" id="stat-done">—</div>
+          <div class="admin-stat-label">✅ Hoàn Thành</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-num" id="stat-new">—</div>
+          <div class="admin-stat-label">🔥 Mới Ra</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-num" id="stat-wip">—</div>
+          <div class="admin-stat-label">🚧 Đang Dịch</div>
+        </div>
+      </div>
+
+      <!-- ════ PAGE: GAMES ════ -->
+      <div id="page-games" class="admin-page">
+        <div class="admin-page-title">
+          <span class="icon">🎮</span>
+          Quản Lý Game Việt Hóa
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
+          <button class="btn-primary" id="add-game-btn">
+            ➕ Thêm Game Mới
+          </button>
+        </div>
+
+        <div class="admin-table-wrapper">
+          <table class="admin-table" aria-label="Games list">
+            <thead>
+              <tr>
+                <th>Game</th>
+                <th>Thể loại</th>
+                <th>Tiến độ</th>
+                <th>Phiên bản</th>
+                <th>Tags</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="games-tbody">
+              <tr><td colspan="6" style="text-align:center;padding:32px;color:var(--text-dim)">Đang tải...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ════ PAGE: SETTINGS ════ -->
+      <div id="page-settings" class="admin-page hidden">
+        <div class="admin-page-title">
+          <span class="icon">⚙️</span>
+          Cài Đặt Website
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid rgba(0,168,232,0.1);border-radius:var(--radius-lg);padding:28px;max-width:600px">
+          <form id="settings-form">
+            <div class="form-group">
+              <label class="form-label" for="setting-heroTitle">Tiêu đề Hero</label>
+              <input type="text" id="setting-heroTitle" class="form-input" placeholder="Việt Hóa Game PS5 Chất Lượng Cao">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="setting-heroSubtitle">Phụ đề Hero</label>
+              <input type="text" id="setting-heroSubtitle" class="form-input" placeholder="CircleLifeTeam – Đưa ngôn ngữ Việt...">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="setting-discordLink">Link Discord</label>
+              <input type="url" id="setting-discordLink" class="form-input" placeholder="https://discord.gg/...">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="setting-facebookLink">Link Facebook</label>
+              <input type="url" id="setting-facebookLink" class="form-input" placeholder="https://facebook.com/...">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="setting-youtubeLink">Link YouTube</label>
+              <input type="url" id="setting-youtubeLink" class="form-input" placeholder="https://youtube.com/...">
+            </div>
+            <button type="submit" class="btn-block">💾 Lưu Cài Đặt</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ════ PAGE: JSONBIN ════ -->
+      <div id="page-jsonbin" class="admin-page hidden">
+        <div class="admin-page-title">
+          <span class="icon">🗄️</span>
+          Cấu Hình JSONBin.io
+        </div>
+
+        <div style="background:var(--bg-card);border:1px solid rgba(0,168,232,0.1);border-radius:var(--radius-lg);padding:28px;max-width:640px">
+          <div style="background:rgba(255,165,2,0.08);border:1px solid rgba(255,165,2,0.25);border-radius:var(--radius-md);padding:16px;margin-bottom:24px">
+            <p style="font-size:13px;color:#ffa502;font-weight:600">⚠️ Cấu hình trong file <code>js/config.js</code></p>
+          </div>
+
+          <h3 style="font-family:var(--font-display);font-size:16px;color:var(--white);margin-bottom:16px">Hướng dẫn thiết lập JSONBin.io:</h3>
+
+          <ol style="font-size:13px;color:var(--text-muted);font-family:var(--font-vi);line-height:2.2;padding-left:20px">
+            <li>Truy cập <a href="https://jsonbin.io" target="_blank" style="color:var(--blue-vivid)">jsonbin.io</a> và tạo tài khoản miễn phí</li>
+            <li>Vào mục <strong style="color:var(--white)">API Keys</strong> → tạo Master Key mới</li>
+            <li>Vào <strong style="color:var(--white)">Bins</strong> → Create New Bin</li>
+            <li>Paste dữ liệu mẫu bên dưới vào bin và lưu</li>
+            <li>Copy <strong style="color:var(--white)">Bin ID</strong> và <strong style="color:var(--white)">API Key</strong></li>
+            <li>Mở file <code style="color:var(--cyan-accent)">js/config.js</code> và thay thế các giá trị</li>
+          </ol>
+
+          <div style="margin-top:20px">
+            <div class="form-label" style="margin-bottom:8px">Dữ liệu JSON mẫu để paste vào Bin:</div>
+            <div style="background:var(--bg-dark);border-radius:var(--radius-md);padding:16px;position:relative">
+              <button onclick="copyInitialData()" style="position:absolute;top:8px;right:8px;background:rgba(0,168,232,0.15);border:1px solid rgba(0,168,232,0.3);color:var(--blue-vivid);border-radius:var(--radius-sm);padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer">📋 Copy</button>
+              <pre id="sample-json" style="font-size:10px;color:var(--text-muted);overflow:auto;max-height:200px;font-family:monospace;white-space:pre-wrap"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════ PAGE: GUIDE ════ -->
+      <div id="page-guide" class="admin-page hidden">
+        <div class="admin-page-title">
+          <span class="icon">📖</span>
+          Hướng Dẫn Sử Dụng
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;max-width:900px">
+          <div style="background:var(--bg-card);border:1px solid rgba(0,168,232,0.1);border-radius:var(--radius-lg);padding:24px">
+            <div style="font-size:32px;margin-bottom:12px">1️⃣</div>
+            <h3 style="font-family:var(--font-display);font-size:16px;color:var(--white);margin-bottom:8px">Thêm Game Mới</h3>
+            <p style="font-size:13px;color:var(--text-muted);font-family:var(--font-vi);line-height:1.6">Vào trang <strong style="color:var(--white)">Quản Lý Game</strong> → Bấm <strong style="color:var(--white)">Thêm Game Mới</strong> → Điền thông tin → Lưu</p>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid rgba(0,168,232,0.1);border-radius:var(--radius-lg);padding:24px">
+            <div style="font-size:32px;margin-bottom:12px">2️⃣</div>
+            <h3 style="font-family:var(--font-display);font-size:16px;color:var(--white);margin-bottom:8px">Cập Nhật Game</h3>
+            <p style="font-size:13px;color:var(--text-muted);font-family:var(--font-vi);line-height:1.6">Bấm nút <strong style="color:var(--white)">✏️ Sửa</strong> bên cạnh tên game → Chỉnh sửa thông tin → Lưu lại</p>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid rgba(0,168,232,0.1);border-radius:var(--radius-lg);padding:24px">
+            <div style="font-size:32px;margin-bottom:12px">3️⃣</div>
+            <h3 style="font-family:var(--font-display);font-size:16px;color:var(--white);margin-bottom:8px">YouTube Trailer</h3>
+            <p style="font-size:13px;color:var(--text-muted);font-family:var(--font-vi);line-height:1.6">Chỉ điền <strong style="color:var(--white)">ID video YouTube</strong> (phần sau <code style="color:var(--cyan-accent)">?v=</code>), không cần full URL</p>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid rgba(0,168,232,0.1);border-radius:var(--radius-lg);padding:24px">
+            <div style="font-size:32px;margin-bottom:12px">4️⃣</div>
+            <h3 style="font-family:var(--font-display);font-size:16px;color:var(--white);margin-bottom:8px">Ảnh Màn Hình</h3>
+            <p style="font-size:13px;color:var(--text-muted);font-family:var(--font-vi);line-height:1.6">Điền mỗi URL ảnh trên <strong style="color:var(--white)">một dòng</strong> trong ô "Ảnh màn hình"</p>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid rgba(0,168,232,0.1);border-radius:var(--radius-lg);padding:24px">
+            <div style="font-size:32px;margin-bottom:12px">5️⃣</div>
+            <h3 style="font-family:var(--font-display);font-size:16px;color:var(--white);margin-bottom:8px">Đổi Mật Khẩu</h3>
+            <p style="font-size:13px;color:var(--text-muted);font-family:var(--font-vi);line-height:1.6">Tạo MD5 hash cho mật khẩu mới tại <a href="https://www.md5hashgenerator.com" target="_blank" style="color:var(--blue-vivid)">md5hashgenerator.com</a> → Paste vào <code style="color:var(--cyan-accent)">config.js</code></p>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid rgba(0,168,232,0.1);border-radius:var(--radius-lg);padding:24px">
+            <div style="font-size:32px;margin-bottom:12px">6️⃣</div>
+            <h3 style="font-family:var(--font-display);font-size:16px;color:var(--white);margin-bottom:8px">SEO & URL</h3>
+            <p style="font-size:13px;color:var(--text-muted);font-family:var(--font-vi);line-height:1.6">URL game tự tạo từ Slug. Ví dụ: <code style="color:var(--cyan-accent)">game.html?id=ghost-of-tsushima</code></p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /admin-layout -->
+</div><!-- /dashboard-section -->
+
+<!-- ════════════════════════════
+  GAME FORM MODAL
+════════════════════════════ -->
+<div class="modal-overlay" id="game-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Thêm Game Mới</div>
+      <button class="modal-close" id="modal-close" aria-label="Close modal">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <form id="game-form" novalidate>
+        <!-- Hidden ID -->
+        <input type="hidden" id="form-id">
+
+        <!-- Row 1: Title + Title VI -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="form-title">Tên Game (EN) *</label>
+            <input type="text" id="form-title" class="form-input" placeholder="Ghost of Tsushima" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="form-titleVi">Tên Game (VI)</label>
+            <input type="text" id="form-titleVi" class="form-input" placeholder="Bóng Ma Tsushima">
+          </div>
+        </div>
+
+        <!-- Row 2: Slug + Platform -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="form-slug">Slug (URL) *</label>
+            <input type="text" id="form-slug" class="form-input" placeholder="ghost-of-tsushima" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="form-platform">Platform</label>
+            <select id="form-platform" class="form-input">
+              <option value="PS5">PS5</option>
+              <option value="PS4/PS5">PS4/PS5</option>
+              <option value="PS4">PS4</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 3: Genre + Rating -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="form-genre">Thể Loại</label>
+            <input type="text" id="form-genre" class="form-input" placeholder="Action-Adventure">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="form-rating">Đánh Giá (1-5)</label>
+            <select id="form-rating" class="form-input">
+              <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+              <option value="4">⭐⭐⭐⭐ (4)</option>
+              <option value="3">⭐⭐⭐ (3)</option>
+              <option value="2">⭐⭐ (2)</option>
+              <option value="1">⭐ (1)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 4: Status + Version -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="form-status">Tiến Độ</label>
+            <select id="form-status" class="form-input">
+              <option value="Hoàn thành 100%">Hoàn thành 100%</option>
+              <option value="Đang dịch 90%">Đang dịch 90%</option>
+              <option value="Đang dịch 80%">Đang dịch 80%</option>
+              <option value="Đang dịch 70%">Đang dịch 70%</option>
+              <option value="Đang dịch 60%">Đang dịch 60%</option>
+              <option value="Đang dịch 50%">Đang dịch 50%</option>
+              <option value="Đang dịch 30%">Đang dịch 30%</option>
+              <option value="Đang lên kế hoạch">Đang lên kế hoạch</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="form-version">Phiên Bản</label>
+            <input type="text" id="form-version" class="form-input" placeholder="v1.0">
+          </div>
+        </div>
+
+        <!-- Row 5: Translator + Date -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="form-translator">Người Dịch</label>
+            <input type="text" id="form-translator" class="form-input" placeholder="CircleLife Team">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="form-releaseDate">Ngày Phát Hành VH</label>
+            <input type="date" id="form-releaseDate" class="form-input">
+          </div>
+        </div>
+
+        <!-- Cover Image -->
+        <div class="form-group">
+          <label class="form-label" for="form-coverImage">Ảnh Bìa (URL)</label>
+          <input type="url" id="form-coverImage" class="form-input" placeholder="https://...">
+        </div>
+
+        <!-- Screenshots -->
+        <div class="form-group">
+          <label class="form-label" for="form-images">Ảnh Màn Hình (mỗi URL một dòng)</label>
+          <textarea id="form-images" class="form-input" rows="3" placeholder="https://url1.jpg&#10;https://url2.jpg"></textarea>
+        </div>
+
+        <!-- YouTube -->
+        <div class="form-group">
+          <label class="form-label" for="form-youtubeId">YouTube Video ID</label>
+          <input type="text" id="form-youtubeId" class="form-input" placeholder="nvjJGXBnBi4 (chỉ ID, không phải full URL)">
+        </div>
+
+        <!-- Download Link -->
+        <div class="form-group">
+          <label class="form-label" for="form-downloadLink">Link Tải Việt Hóa</label>
+          <input type="url" id="form-downloadLink" class="form-input" placeholder="https://drive.google.com/...">
+        </div>
+
+        <!-- Description EN -->
+        <div class="form-group">
+          <label class="form-label" for="form-description">Mô Tả (EN)</label>
+          <textarea id="form-description" class="form-input" rows="2" placeholder="English description..."></textarea>
+        </div>
+
+        <!-- Description VI -->
+        <div class="form-group">
+          <label class="form-label" for="form-descriptionVi">Mô Tả (VI)</label>
+          <textarea id="form-descriptionVi" class="form-input" rows="3" placeholder="Mô tả game bằng tiếng Việt..."></textarea>
+        </div>
+
+        <!-- Checkboxes -->
+        <div style="display:flex;gap:24px;margin-top:8px">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:var(--text-main)">
+            <input type="checkbox" id="form-isNew" style="width:16px;height:16px;accent-color:var(--blue-vivid)">
+            🔥 Game Mới
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:var(--text-main)">
+            <input type="checkbox" id="form-isFeatured" style="width:16px;height:16px;accent-color:var(--blue-vivid)">
+            ⭐ Nổi Bật
+          </label>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn-outline" onclick="document.getElementById('game-modal').classList.remove('open')" style="font-size:13px;padding:9px 20px">
+        Hủy
+      </button>
+      <button type="submit" form="game-form" class="btn-primary" id="form-submit" style="font-size:13px;padding:9px 20px">
+        💾 Lưu Game
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/admin.js"></script>
+<script>
+  // Display sample JSON in guide
+  document.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('sample-json');
+    if (el) el.textContent = JSON.stringify(SAMPLE_DATA, null, 2);
+  });
+  function copyInitialData() {
+    navigator.clipboard.writeText(JSON.stringify(SAMPLE_DATA, null, 2))
+      .then(() => showToast('Đã copy JSON mẫu!', 'success'))
+      .catch(() => showToast('Không copy được', 'error'));
+  }
+</script>
+
+</body>
+</html>

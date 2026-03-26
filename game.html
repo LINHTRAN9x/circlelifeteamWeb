@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading... | CircleLifeTeam</title>
+
+  <!-- SEO — updated by JS -->
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" id="canonical" href="https://circlelifeteam.com/game.html">
+
+  <!-- Open Graph — updated by JS -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+  <meta property="og:site_name" content="CircleLifeTeam">
+  <meta property="og:locale" content="vi_VN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+
+  <!-- JSON-LD — updated by JS -->
+  <script type="application/ld+json" id="json-ld">{}</script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+
+<!-- Decorative -->
+<div class="wiiu-deco"></div>
+<div class="wiiu-deco-2"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="nav-logo" aria-label="CircleLifeTeam Home">
+    <div class="nav-logo-icon"><i class="fa-solid fa-gamepad"></i></div>
+    <span>Circle<span>Life</span>Team</span>
+  </a>
+
+  <ul class="nav-links" role="list">
+    <li><a href="index.html">Trang Chủ</a></li>
+    <li><a href="index.html#library">Thư Viện</a></li>
+    <li><a href="index.html#new-releases">Mới Ra</a></li>
+    <li><a href="index.html#about">Về Chúng Tôi</a></li>
+  </ul>
+
+  <div class="nav-spacer"></div>
+
+  <a href="index.html" class="btn-outline" style="font-size:13px;padding:7px 14px">← Thư Viện</a>
+  <a href="admin.html" class="nav-admin-btn" style="margin-left:8px">⚙️ Admin</a>
+  <button class="nav-mobile-toggle" aria-label="Toggle menu">☰</button>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="page" id="game-content">
+
+  <!-- BREADCRUMB -->
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">🏠 Trang Chủ</a>
+      <span aria-hidden="true">›</span>
+      <a href="index.html#library">Thư Viện</a>
+      <span aria-hidden="true">›</span>
+      <span id="bc-game" aria-current="page">Đang tải...</span>
+    </nav>
+  </div>
+
+  <!-- GAME HERO -->
+  <section class="game-detail-hero" aria-label="Game detail">
+    <div class="game-detail-bg" id="game-detail-bg" aria-hidden="true"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,17,23,0.6) 0%,var(--bg-deep) 100%)" aria-hidden="true"></div>
+
+    <div class="container" style="position:relative;z-index:2">
+      <div class="game-detail-layout">
+
+        <!-- Cover -->
+        <div class="game-detail-cover" id="game-cover">
+          <div class="game-detail-cover-placeholder">
+            <span style="font-size:48px">🎮</span>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="game-detail-info">
+          <div class="game-detail-badges" id="game-detail-badges"></div>
+
+          <h1 class="game-detail-title" id="game-title">Đang tải...</h1>
+          <p class="game-detail-title-vi" id="game-title-vi"></p>
+
+          <!-- Rating -->
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px" id="game-rating"></div>
+
+          <!-- Meta grid -->
+          <div class="game-detail-meta-grid" id="game-meta-grid">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Actions -->
+          <div class="game-detail-actions">
+            <a href="#" class="btn-download" id="download-btn" aria-label="Download Vietnamese patch">
+              ⬇️ Tải Việt Hóa
+            </a>
+            <a href="index.html#library" class="btn-outline">
+              ← Xem Thêm Game
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DESCRIPTION + MEDIA -->
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:48px 0" class="game-detail-two-col">
+
+      <!-- Left: Description -->
+      <section aria-labelledby="desc-title">
+        <h2 style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--white);text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;display:flex;align-items:center;gap:10px" id="desc-title">
+          <span style="display:block;width:4px;height:20px;background:linear-gradient(180deg,var(--blue-vivid),var(--cyan-accent));border-radius:2px"></span>
+          Giới Thiệu Game
+        </h2>
+        <div id="game-description">
+          <div class="skeleton" style="height:120px;border-radius:10px;margin-bottom:12px"></div>
+          <div class="skeleton" style="height:80px;border-radius:10px"></div>
+        </div>
+      </section>
+
+      <!-- Right: Trailer -->
+      <section aria-labelledby="trailer-title">
+        <h2 style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--white);text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;display:flex;align-items:center;gap:10px" id="trailer-title">
+          <span style="display:block;width:4px;height:20px;background:linear-gradient(180deg,var(--blue-vivid),var(--cyan-accent));border-radius:2px"></span>
+          Trailer
+        </h2>
+        <div class="youtube-wrapper" id="youtube-wrapper">
+          <div class="skeleton" style="position:absolute;inset:0;border-radius:0"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Screenshots -->
+    <section style="padding-bottom:48px" aria-labelledby="screens-title">
+      <h2 style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--white);text-transform:uppercase;letter-spacing:.5px;margin-bottom:20px;display:flex;align-items:center;gap:10px" id="screens-title">
+        <span style="display:block;width:4px;height:20px;background:linear-gradient(180deg,var(--blue-vivid),var(--cyan-accent));border-radius:2px"></span>
+        Ảnh Màn Hình
+      </h2>
+      <div class="screenshots-grid" id="screenshots-grid"></div>
+    </section>
+
+    <!-- Download CTA Banner -->
+    <section style="padding:32px;background:linear-gradient(135deg,var(--blue-dim),rgba(0,118,198,0.2));border:1px solid rgba(0,168,232,0.25);border-radius:var(--radius-xl);margin-bottom:48px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap" aria-label="Download section">
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--white);text-transform:uppercase;margin-bottom:6px">Sẵn sàng trải nghiệm bằng tiếng Việt?</h3>
+        <p style="font-family:var(--font-vi);font-size:14px;color:var(--text-muted)">Tải về patch việt hóa miễn phí, dễ cài đặt, chất lượng cao từ CircleLifeTeam</p>
+      </div>
+      <a href="#" class="btn-download" id="download-btn-2" aria-label="Download Vietnamese patch">
+        ⬇️ Tải Ngay – Miễn Phí
+      </a>
+    </section>
+  </div>
+
+  <!-- RELATED GAMES -->
+  <section class="section" aria-labelledby="related-title" style="background:var(--bg-dark)">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title" id="related-title">🎮 Game Cùng Thể Loại</h2>
+        <a href="index.html#library" class="section-link">Xem tất cả →</a>
+      </div>
+      <div class="games-grid" id="related-games" role="list" aria-label="Related games"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <p>© 2024 <a href="index.html">CircleLifeTeam</a>. Game PS5 Việt Hóa | Patch Tiếng Việt Miễn Phí</p>
+      <a href="index.html" class="btn-outline" style="font-size:12px;padding:6px 14px">← Về Trang Chủ</a>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <img id="lightbox-img" src="" alt="Screenshot">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+<!-- Responsive fix for two columns -->
+<style>
+@media (max-width: 768px) {
+  .game-detail-two-col { grid-template-columns: 1fr !important; gap: 32px !important; }
+}
+</style>
+
+<!-- SCRIPTS -->
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/game.js"></script>
+
+</body>
+</html>
