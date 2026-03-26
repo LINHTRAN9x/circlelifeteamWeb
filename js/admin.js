@@ -225,6 +225,7 @@ async function saveGameFromForm() {
 
   const ok = await API.saveGame(game);
   if (ok) {
+    localStorage.removeItem('clt_cache_data');
     showToast(`Đã ${editingId ? 'cập nhật' : 'thêm'} game: ${game.title}`, 'success');
     document.getElementById('game-modal')?.classList.remove('open');
     await loadGamesTable();
@@ -239,6 +240,7 @@ async function deleteGameConfirm(id, title) {
   if (!confirm(`Bạn có chắc muốn xóa game "${title}"?`)) return;
   const ok = await API.deleteGame(id);
   if (ok) {
+    localStorage.removeItem('clt_cache_data');
     showToast(`Đã xóa: ${title}`, 'success');
     await loadGamesTable();
     await loadDashboardStats();
