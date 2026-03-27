@@ -4,5 +4,8 @@ Disallow: /admin.html
 Disallow: /js/
 Disallow: /css/
 
+User-agent: facebookexternalhit
+Allow: /
+
 # Đường dẫn đến sitemap
 Sitemap: https://circlelifeteam.top/sitemap.xml
