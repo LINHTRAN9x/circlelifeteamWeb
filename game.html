@@ -10,6 +10,15 @@
   <meta name="keywords" content="">
   <meta name="robots" content="index, follow">
   <link rel="canonical" id="canonical" href="https://circlelifeteam.top/game.html">
+  <script>
+    (function () {
+      var slug = new URLSearchParams(window.location.search).get('id');
+      var canonical = document.getElementById('canonical');
+      if (slug && canonical) {
+        canonical.href = 'https://circlelifeteam.top/share/' + slug;
+      }
+    })();
+  </script>
 
   <!-- Open Graph — updated by JS -->
   <meta property="og:type" content="article">
