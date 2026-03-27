@@ -139,7 +139,7 @@ function renderGameDetail(game) {
   const coverEl = document.getElementById('game-cover');
   if (coverEl) {
     if (game.coverImage) {
-      coverEl.innerHTML = `<img src="${game.coverImage}" alt="Tải game ${game.title} việt hóa PS5" onerror="this.parentElement.innerHTML='<div class=\\'game-detail-cover-placeholder\\'><span>🎮</span></div>'">`;
+      coverEl.innerHTML = `<img src="${game.coverImage}" alt="Tải game ${game.title} việt hóa PS5" onerror="this.parentElement.innerHTML='<div class=\\'game-detail-cover-placeholder\\'><span><i class="fa-solid fa-gamepad"></i></span></div>'">`;
     } else {
       coverEl.innerHTML = '<div class="game-detail-cover-placeholder"><span>🎮</span></div>';
     }
