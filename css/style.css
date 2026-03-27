@@ -106,7 +106,7 @@ input, textarea, select { font-family: var(--font-body); outline: none; }
 .nav-search input { background: none; border: none; color: var(--black); font-size: 14px; font-weight: 600; width: 180px; }
 
 .nav-admin-btn {
-  margin-left: 16px; padding: 10px 20px;
+  margin-left: 16px; padding: 10px 20px; display: none;
   background: var(--accent-pink) !important; color: var(--black) !important;
   border: var(--border-solid); border-radius: var(--radius-md);
   font-size: 14px; font-weight: 800; box-shadow: var(--shadow-sm); transition: var(--transition);
