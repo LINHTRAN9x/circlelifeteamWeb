@@ -186,7 +186,7 @@ function renderGameDetail(game) {
     ratingEl.innerHTML = Array.from({length: 5}, (_, i) => {
       // Dùng ảnh SVG cho sao đã đánh giá, dùng emoji ☆ (hoặc làm ảnh SVG khác) cho sao trống
       return i < game.rating 
-        ? `<img src="ratingstar1.svg" alt="star" style="width:24px;height:24px;object-fit:contain">` 
+        ? `<img src="/ratingstar1.svg" alt="star" style="width:24px;height:24px;object-fit:contain">` 
         : `<span style="font-size:18px;color:var(--text-dim);display:inline-block;width:24px;text-align:center">☆</span>`;
     }).join('') + `<span style="font-size:14px;font-weight:800;color:var(--text-dim);margin-left:8px">${game.rating}/5</span>`;
   }

@@ -233,7 +233,7 @@ function gameCardHTML(game, extraClass = '') {
   const stars = game.rating
     ? Array.from({length: 5}, (_, i) => {
         return i < game.rating 
-          ? `<img src="ratingstar1.svg" alt="star" style="width:16px;height:16px;object-fit:contain">` 
+          ? `<img src="/ratingstar1.svg" alt="star" style="width:16px;height:16px;object-fit:contain">` 
           : `<span style="font-size:14px;color:var(--text-dim);display:inline-block;width:16px;text-align:center">☆</span>`;
       }).join('')
     : '';
