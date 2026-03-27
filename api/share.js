@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     );
     console.log('JSONBin status:', r.status);
     const data = await r.json();
-    game = (data.games || []).find(g => g.slug === slug);d
+    game = (data.games || []).find(g => g.slug === slug);
   } catch (e) {console.error('Fetch error:', e); // xem lỗi cụ thể
   return res.redirect('/');}
 
