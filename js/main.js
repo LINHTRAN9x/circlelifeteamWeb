@@ -86,6 +86,8 @@ function renderHeroSettings(settings) {
   const linkMap = {
     discordLink:  ['footer-discord'],
     facebookLink: ['footer-fb'],
+    facebookPageLink: ['footer-fb-page'], 
+    facebookGroupLink: ['footer-fb-group'],
     youtubeLink:  ['footer-yt'],
   };
 
@@ -99,7 +101,7 @@ function renderHeroSettings(settings) {
 
   // Footer social buttons (💬 👥 ▶) — theo đúng thứ tự trong HTML
   const socialBtns = document.querySelectorAll('.footer-social .social-btn');
-  const socialOrder = [settings.discordLink, settings.facebookLink, settings.youtubeLink];
+  const socialOrder = [settings.discordLink, settings.facebookLink, settings.facebookPageLink, settings.facebookGroupLink, settings.youtubeLink];
   socialBtns.forEach((btn, i) => {
     if (socialOrder[i] && socialOrder[i] !== '#') btn.href = socialOrder[i];
   });
