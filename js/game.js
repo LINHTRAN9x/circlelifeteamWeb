@@ -67,6 +67,9 @@ async function loadGameDetail(slug) {
     updateSEO(game);
     renderGameDetail(game);
     loadRelatedGames(game);
+
+    // Đổi link trên thanh địa chỉ thành link share siêu ngắn, chuẩn SEO
+    window.history.replaceState(null, '', `/share/${game.slug}`);
   } catch (e) {
     console.error('Game detail error:', e);
   }
@@ -100,7 +103,7 @@ function updateSEO(game) {
     "gamePlatform": "PlayStation 5",
     "genre": game.genre,
     "image": game.coverImage,
-    "url": `${CONFIG.SITE_URL}/game.html?id=${game.slug}`,
+    "url": `${CONFIG.SITE_URL}/share/${game.slug}`,
     "publisher": { "@type": "Organization", "name": "CircleLifeTeam" }
   };
   const ldScript = document.getElementById('json-ld');
@@ -108,7 +111,7 @@ function updateSEO(game) {
 
   // Update canonical
   const canonical = document.getElementById('canonical');
-  if (canonical) canonical.href = `${CONFIG.SITE_URL}/game.html?id=${game.slug}`;
+  if (canonical) canonical.href = `${CONFIG.SITE_URL}/share/${game.slug}`;
 
   // Update breadcrumb
   const bcGame = document.getElementById('bc-game');
