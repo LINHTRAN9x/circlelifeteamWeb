@@ -110,7 +110,6 @@ input, textarea, select { font-family: var(--font-body); outline: none; }
   background: var(--accent-pink) !important; color: var(--black) !important;
   border: var(--border-solid); border-radius: var(--radius-md);
   font-size: 14px; font-weight: 800; box-shadow: var(--shadow-sm); transition: var(--transition);
-  display: none;
 }
 .nav-admin-btn:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-md); }
 .nav-mobile-toggle { display: none; background: none; font-size: 24px; font-weight: 900; margin-left: 16px; }
