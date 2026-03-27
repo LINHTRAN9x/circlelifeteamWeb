@@ -8,46 +8,50 @@ const API = (() => {
 
   // Đọc dữ liệu từ JSONBin
   async function getData() {
-  if (cachedData) return cachedData;
+    if (cachedData) return cachedData;
 
-  // 1. Kiểm tra dữ liệu trong localStorage (hết hạn sau 30 phút chẳng hạn)
-  const localData = localStorage.getItem('clt_cache_data');
-  const cacheTime = localStorage.getItem('clt_cache_time');
-  const now = Date.now();
+    // 1. Kiểm tra dữ liệu trong localStorage
+    const localData = localStorage.getItem('clt_cache_data');
+    const cacheTime = localStorage.getItem('clt_cache_time');
+    const now = Date.now();
+    
+    // KIỂM TRA QUYỀN ADMIN
+    const isAdmin = sessionStorage.getItem('clt_admin_token') === 'authenticated';
 
-  if (localData && cacheTime && (now - cacheTime < 30 * 60 * 1000)) {
-    cachedData = JSON.parse(localData);
-    console.log("🚀 Dùng dữ liệu từ Cache (LocalStorage)");
-    return cachedData;
+    // FIX LỖI CACHE: Chỉ dùng cache nếu KHÔNG PHẢI Admin, và giảm thời gian lưu xuống còn 3 phút (3 * 60 * 1000)
+    if (!isAdmin && localData && cacheTime && (now - cacheTime < 3 * 60 * 1000)) {
+      cachedData = JSON.parse(localData);
+      console.log("🚀 Dùng dữ liệu từ Cache (LocalStorage)");
+      return cachedData;
+    }
+
+    // 2. Nếu không có cache hoặc cache quá cũ/hoặc là admin, gọi API như bình thường
+    if (CONFIG.JSONBIN_BIN_ID === "YOUR_BIN_ID_HERE") {
+      cachedData = JSON.parse(JSON.stringify(SAMPLE_DATA));
+      return cachedData;
+    }
+
+    try {
+      const res = await fetch(`${CONFIG.JSONBIN_BASE_URL}/b/${CONFIG.JSONBIN_BIN_ID}/latest`, {
+        headers: {
+          "X-Master-Key": CONFIG.JSONBIN_API_KEY,
+          "X-Bin-Meta": "false"
+        }
+      });
+      if (!res.ok) throw new Error("JSONBin fetch failed");
+      cachedData = await res.json();
+
+      // 3. Lưu vào localStorage để dùng cho lần sau
+      localStorage.setItem('clt_cache_data', JSON.stringify(cachedData));
+      localStorage.setItem('clt_cache_time', Date.now().toString());
+
+      return cachedData;
+    } catch (e) {
+      console.warn("JSONBin unavailable, using sample data:", e);
+      cachedData = JSON.parse(JSON.stringify(SAMPLE_DATA));
+      return cachedData;
+    }
   }
-
-  // 2. Nếu không có cache hoặc cache quá cũ, gọi API như bình thường
-  if (CONFIG.JSONBIN_BIN_ID === "YOUR_BIN_ID_HERE") {
-    cachedData = JSON.parse(JSON.stringify(SAMPLE_DATA));
-    return cachedData;
-  }
-
-  try {
-    const res = await fetch(`${CONFIG.JSONBIN_BASE_URL}/b/${CONFIG.JSONBIN_BIN_ID}/latest`, {
-      headers: {
-        "X-Master-Key": CONFIG.JSONBIN_API_KEY,
-        "X-Bin-Meta": "false"
-      }
-    });
-    if (!res.ok) throw new Error("JSONBin fetch failed");
-    cachedData = await res.json();
-
-    // 3. Lưu vào localStorage để dùng cho lần sau
-    localStorage.setItem('clt_cache_data', JSON.stringify(cachedData));
-    localStorage.setItem('clt_cache_time', Date.now().toString());
-
-    return cachedData;
-  } catch (e) {
-    console.warn("JSONBin unavailable, using sample data:", e);
-    cachedData = JSON.parse(JSON.stringify(SAMPLE_DATA));
-    return cachedData;
-  }
-}
 
   // Ghi dữ liệu lên JSONBin (chỉ admin)
   async function saveData(data) {
