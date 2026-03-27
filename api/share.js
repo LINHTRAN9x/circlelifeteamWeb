@@ -38,7 +38,7 @@ export default async function handler(req, res) {
   <meta name="twitter:title"       content="${title}">
   <meta name="twitter:image"       content="${image}">
   <link rel="canonical"            href="${url}">
-  <meta http-equiv="refresh" content="0;url=/game.html?id=${slug}">
+  
 </head>
 <body>
   <script>window.location.replace('/game.html?id=${slug}');</script>
