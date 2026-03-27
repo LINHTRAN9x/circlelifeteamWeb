@@ -11,9 +11,11 @@ export default async function handler(req, res) {
       `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`,
       { headers: { 'X-Master-Key': JSONBIN_API_KEY, 'X-Bin-Meta': 'false' } }
     );
+    console.log('JSONBin status:', r.status);
     const data = await r.json();
-    game = (data.games || []).find(g => g.slug === slug);
-  } catch (e) {}
+    game = (data.games || []).find(g => g.slug === slug);d
+  } catch (e) {console.error('Fetch error:', e); // xem lỗi cụ thể
+  return res.redirect('/');}
 
   if (!game) return res.redirect('/');
 
