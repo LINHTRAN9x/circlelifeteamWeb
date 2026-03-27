@@ -41,7 +41,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ============================================================
 document.addEventListener('DOMContentLoaded', async () => {
   const slug = getSlugFromURL();
-  if (!slug) { window.location.href = 'index.html'; return; }
+  if (!slug) { window.location.href = '/'; return; }
   await loadGameDetail(slug);
   initNavScroll();
 });
@@ -60,7 +60,7 @@ async function loadGameDetail(slug) {
           <div class="empty-state-icon">😕</div>
           <div class="empty-state-text">Không tìm thấy game này</div>
           <div class="empty-state-sub">Có thể game đã bị xóa hoặc link sai</div>
-          <br><a href="index.html" class="btn-primary" style="display:inline-flex;margin-top:16px">← Về trang chủ</a>
+          <br><a href="/" class="btn-primary" style="display:inline-flex;margin-top:16px">← Về trang chủ</a>
         </div>`;
       return;
     }
@@ -307,7 +307,7 @@ document.getElementById('lightbox')?.addEventListener('click', e => {
 
 // ── Navigate ──
 function navigateToGame(slug) {
-  window.location.href = `game.html?id=${slug}`;
+  window.location.href = `/game.html?id=${slug}`;
 }
 
 function initNavScroll() {

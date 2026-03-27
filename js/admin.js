@@ -343,23 +343,33 @@ window.editGame = editGame;
 window.deleteGameConfirm = deleteGameConfirm;
 
 
-// Hàm tự động tạo nội dung Sitemap từ dữ liệu thực tế
+// Hàm tự động tạo nội dung Sitemap từ dữ liệu thực tế (ĐÃ UPDATE CHUẨN SEO)
 async function generateSitemap() {
   const games = await API.getGames();
-  const baseUrl = CONFIG.SITE_URL;
+  // Loại bỏ dấu gạch chéo ở cuối baseUrl (nếu có) để tránh bị lỗi 2 dấu gạch //
+  const baseUrl = CONFIG.SITE_URL.replace(/\/$/, ''); 
   const today = new Date().toISOString().split('T')[0];
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
-  // Thêm trang chủ
-  xml += `  <url>\n    <loc>${baseUrl}/index.html</loc>\n    <lastmod>${today}</lastmod>\n    <priority>1.0</priority>\n  </url>\n`;
+  // 1. Thêm trang chủ (Đã bỏ đuôi index.html)
+  xml += `  <url>\n    <loc>${baseUrl}/</loc>\n    <lastmod>${today}</lastmod>\n    <priority>1.0</priority>\n  </url>\n`;
 
-  // Thêm danh sách game
+  // 2. Thêm danh sách game (Đã dùng link /share/ siêu ngắn)
   games.forEach(game => {
-    const lastMod = game.releaseDate || today;
+    // Ép kiểu ngày phát hành về đúng chuẩn YYYY-MM-DD của Google
+    let lastMod = today;
+    if (game.releaseDate) {
+      try {
+        lastMod = new Date(game.releaseDate).toISOString().split('T')[0];
+      } catch (e) {
+        lastMod = today; // Nếu ngày bị lỗi thì lấy ngày hôm nay
+      }
+    }
+    
     xml += `  <url>\n`;
-    xml += `    <loc>${baseUrl}/game.html?id=${game.slug}</loc>\n`;
+    xml += `    <loc>${baseUrl}/share/${game.slug}</loc>\n`;
     xml += `    <lastmod>${lastMod}</lastmod>\n`;
     xml += `    <priority>0.8</priority>\n`;
     xml += `  </url>\n`;
@@ -367,8 +377,8 @@ async function generateSitemap() {
 
   xml += `</urlset>`;
 
-  // Hiển thị ra console hoặc cho phép tải về
-  console.log("%c--- NỘI DUNG SITEMAP.XML MỚI ---", "color: #009AC7; font-weight: bold;");
+  // Hiển thị ra console để dễ debug
+  console.log("%c--- NỘI DUNG SITEMAP.XML CHUẨN SEO ---", "color: #009AC7; font-weight: bold;");
   console.log(xml);
   
   // Tự động tải file về máy
@@ -378,5 +388,5 @@ async function generateSitemap() {
   link.download = 'sitemap.xml';
   link.click();
   
-  showToast('Đã tạo và tải xuống sitemap.xml!', 'success');
+  showToast('Đã tạo và tải xuống sitemap.xml chuẩn SEO mới!', 'success');
 }
