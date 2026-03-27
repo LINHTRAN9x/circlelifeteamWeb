@@ -148,14 +148,24 @@ function newCardHTML(game) {
 function renderFeaturedGames(games) {
   const container = document.getElementById('featured-games');
   if (!container) return;
-  const featured = games.filter(g => g.isFeatured).slice(0, 4);
-  if (!featured.length) {
+  
+  // Sắp xếp game theo updatedAt (ưu tiên mới nhất lên đầu)
+  // Nếu game cũ chưa từng được update (không có updatedAt) thì dùng ngày phát hành (releaseDate)
+  const recentlyUpdated = [...games].sort((a, b) => {
+    const timeA = a.updatedAt || new Date(a.releaseDate || 0).getTime();
+    const timeB = b.updatedAt || new Date(b.releaseDate || 0).getTime();
+    return timeB - timeA;
+  }).slice(0, 4); // Chỉ lấy 4 game trên cùng
+
+  if (!recentlyUpdated.length) {
     container.closest('.section').style.display = 'none';
     return;
   }
-  container.innerHTML = featured.map((g, i) =>
+  
+  container.innerHTML = recentlyUpdated.map((g, i) =>
     gameCardHTML(g, i === 0 ? 'game-card-featured' : '')
   ).join('');
+  
   bindGameCards(container);
 }
 

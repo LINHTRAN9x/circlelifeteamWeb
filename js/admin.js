@@ -215,6 +215,7 @@ async function saveGameFromForm() {
     rating: parseInt(document.getElementById('form-rating').value) || 0,
     isNew: document.getElementById('form-isNew').checked,
     isFeatured: document.getElementById('form-isFeatured').checked,
+    updatedAt: Date.now(),
   };
 
   if (!game.title) {
