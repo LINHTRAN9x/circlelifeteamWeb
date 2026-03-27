@@ -66,6 +66,22 @@ async function initDashboard() {
   initAdminNav();
   initGameModal();
   initSettingsForm();
+  initAdminSearch();
+}
+
+function initAdminSearch() {
+  const searchInput = document.getElementById('admin-search-input');
+  if (!searchInput) return;
+
+  let debounceTimer;
+  searchInput.addEventListener('input', (e) => {
+    clearTimeout(debounceTimer);
+    // Đợi 300ms sau khi người dùng ngừng gõ thì mới gọi API lọc bảng
+    // giúp web không bị giật lag khi gõ nhanh
+    debounceTimer = setTimeout(() => {
+      loadGamesTable(e.target.value);
+    }, 300);
+  });
 }
 
 // ── Stats ──
@@ -79,17 +95,31 @@ async function loadDashboardStats() {
 }
 
 // ── Games Table ──
-async function loadGamesTable() {
+// ── Games Table ──
+// Thêm tham số searchQuery vào hàm
+async function loadGamesTable(searchQuery = '') {
   const tbody = document.getElementById('games-tbody');
   if (!tbody) return;
   tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--text-dim)">Đang tải...</td></tr>';
 
-  const games = await API.getGames();
+  let games = await API.getGames();
+
+  // LỌC DỮ LIỆU NẾU CÓ TỪ KHÓA TÌM KIẾM
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase().trim();
+    games = games.filter(g => 
+      g.title.toLowerCase().includes(q) || 
+      (g.titleVi || '').toLowerCase().includes(q) || 
+      (g.genre || '').toLowerCase().includes(q)
+    );
+  }
+
   if (!games.length) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--text-dim)">Chưa có game nào</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--text-dim)">Không tìm thấy game nào phù hợp</td></tr>';
     return;
   }
 
+  // Đoạn tbody.innerHTML = games.map(g => ... bên dưới giữ nguyên không đổi
   tbody.innerHTML = games.map(g => `
     <tr>
       <td>

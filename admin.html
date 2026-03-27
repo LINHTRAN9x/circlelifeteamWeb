@@ -134,8 +134,13 @@
           Quản Lý Game Việt Hóa
         </div>
 
-        <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
-          <button class="btn-primary" id="add-game-btn">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:16px;flex-wrap:wrap">
+          <div class="nav-search" style="margin:0; flex:1; max-width:400px; box-shadow: 2px 2px 0 var(--black);">
+            <span class="nav-search-icon" aria-hidden="true">🔍</span>
+            <input type="search" id="admin-search-input" placeholder="Tìm game, thể loại..." style="width:100%">
+          </div>
+
+          <button class="btn-primary" id="add-game-btn" style="white-space:nowrap">
             ➕ Thêm Game Mới
           </button>
         </div>
