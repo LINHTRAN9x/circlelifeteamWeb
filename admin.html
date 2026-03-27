@@ -304,31 +304,28 @@
     </div>
 
     <div class="modal-body">
-      <form id="game-form" novalidate>
-        <!-- Hidden ID -->
+      <form id="game-form">
         <input type="hidden" id="form-id">
 
-        <!-- Row 1: Title + Title VI -->
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="form-title">Tên Game (EN) *</label>
             <input type="text" id="form-title" class="form-input" placeholder="Ghost of Tsushima" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="form-titleVi">Tên Game (VI)</label>
-            <input type="text" id="form-titleVi" class="form-input" placeholder="Bóng Ma Tsushima">
+            <label class="form-label" for="form-titleVi">Tên Game (VI) *</label>
+            <input type="text" id="form-titleVi" class="form-input" placeholder="Bóng Ma Tsushima" required>
           </div>
         </div>
 
-        <!-- Row 2: Slug + Platform -->
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="form-slug">Slug (URL) *</label>
             <input type="text" id="form-slug" class="form-input" placeholder="ghost-of-tsushima" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="form-platform">Platform</label>
-            <select id="form-platform" class="form-input">
+            <label class="form-label" for="form-platform">Platform *</label>
+            <select id="form-platform" class="form-input" required>
               <option value="PS5">PS5</option>
               <option value="PS4/PS5">PS4/PS5</option>
               <option value="PS4">PS4</option>
@@ -336,15 +333,14 @@
           </div>
         </div>
 
-        <!-- Row 3: Genre + Rating -->
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label" for="form-genre">Thể Loại</label>
-            <input type="text" id="form-genre" class="form-input" placeholder="Action-Adventure">
+            <label class="form-label" for="form-genre">Thể Loại *</label>
+            <input type="text" id="form-genre" class="form-input" placeholder="Action-Adventure" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="form-rating">Đánh Giá (1-5)</label>
-            <select id="form-rating" class="form-input">
+            <label class="form-label" for="form-rating">Đánh Giá (1-5) *</label>
+            <select id="form-rating" class="form-input" required>
               <option value="5">⭐⭐⭐⭐⭐ (5)</option>
               <option value="4">⭐⭐⭐⭐ (4)</option>
               <option value="3">⭐⭐⭐ (3)</option>
@@ -354,11 +350,10 @@
           </div>
         </div>
 
-        <!-- Row 4: Status + Version -->
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label" for="form-status">Tiến Độ</label>
-            <select id="form-status" class="form-input">
+            <label class="form-label" for="form-status">Tiến Độ *</label>
+            <select id="form-status" class="form-input" required>
               <option value="Hoàn thành 100%">Hoàn thành 100%</option>
               <option value="Đang dịch 90%">Đang dịch 90%</option>
               <option value="Đang dịch 80%">Đang dịch 80%</option>
@@ -370,67 +365,60 @@
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label" for="form-version">Phiên Bản</label>
-            <input type="text" id="form-version" class="form-input" placeholder="v1.0">
+            <label class="form-label" for="form-version">Phiên Bản *</label>
+            <input type="text" id="form-version" class="form-input" placeholder="v1.0" required>
           </div>
         </div>
 
-        <!-- Row 5: Translator + Date -->
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label" for="form-translator">Người Dịch</label>
-            <input type="text" id="form-translator" class="form-input" placeholder="CircleLife Team">
+            <label class="form-label" for="form-translator">Người Dịch *</label>
+            <input type="text" id="form-translator" class="form-input" placeholder="CircleLife Team" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="form-releaseDate">Ngày Phát Hành VH</label>
-            <input type="date" id="form-releaseDate" class="form-input">
+            <label class="form-label" for="form-releaseDate">Ngày Phát Hành VH *</label>
+            <input type="date" id="form-releaseDate" class="form-input" required>
           </div>
         </div>
 
-        <!-- Cover Image -->
         <div class="form-group">
-          <label class="form-label" for="form-coverImage">Ảnh Bìa (URL)</label>
-          <input type="url" id="form-coverImage" class="form-input" placeholder="https://...">
+          <label class="form-label" for="form-coverImage">Ảnh Bìa (URL) *</label>
+          <input type="url" id="form-coverImage" class="form-input" placeholder="https://..." required>
         </div>
 
-        <!-- Screenshots -->
         <div class="form-group">
-          <label class="form-label" for="form-images">Ảnh Màn Hình (mỗi URL một dòng)</label>
-          <textarea id="form-images" class="form-input" rows="3" placeholder="https://url1.jpg&#10;https://url2.jpg"></textarea>
+          <label class="form-label" for="form-images">Ảnh Màn Hình (mỗi URL một dòng) *</label>
+          <textarea id="form-images" class="form-input" rows="3" placeholder="https://url1.jpg&#10;https://url2.jpg" required></textarea>
         </div>
 
-        <!-- YouTube -->
         <div class="form-group">
-          <label class="form-label" for="form-youtubeId">YouTube Video ID</label>
-          <input type="text" id="form-youtubeId" class="form-input" placeholder="nvjJGXBnBi4 (chỉ ID, không phải full URL)">
+          <label class="form-label" for="form-youtubeId">YouTube Video ID *</label>
+          <input type="text" id="form-youtubeId" class="form-input" placeholder="nvjJGXBnBi4 (chỉ ID, không phải full URL)" required>
         </div>
 
-        <!-- Download Link -->
         <div class="form-group">
-          <label class="form-label" for="form-downloadLink">Link Tải Việt Hóa</label>
-          <input type="url" id="form-downloadLink" class="form-input" placeholder="https://drive.google.com/...">
+          <label class="form-label" for="form-downloadLink">Link Tải Việt Hóa *</label>
+          <input type="url" id="form-downloadLink" class="form-input" placeholder="https://drive.google.com/..." required>
         </div>
 
-        <!-- Description EN -->
         <div class="form-group">
           <label class="form-label" for="form-description">Mô Tả (EN)</label>
           <textarea id="form-description" class="form-input" rows="2" placeholder="English description..."></textarea>
         </div>
 
-        <!-- Description VI -->
         <div class="form-group">
-          <label class="form-label" for="form-descriptionVi">Mô Tả (VI)</label>
-          <textarea id="form-descriptionVi" class="form-input" rows="3" placeholder="Mô tả game bằng tiếng Việt..."></textarea>
+          <label class="form-label" for="form-descriptionVi">Mô Tả (VI) *</label>
+          <textarea id="form-descriptionVi" class="form-input" rows="3" placeholder="Mô tả game bằng tiếng Việt..." required></textarea>
         </div>
 
-        <!-- Checkboxes -->
         <div style="display:flex;gap:24px;margin-top:8px">
           <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:var(--text-main)">
             <input type="checkbox" id="form-isNew" style="width:16px;height:16px;accent-color:var(--blue-vivid)">
             🔥 Game Mới
           </label>
-          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:var(--text-main)">
-            <input type="checkbox" id="form-isFeatured" style="width:16px;height:16px;accent-color:var(--blue-vivid)">
+          
+          <label style="display:none;">
+            <input type="checkbox" id="form-isFeatured">
             ⭐ Nổi Bật
           </label>
         </div>
