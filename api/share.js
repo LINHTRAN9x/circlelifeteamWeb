@@ -1,65 +1,47 @@
+const JSONBIN_API_KEY = '$2a$10$crwiwth7.WytFIBWMl2BaO62qFxJiIG5EX5nYcGxEScYtq13Dmm/q';
+const JSONBIN_BIN_ID  = '69c523b6aa77b81da920101b';
+
 export default async function handler(req, res) {
-    const { id } = req.query;
+  const slug = req.query.id;
+  if (!slug) return res.redirect('/');
 
-    // 1. 👉 BẠN HÃY MỞ FILE js/config.js LÊN, COPY MÃ BIN_ID VÀ API_KEY VÀO 2 DÒNG DƯỚI ĐÂY:
-    const BIN_ID = "69c523b6aa77b81da920101b"; 
-    const API_KEY = "$2a$10$crwiwth7.WytFIBWMl2BaO62qFxJiIG5EX5nYcGxEScYtq13Dmm/q";
+  let game = null;
+  try {
+    const r = await fetch(
+      `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`,
+      { headers: { 'X-Master-Key': JSONBIN_API_KEY, 'X-Bin-Meta': 'false' } }
+    );
+    const data = await r.json();
+    game = (data.games || []).find(g => g.slug === slug);
+  } catch (e) {}
 
-    try {
-        // 2. Kéo dữ liệu từ JSONBin (Giống hệt cách file api.js của bạn đang làm)
-        const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-            headers: {
-                "X-Master-Key": API_KEY,
-                "X-Bin-Meta": "false"
-            }
-        });
+  if (!game) return res.redirect('/');
 
-        if (!response.ok) throw new Error("Không thể kết nối đến JSONBin");
-        
-        const data = await response.json();
-        const games = data.games || []; // Lấy mảng games từ database
+  const title = `${game.title} Việt Hóa – CircleLifeTeam`;
+  const desc  = `Tải bản việt hóa ${game.title} cho PS5. ${game.status || ''}`;
+  const image = game.coverImage || 'https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png';
+  const url   = `https://circlelifeteam.top/share/${slug}`;
 
-        // 3. Tìm game theo ID (slug)
-        const game = games.find(g => g.slug === id);
-
-        // Nếu người ta gõ sai tên game, tự động đá về trang chủ
-        if (!game) {
-            return res.redirect(302, '/');
-        }
-
-        // 4. Tạo ra HTML động chứa chuẩn SEO đưa cho Discord/Facebook
-        const html = `
-        <!DOCTYPE html>
-        <html lang="vi">
-        <head>
-            <meta charset="UTF-8">
-            <title>${game.title} Việt Hóa PS5 – Patch Mới Nhất | CircleLifeTeam</title>
-            <meta name="description" content="Tải bản việt hóa ${game.title} cho PS5. ${game.descriptionVi || 'Bản dịch chất lượng cao.'}">
-            
-            <meta property="og:title" content="${game.title} Việt Hóa PS5 | CircleLifeTeam">
-            <meta property="og:description" content="Tiến độ: ${game.status || 'Hoàn thành'}. ${game.descriptionVi || ''}">
-            <meta property="og:image" content="${game.coverImage}">
-            <meta property="og:url" content="https://circlelifeteam.top/share/${game.slug}">
-            <meta property="og:type" content="website">
-            <meta name="theme-color" content="#FFC312">
-
-            <script>
-                // Trượt mượt mà sang giao diện chính của bạn
-                window.location.replace("/game.html?id=${game.slug}");
-            </script>
-        </head>
-        <body style="background: #F4F5F0; font-family: sans-serif; text-align: center; padding-top: 50px;">
-            <h3>Đang tải dữ liệu ${game.title}...</h3>
-        </body>
-        </html>
-        `;
-
-        // 5. Trả kết quả về
-        res.setHeader('Content-Type', 'text/html; charset=utf-8');
-        res.status(200).send(html);
-
-    } catch (error) {
-        console.error("Lỗi API Share:", error);
-        return res.redirect(302, '/'); // Lỗi mạng thì cho về trang chủ
-    }
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.send(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>${title}</title>
+  <meta property="og:type"         content="article">
+  <meta property="og:title"        content="${title}">
+  <meta property="og:description"  content="${desc}">
+  <meta property="og:image"        content="${image}">
+  <meta property="og:url"          content="${url}">
+  <meta property="og:site_name"    content="CircleLifeTeam">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="${title}">
+  <meta name="twitter:image"       content="${image}">
+  <link rel="canonical"            href="${url}">
+  <meta http-equiv="refresh" content="0;url=/game.html?id=${slug}">
+</head>
+<body>
+  <script>window.location.replace('/game.html?id=${slug}');</script>
+</body>
+</html>`);
 }
