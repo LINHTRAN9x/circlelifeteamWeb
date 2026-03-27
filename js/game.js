@@ -136,7 +136,7 @@ function renderGameDetail(game) {
   const coverEl = document.getElementById('game-cover');
   if (coverEl) {
     if (game.coverImage) {
-      coverEl.innerHTML = `<img src="${game.coverImage}" alt="${game.title}" onerror="this.parentElement.innerHTML='<div class=\\'game-detail-cover-placeholder\\'><span>🎮</span></div>'">`;
+      coverEl.innerHTML = `<img src="${game.coverImage}" alt="Tải game ${game.title} việt hóa PS5" onerror="this.parentElement.innerHTML='<div class=\\'game-detail-cover-placeholder\\'><span>🎮</span></div>'">`;
     } else {
       coverEl.innerHTML = '<div class="game-detail-cover-placeholder"><span>🎮</span></div>';
     }
@@ -153,7 +153,8 @@ function renderGameDetail(game) {
 
   // Title
   const titleEl = document.getElementById('game-title');
-  if (titleEl) titleEl.textContent = game.title;
+  // Chèn thẳng từ khóa SEO vào H1
+  if (titleEl) titleEl.textContent = `${game.title} Việt Hóa`;
   const titleViEl = document.getElementById('game-title-vi');
   if (titleViEl) titleViEl.textContent = game.titleVi || '';
 
