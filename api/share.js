@@ -1,5 +1,5 @@
-const JSONBIN_API_KEY = '$2a$10$crwiwth7.WytFIBWMl2BaO62qFxJiIG5EX5nYcGxEScYtq13Dmm/q';
-const JSONBIN_BIN_ID  = '69c523b6aa77b81da920101b';
+// Thay đổi link thành nhà mới Firebase
+const FIREBASE_DB_URL = 'https://circlelifeteam-default-rtdb.asia-southeast1.firebasedatabase.app';
 
 export default async function handler(req, res) {
   const slug = req.query.id;
@@ -7,16 +7,16 @@ export default async function handler(req, res) {
 
   let game = null;
   try {
-    const r = await fetch(
-      `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`,
-      { headers: { 'X-Master-Key': JSONBIN_API_KEY, 'X-Bin-Meta': 'false' } }
-    );
-    console.log('JSONBin status:', r.status);
+    // Gọi API sang Firebase thay vì JSONBin
+    const r = await fetch(`${FIREBASE_DB_URL}/.json`);
     const data = await r.json();
     game = (data.games || []).find(g => g.slug === slug);
-  } catch (e) {console.error('Fetch error:', e); // xem lỗi cụ thể
-  return res.redirect('/');}
+  } catch (e) {
+    console.error('Fetch error:', e);
+    return res.redirect('/');
+  }
 
+  // Nếu Firebase không có game này thì mới bị văng về trang chủ
   if (!game) return res.redirect('/');
 
   const title = `${game.title} Việt Hóa – CircleLifeTeam`;
@@ -40,7 +40,6 @@ export default async function handler(req, res) {
   <meta name="twitter:title"       content="${title}">
   <meta name="twitter:image"       content="${image}">
   <link rel="canonical"            href="${url}">
-  
 </head>
 <body>
   <script>window.location.replace('/game.html?id=${slug}');</script>
