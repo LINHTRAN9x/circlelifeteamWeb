@@ -340,7 +340,7 @@ async function performSearch(query) {
   ).slice(0, 6);
 
   if (!results.length) {
-    list.innerHTML = '<div class="empty-state" style="padding:24px"><div class="empty-state-icon">🔍</div><div class="empty-state-text">Không tìm thấy game</div></div>';
+    list.innerHTML = '<div class="empty-state" style="padding:24px"><div class="empty-state-text">Không tìm thấy game</div></div>';
     return;
   }
   list.innerHTML = results.map(g => `
