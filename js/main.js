@@ -227,7 +227,8 @@ function gameCardHTML(game, extraClass = '') {
     : '<div class="game-card-thumb-placeholder"><span>🎮</span><p>No Image</p></div>';
 
   const badgeNew = game.isNew ? '<span class="badge badge-new">🔥 Mới</span>' : '';
-  const badgePlatform = `<span class="badge badge-platform">${game.platform || 'PS5'}</span>`;
+  // Đã thêm điều kiện chèn class 'badge-switch'
+  const badgePlatform = `<span class="badge badge-platform ${game.platform === 'Nintendo Switch' ? 'badge-switch' : ''}">${game.platform || 'PS5'}</span>`;
   const statusBadge = game.status
     ? `<span class="badge ${game.status.includes('100%') ? 'badge-done' : 'badge-wip'}">${game.status}</span>`
     : '';

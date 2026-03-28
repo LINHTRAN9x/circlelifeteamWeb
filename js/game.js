@@ -148,7 +148,9 @@ function renderGameDetail(game) {
   // Badges
   const badgesEl = document.getElementById('game-detail-badges');
   if (badgesEl) {
-    let html = `<span class="badge badge-platform">${game.platform || 'PS5'}</span>`;
+    // Đã thêm điều kiện: Nếu là Nintendo Switch thì mặc áo 'badge-switch'
+    let html = `<span class="badge badge-platform ${game.platform === 'Nintendo Switch' ? 'badge-switch' : ''}">${game.platform || 'PS5'}</span>`;
+    
     if (game.isNew) html += '<span class="badge badge-new">🔥 Mới</span>';
     if (game.status) html += `<span class="badge ${game.status.includes('100%') ? 'badge-done' : 'badge-wip'}">${game.status}</span>`;
     badgesEl.innerHTML = html;

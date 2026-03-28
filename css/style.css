@@ -515,3 +515,10 @@ button,
   /* Tọa độ 8 2 là điểm click lùi vào một chút cho khớp với đầu ngón tay trỏ */
   cursor: url('../hoverchuot.svg') 8 2, pointer !important; 
 }
+
+
+.badge-switch {
+  background-color: #E60012 !important; /* Đỏ Nintendo */
+  color: #FFFFFF !important;            /* Chữ trắng cho nổi */
+  border-color: #E60012 !important;
+}
