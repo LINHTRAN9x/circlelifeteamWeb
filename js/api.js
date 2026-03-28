@@ -1,72 +1,65 @@
 // ============================================================
 //  CircleLifeTeam — api.js
-//  Xử lý gọi API JSONBin.io
+//  Xử lý gọi API Firebase
 // ============================================================
 
 const API = (() => {
   let cachedData = null;
 
-  // Đọc dữ liệu từ JSONBin
+  // Đọc dữ liệu từ Firebase
   async function getData() {
     if (cachedData) return cachedData;
 
-    // 1. Kiểm tra dữ liệu trong localStorage
     const localData = localStorage.getItem('clt_cache_data');
     const cacheTime = localStorage.getItem('clt_cache_time');
     const now = Date.now();
-    
-    // KIỂM TRA QUYỀN ADMIN
     const isAdmin = sessionStorage.getItem('clt_admin_token') === 'authenticated';
 
-    // FIX LỖI CACHE: Chỉ dùng cache nếu KHÔNG PHẢI Admin, và giảm thời gian lưu xuống còn 3 phút (3 * 60 * 1000)
     if (!isAdmin && localData && cacheTime && (now - cacheTime < 3 * 60 * 1000)) {
       cachedData = JSON.parse(localData);
-      console.log("🚀 Dùng dữ liệu từ Cache (LocalStorage)");
+      console.log("🚀 Dùng dữ liệu từ Cache");
       return cachedData;
     }
 
-    // 2. Nếu không có cache hoặc cache quá cũ/hoặc là admin, gọi API như bình thường
-    if (CONFIG.JSONBIN_BIN_ID === "YOUR_BIN_ID_HERE") {
+    if (CONFIG.FIREBASE_DB_URL === "https://ten-du-an-cua-ban.firebaseio.com") {
       cachedData = JSON.parse(JSON.stringify(SAMPLE_DATA));
       return cachedData;
     }
 
     try {
-      const res = await fetch(`${CONFIG.JSONBIN_BASE_URL}/b/${CONFIG.JSONBIN_BIN_ID}/latest`, {
-        headers: {
-          "X-Master-Key": CONFIG.JSONBIN_API_KEY,
-          "X-Bin-Meta": "false"
-        }
-      });
-      if (!res.ok) throw new Error("JSONBin fetch failed");
-      cachedData = await res.json();
+      // Gọi API lấy dữ liệu dạng JSON từ Firebase
+      const res = await fetch(`${CONFIG.FIREBASE_DB_URL}/data.json`);
+      if (!res.ok) throw new Error("Firebase fetch failed");
+      let fetchedData = await res.json();
 
-      // 3. Lưu vào localStorage để dùng cho lần sau
+      // Nếu Database mới tinh chưa có gì, nạp dữ liệu mẫu
+      if (!fetchedData || !fetchedData.games) {
+        fetchedData = JSON.parse(JSON.stringify(SAMPLE_DATA));
+      }
+
+      cachedData = fetchedData;
       localStorage.setItem('clt_cache_data', JSON.stringify(cachedData));
       localStorage.setItem('clt_cache_time', Date.now().toString());
 
       return cachedData;
     } catch (e) {
-      console.warn("JSONBin unavailable, using sample data:", e);
+      console.warn("Firebase unavailable, using sample data:", e);
       cachedData = JSON.parse(JSON.stringify(SAMPLE_DATA));
       return cachedData;
     }
   }
 
-  // Ghi dữ liệu lên JSONBin (chỉ admin)
+  // Ghi dữ liệu lên Firebase (chỉ admin có SECRET mới ghi được)
   async function saveData(data) {
-    if (CONFIG.JSONBIN_BIN_ID === "YOUR_BIN_ID_HERE") {
+    if (CONFIG.FIREBASE_DB_URL === "https://ten-du-an-cua-ban.firebaseio.com") {
       cachedData = data;
       return true;
     }
 
     try {
-      const res = await fetch(`${CONFIG.JSONBIN_BASE_URL}/b/${CONFIG.JSONBIN_BIN_ID}`, {
+      const res = await fetch(`${CONFIG.FIREBASE_DB_URL}/data.json?auth=${CONFIG.FIREBASE_SECRET}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Master-Key": CONFIG.JSONBIN_API_KEY
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       });
       if (!res.ok) throw new Error("Save failed");
@@ -79,10 +72,10 @@ const API = (() => {
   }
 
   function clearCache() { 
-  cachedData = null; 
-  localStorage.removeItem('clt_cache_data');
-  localStorage.removeItem('clt_cache_time');
-}
+    cachedData = null; 
+    localStorage.removeItem('clt_cache_data');
+    localStorage.removeItem('clt_cache_time');
+  }
 
   // CRUD Helpers
   async function getGames() {

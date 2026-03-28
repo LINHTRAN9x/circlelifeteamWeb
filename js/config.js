@@ -4,9 +4,8 @@
 // ============================================================
 
 const CONFIG = {
-  JSONBIN_BIN_ID: "69c523b6aa77b81da920101b",
-  JSONBIN_API_KEY: "$2a$10$crwiwth7.WytFIBWMl2BaO62qFxJiIG5EX5nYcGxEScYtq13Dmm/q",
-  JSONBIN_BASE_URL: "https://api.jsonbin.io/v3",
+  FIREBASE_DB_URL: "https://circlelifeteam-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  FIREBASE_SECRET: "l6tLSy8F41yVd8bb1Vd10MCMRad89NaaSuERfPvd",
 
   // Tên website
   SITE_NAME: "CircleLifeTeam",
