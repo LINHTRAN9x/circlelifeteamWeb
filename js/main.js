@@ -370,11 +370,42 @@ function initNavScroll() {
 }
 
 // ── Mobile menu ──
+// ── Mobile menu ──
 function initMobileMenu() {
   const toggle = document.querySelector('.nav-mobile-toggle');
   const links = document.querySelector('.nav-links');
-  toggle?.addEventListener('click', () => {
-    links?.classList.toggle('mobile-open');
+  const body = document.body;
+  // Lấy danh sách tất cả các thẻ <a> bên trong menu
+  const menuItems = document.querySelectorAll('.nav-links a');
+
+  if (!toggle || !links) return;
+
+  // Tạo một hàm đóng menu dùng chung
+  const closeMenu = () => {
+    links.classList.remove('mobile-open');
+    toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    body.style.overflow = ''; // Mở khóa cuộn trang
+  };
+
+  // 1. Xử lý khi bấm nút Hamburger / X
+  toggle.addEventListener('click', () => {
+    const isOpen = links.classList.toggle('mobile-open');
+    if (isOpen) {
+      toggle.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      body.style.overflow = 'hidden'; // Khóa cuộn trang
+    } else {
+      closeMenu(); // Gọi hàm đóng
+    }
+  });
+
+  // 2. Tự động đóng khi bấm vào bất kỳ link nào trong menu
+  menuItems.forEach(item => {
+    item.addEventListener('click', () => {
+      // Chỉ đóng nếu menu trên mobile đang mở
+      if (links.classList.contains('mobile-open')) {
+        closeMenu();
+      }
+    });
   });
 }
 
