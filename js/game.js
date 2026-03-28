@@ -47,8 +47,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function getSlugFromURL() {
+  // 1. Thử tìm theo cách cũ (?id=...)
   const params = new URLSearchParams(window.location.search);
-  return params.get('id');
+  let slug = params.get('id');
+
+  // 2. Nếu cách cũ không có, thử tìm trong đường link mới (/share/...)
+  if (!slug && window.location.pathname.startsWith('/share/')) {
+    slug = window.location.pathname.split('/share/')[1]; // Cắt lấy phần đuôi tên game
+  }
+  
+  return slug;
 }
 
 async function loadGameDetail(slug) {
