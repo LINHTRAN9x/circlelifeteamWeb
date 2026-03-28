@@ -562,3 +562,23 @@ button,
   transform: translate(2px, 2px); /* Ép nút tụt xuống 2px tạo cảm giác bấm thật */
   box-shadow: 0px 0px 0 var(--black, #000); /* Xóa bóng đổ vì nút đã lún sát nền */
 }
+
+
+/* --- Sửa lỗi tem bị kéo dài --- */
+.badge {
+  width: fit-content !important;
+}
+
+/* Đảm bảo các tem nằm cạnh nhau sẽ tự động xuống dòng và cách nhau ra một chút (Nếu cần) */
+.game-card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start !important;
+  gap: 6px;
+}
+
+.badge-pc {
+  background-color: #171a21 !important; /* Màu xanh đen của Steam */
+  color: #ffffff !important;
+  border-color: #171a21 !important;
+}
