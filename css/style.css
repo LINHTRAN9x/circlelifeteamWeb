@@ -634,3 +634,147 @@ button,
   color: #ffffff !important;
   border-color: #2651af !important;
 }
+
+
+/* --- BRUTALIST LOADING SCREEN (CORRECTED) --- */
+.ps5-loader-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--bg-deep, #F4F5F0); /* Nền đen tuyền */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.ps5-loader-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Khối hộp thô mộc, viền dày, bóng cứng (Neo-brutalist) */
+.brutalist-loader-box {
+  background-color: var(--white, #fdfdfc);
+  border: 4px solid var(--black, #000);
+  box-shadow: 10px 10px 0 var(--black, #000); /* Bóng đổ cứng 10px */
+  padding: 40px;
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.loader-content-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+/* Các ký tự nút bấm thô bạo */
+.loader-icons-block {
+  display: flex;
+  gap: 16px;
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--black, #000);
+}
+
+.l-i {
+  animation: brutal-blink 0.8s infinite step-end;
+}
+
+/* Animation giật cục */
+.tri { animation-delay: 0.0s; color: #1DD1A1; } /* Xanh Mint */
+.cir { animation-delay: 0.2s; color: #FF6B6B; } /* Đỏ */
+.cro { animation-delay: 0.4s; color: #48DBFB; } /* Xanh Dương */
+.squ { animation-delay: 0.6s; color: #FECA57; } /* Vàng */
+
+/* Font chữ đậm, thô */
+.loader-text-main {
+  font-family: var(--font-display, 'Oswald', sans-serif);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--black, #000);
+  text-transform: uppercase;
+}
+
+/* Thanh tiến trình giật cục */
+.loader-progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: var(--white, #fdfdfc);
+  border: 3px solid var(--black, #000);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: var(--black, #000);
+  width: 0%;
+  animation: brutal-progress 1.5s infinite step-end;
+}
+
+/* KEYFRAMES */
+@keyframes brutal-blink {
+  0% { opacity: 0.2; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.2; transform: scale(0.9); }
+}
+
+@keyframes brutal-progress {
+  0% { width: 0%; }
+  25% { width: 30%; }
+  50% { width: 65%; }
+  75% { width: 90%; }
+  100% { width: 100%; }
+}
+
+
+
+/* ============================================================
+   CHẾ ĐỘ BAN ĐÊM (DARK MODE - CYBERPUNK BRUTALISM)
+   ============================================================ */
+body.dark-mode {
+  /* Nền các mảng lớn đổi thành đen/xám siêu tối */
+  --bg-deep:      #121212; 
+  --bg-dark:      #1e1e1e;
+  --bg-card:      #1a1a1a;
+  --bg-card-hover:#252525;
+  
+  /* Đảo ngược Đen / Trắng */
+  --white:        #0a0a0a;  /* Nền các thẻ card, thanh nav đổi thành đen sâu */
+  --black:        #e0e0e0;  /* Viền thẻ, bóng đổ, và chữ đổi thành trắng xám (Tạo hiệu ứng phát sáng) */
+  
+  /* Màu chữ */
+  --text-main:    #ffffff;
+  --text-muted:   #b3b3b3;
+  --text-dim:     #888888;
+}
+
+/* --- Tinh chỉnh một vài chi tiết cho khỏi chói trong Dark Mode --- */
+/* 1. Lưới caro nền Hero nhạt bớt đi */
+body.dark-mode .hero-bg {
+  opacity: 0.03; 
+}
+
+/* 2. Nền menu thả xuống trên Mobile */
+body.dark-mode .nav-links {
+  background-color: var(--white);
+}
+
+/* 3. Lớp mờ khi di chuột vào Game Card cho sáng lên chút thay vì đen thui */
+body.dark-mode .game-card-overlay {
+  background: rgba(255, 255, 255, 0.15); 
+}
+
+/* Đổi icon khi hover cho nút Đổi giao diện */
+#theme-toggle:hover {
+  background: var(--accent-pink) !important;
+}

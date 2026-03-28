@@ -50,6 +50,24 @@
   <link rel="icon" type="image/svg+xml" href="logo.png">
 </head>
 <body>
+  <script>if(localStorage.getItem('clt_theme') === 'dark') document.body.classList.add('dark-mode');</script>
+
+  <div id="ps5-loader" class="ps5-loader-screen">
+  <div class="brutalist-loader-box">
+    <div class="loader-content-inner">
+      <div class="loader-icons-block">
+        <span class="l-i tri">Δ</span>
+        <span class="l-i cir"><i class="fa-solid fa-o"></i></span>
+        <span class="l-i cro"><i class="fa-solid fa-x"></i></span>
+        <span class="l-i squ"><i class="fa-regular fa-square"></i></span>
+      </div>
+      <div class="loader-text-main">CIRCLE LIFE TEAM...</div>
+      <div class="loader-progress-bar">
+        <span class="progress-fill"></span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Decorative -->
 <div class="wiiu-deco"></div>
@@ -71,10 +89,16 @@
 
   <div class="nav-spacer"></div>
 
+  
+
   <div class="nav-search" role="search">
     <span class="nav-search-icon" aria-hidden="true">🔍</span>
     <input type="search" placeholder="Tìm game việt hóa... (Ctrl+K)" aria-label="Search games">
   </div>
+
+  <button id="theme-toggle" class="btn-outline" style="padding: 8px; margin-left: 16px; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+    <i class="fa-solid fa-moon"></i>
+  </button>
 
   <a href="admin.html" class="nav-admin-btn" aria-label="Admin panel"><i class="fa-solid fa-gear"></i></a>
   <button class="nav-mobile-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
@@ -176,6 +200,9 @@
       <!-- Games Grid -->
       <div class="games-grid" id="all-games-grid" role="list" aria-label="Game library">
         <!-- Rendered by JS -->
+      </div>
+      <div id="load-more-container" style="text-align:center; margin-top:40px; display:none;">
+        <button id="load-more-btn" class="btn-outline"><i class="fa-solid fa-caret-down"></i> Hiển Thị Thêm</button>
       </div>
     </div>
   </section>

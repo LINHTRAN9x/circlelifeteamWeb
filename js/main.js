@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initSearch();
   initNavScroll();
   initMobileMenu();
+  initTheme();
 });
 
 // ── Khởi tạo trang chủ ──
@@ -59,8 +60,13 @@ async function initHomePage() {
     renderFeaturedGames(games);
     renderAllGames(games);
     updateHeroStats(games);
+
+    setTimeout(() => {
+      document.getElementById('ps5-loader')?.classList.add('hidden');
+    }, 400);
   } catch (e) {
     console.error('Init error:', e);
+    document.getElementById('ps5-loader')?.classList.add('hidden');
   }
 }
 
@@ -172,13 +178,24 @@ function renderFeaturedGames(games) {
 }
 
 // ── All Games ──
+// ── All Games & Load More ──
 let currentGenre = 'all';
 let allGamesCache = [];
+let displayLimit = 12; // Mặc định chỉ hiện 12 game
 
 function renderAllGames(games) {
   allGamesCache = games;
   renderGenreFilter(games);
   filterAndRenderGames('all');
+  initLoadMoreBtn(); // Khởi tạo nút tải thêm
+}
+
+function initLoadMoreBtn() {
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  loadMoreBtn?.addEventListener('click', () => {
+    displayLimit += 12; // Mỗi lần bấm nhả thêm 12 game
+    filterAndRenderGames(currentGenre, true); // true = không reset limit
+  });
 }
 
 function renderGenreFilter(games) {
@@ -199,10 +216,18 @@ function renderGenreFilter(games) {
   });
 }
 
-function filterAndRenderGames(genre) {
+function filterAndRenderGames(genre, isLoadMore = false) {
   currentGenre = genre;
+  
+  // Nếu bấm chọn bộ lọc thể loại mới -> Reset lại chỉ hiện 12 game
+  if (!isLoadMore) {
+    displayLimit = 12;
+  }
+
   const container = document.getElementById('all-games-grid');
+  const loadMoreContainer = document.getElementById('load-more-container');
   if (!container) return;
+
   const filtered = genre === 'all'
     ? allGamesCache
     : allGamesCache.filter(g => g.genre === genre);
@@ -214,10 +239,23 @@ function filterAndRenderGames(genre) {
         <div class="empty-state-text">Không có game nào</div>
         <div class="empty-state-sub">Thể loại này chưa có bản việt hóa</div>
       </div>`;
+    if (loadMoreContainer) loadMoreContainer.style.display = 'none';
     return;
   }
-  container.innerHTML = filtered.map(g => gameCardHTML(g)).join('');
+
+  // Chém mảng: Chỉ lấy số lượng game bằng với displayLimit
+  const gamesToShow = filtered.slice(0, displayLimit);
+  container.innerHTML = gamesToShow.map(g => gameCardHTML(g)).join('');
   bindGameCards(container);
+
+  // Hiển thị nút "Tải Thêm" nếu vẫn còn game bị giấu
+  if (loadMoreContainer) {
+    if (filtered.length > displayLimit) {
+      loadMoreContainer.style.display = 'block';
+    } else {
+      loadMoreContainer.style.display = 'none'; // Đã hiện hết thì giấu nút đi
+    }
+  }
 }
 
 // ── Game Card HTML ──
@@ -441,3 +479,32 @@ window.addEventListener('load', () => {
       .catch(err => console.error('Lỗi đếm truy cập:', err));
   }
 });
+
+
+
+// ============================================================
+// ── CHẾ ĐỘ BAN ĐÊM (DARK MODE) ──
+// ============================================================
+function initTheme() {
+  const toggleBtn = document.getElementById('theme-toggle');
+  if (!toggleBtn) return;
+  
+  const icon = toggleBtn.querySelector('i');
+  
+  // Kiểm tra trạng thái lúc vừa load web để hiển thị đúng Icon (Mặt trăng hay Mặt trời)
+  if (document.body.classList.contains('dark-mode')) {
+    icon.className = 'fa-solid fa-sun';
+  }
+  
+  // Khi bấm nút
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    
+    // 1. Đổi icon Mặt trăng <-> Mặt trời
+    icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    
+    // 2. Lưu vào trí nhớ của trình duyệt (LocalStorage)
+    localStorage.setItem('clt_theme', isDark ? 'dark' : 'light');
+  });
+}

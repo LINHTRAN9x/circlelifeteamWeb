@@ -45,6 +45,7 @@
   <link rel="icon" type="image/svg+xml" href="/logo.png">
 </head>
 <body>
+  <script>if(localStorage.getItem('clt_theme') === 'dark') document.body.classList.add('dark-mode');</script>
 
 <!-- Decorative -->
 <div class="wiiu-deco"></div>
@@ -67,6 +68,9 @@
   <div class="nav-spacer"></div>
 
   <a href="/#library" class="btn-outline" style="font-size:13px;padding:7px 14px"><i class="fa-solid fa-arrow-left"></i> Thư Viện</a>
+  <button id="theme-toggle" class="btn-outline" style="padding: 8px; margin-left: 16px; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;" title="Bật/Tắt Giao Diện Tối">
+    <i class="fa-solid fa-moon"></i>
+  </button>
   <a href="/admin.html" class="nav-admin-btn" style="margin-left:8px"><i class="fa-solid fa-gear"></i></a>
   <button class="nav-mobile-toggle" aria-label="Toggle menu">☰</button>
 </nav>

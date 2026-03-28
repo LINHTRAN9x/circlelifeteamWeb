@@ -358,3 +358,31 @@ window.addEventListener('load', () => {
       .catch(err => console.error('Lỗi đếm truy cập:', err));
   }
 });
+
+
+// ============================================================
+// ── CHẾ ĐỘ BAN ĐÊM (DARK MODE) ──
+// ============================================================
+function initTheme() {
+  const toggleBtn = document.getElementById('theme-toggle');
+  if (!toggleBtn) return;
+  
+  const icon = toggleBtn.querySelector('i');
+  
+  // Kiểm tra trạng thái lúc vừa load web để hiển thị đúng Icon (Mặt trăng hay Mặt trời)
+  if (document.body.classList.contains('dark-mode')) {
+    icon.className = 'fa-solid fa-sun';
+  }
+  
+  // Khi bấm nút
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    
+    // 1. Đổi icon Mặt trăng <-> Mặt trời
+    icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    
+    // 2. Lưu vào trí nhớ của trình duyệt (LocalStorage)
+    localStorage.setItem('clt_theme', isDark ? 'dark' : 'light');
+  });
+}
