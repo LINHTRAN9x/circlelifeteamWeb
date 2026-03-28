@@ -149,7 +149,10 @@ function renderGameDetail(game) {
   const badgesEl = document.getElementById('game-detail-badges');
   if (badgesEl) {
     // Đã thêm điều kiện: Nếu là Nintendo Switch thì mặc áo 'badge-switch'
-    let html = `<span class="badge badge-platform ${game.platform === 'Nintendo Switch' ? 'badge-switch' : ''}">${game.platform || 'PS5'}</span>`;
+    const platformArray = (game.platform || 'PS5').split(',').map(p => p.trim());
+    let html = platformArray.map(p => 
+      `<span class="badge badge-platform ${p === 'Nintendo Switch' ? 'badge-switch' : ''}">${p}</span>`
+    ).join(' ');
     
     if (game.isNew) html += '<span class="badge badge-new">🔥 Mới</span>';
     if (game.status) html += `<span class="badge ${game.status.includes('100%') ? 'badge-done' : 'badge-wip'}">${game.status}</span>`;

@@ -332,14 +332,22 @@
             <input type="text" id="form-slug" class="form-input" placeholder="ghost-of-tsushima" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="form-platform">Platform *</label>
-            <select id="form-platform" class="form-input" required>
-              <option value="PS5">PS5</option>
-              <option value="PS4/PS5">PS4/PS5</option>
-              <option value="PS4">PS4</option>
-              <option value="Nintendo Switch">Nintendo Switch</option>
-            </select>
+          <label class="form-label">Platform *</label>
+          <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:8px;">
+            <label style="cursor:pointer; display:flex; align-items:center; gap:4px; font-size:14px; color:var(--text-main);">
+              <input type="checkbox" name="platform" value="PS5" style="width:16px; height:16px; accent-color:var(--blue-vivid);"> PS5
+            </label>
+            <label style="cursor:pointer; display:flex; align-items:center; gap:4px; font-size:14px; color:var(--text-main);">
+              <input type="checkbox" name="platform" value="PS4" style="width:16px; height:16px; accent-color:var(--blue-vivid);"> PS4
+            </label>
+            <label style="cursor:pointer; display:flex; align-items:center; gap:4px; font-size:14px; color:var(--text-main);">
+              <input type="checkbox" name="platform" value="Nintendo Switch" style="width:16px; height:16px; accent-color:var(--blue-vivid);"> Nintendo Switch
+            </label>
+            <label style="cursor:pointer; display:flex; align-items:center; gap:4px; font-size:14px; color:var(--text-main);">
+              <input type="checkbox" name="platform" value="PC" style="width:16px; height:16px; accent-color:var(--blue-vivid);"> PC
+            </label>
           </div>
+        </div>
         </div>
 
         <div class="form-row">

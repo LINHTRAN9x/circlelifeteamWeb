@@ -229,6 +229,15 @@ function fillGameForm(game) {
   document.getElementById('form-isNew').checked = !!game.isNew;
   document.getElementById('form-isFeatured').checked = !!game.isFeatured;
   document.getElementById('form-images').value = (game.images || []).join('\n');
+  // Bỏ tick tất cả trước khi hiển thị
+  document.querySelectorAll('input[name="platform"]').forEach(cb => cb.checked = false);
+  // Tick lại các nền tảng của game này
+  if (game.platform) {
+    game.platform.split(',').forEach(p => {
+      const cb = document.querySelector(`input[name="platform"][value="${p.trim()}"]`);
+      if (cb) cb.checked = true;
+    });
+  }
 }
 
 async function saveGameFromForm() {
@@ -247,7 +256,7 @@ async function saveGameFromForm() {
     youtubeId: document.getElementById('form-youtubeId').value.trim(),
     downloadLink: document.getElementById('form-downloadLink').value.trim(),
     genre: document.getElementById('form-genre').value.trim(),
-    platform: document.getElementById('form-platform').value || 'PS5',
+    platform: Array.from(document.querySelectorAll('input[name="platform"]:checked')).map(cb => cb.value).join(', ') || 'PS5',
     releaseDate: document.getElementById('form-releaseDate').value,
     version: document.getElementById('form-version').value.trim(),
     translator: document.getElementById('form-translator').value.trim() || 'CircleLife Team',
