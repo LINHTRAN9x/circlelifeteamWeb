@@ -491,7 +491,7 @@ input, textarea, select { font-family: var(--font-body); outline: none; }
     /* Cố định phủ toàn bộ viewport */
     position: fixed;
     top: 0;
-    left: 0;
+    left: -32px;
     width: 100vw;
     height: 100vh;
 
