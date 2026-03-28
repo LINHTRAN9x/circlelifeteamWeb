@@ -250,7 +250,7 @@ function gameCardHTML(game, extraClass = '') {
     ? `<div class="game-card-desc">${game.descriptionVi}</div>`
     : '';
   const ctaHTML = isFeatured
-    ? `<a href="#" class="btn-primary" data-slug="${game.slug}" style="font-size:13px;padding:10px 20px">Xem chi tiết →</a>`
+    ? `<a href="#" class="btn-primary" data-slug="${game.slug}" style="font-size:13px;padding:10px 20px">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>`
     : '';
 
   return `
@@ -352,7 +352,7 @@ async function performSearch(query) {
         <div class="search-result-title">${g.title}</div>
         <div class="search-result-sub">${g.titleVi || ''} · ${g.platform || 'PS5'} · ${g.status || ''}</div>
       </div>
-      <span style="color:var(--text-dim);font-size:12px">→</span>
+      <span style="color:var(--text-dim);font-size:12px"><i class="fa-solid fa-arrow-right"></i></span>
     </div>
   `).join('');
 }
