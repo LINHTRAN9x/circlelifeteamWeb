@@ -338,8 +338,7 @@ window.addEventListener('load', () => {
   const hasVisited = localStorage.getItem('clt_has_visited');
   
   if (!hasVisited) {
-    // Đã thêm Proxy vượt rào CORS
-    fetch('https://corsproxy.io/?https://api.counterapi.dev/v1/circlelifeteam_top/unique_visitors/up')
+    fetch('https://api.codetabs.com/v1/proxy?quest=https://api.counterapi.dev/v1/circlelifeteam_top/unique_visitors/up')
       .then(res => res.json())
       .then(data => {
         // Đánh dấu là máy này đã vào rồi để không đếm trùng nữa

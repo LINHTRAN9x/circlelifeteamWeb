@@ -95,7 +95,7 @@ async function loadDashboardStats() {
 
   // --- LẤY SỐ LƯỢT KHÁCH TỪ COUNTER API ---
   try {
-    const res = await fetch('https://corsproxy.io/?https://api.counterapi.dev/v1/circlelifeteam_top/unique_visitors');
+    const res = await fetch('https://api.codetabs.com/v1/proxy?quest=https://api.counterapi.dev/v1/circlelifeteam_top/unique_visitors');
     const data = await res.json();
     if (el('stat-views')) el('stat-views').textContent = data.count || 0;
   } catch (err) {
