@@ -4,7 +4,7 @@
 // ============================================================
 
 const CONFIG = {
-  FIREBASE_DB_URL: "https://circlelifeteam-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  FIREBASE_DB_URL: "https://circlelifeteam-default-rtdb.asia-southeast1.firebasedatabase.app",
   FIREBASE_SECRET: "l6tLSy8F41yVd8bb1Vd10MCMRad89NaaSuERfPvd",
 
   // Tên website

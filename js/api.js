@@ -28,7 +28,7 @@ const API = (() => {
 
     try {
       // Gọi API lấy dữ liệu dạng JSON từ Firebase
-      const res = await fetch(`${CONFIG.FIREBASE_DB_URL}/data.json`);
+      const res = await fetch(`${CONFIG.FIREBASE_DB_URL}/.json`);
       if (!res.ok) throw new Error("Firebase fetch failed");
       let fetchedData = await res.json();
 
@@ -57,7 +57,7 @@ const API = (() => {
     }
 
     try {
-      const res = await fetch(`${CONFIG.FIREBASE_DB_URL}/data.json?auth=${CONFIG.FIREBASE_SECRET}`, {
+      const res = await fetch(`${CONFIG.FIREBASE_DB_URL}/.json?auth=${CONFIG.FIREBASE_SECRET}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
