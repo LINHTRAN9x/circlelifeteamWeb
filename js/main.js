@@ -230,7 +230,8 @@ function gameCardHTML(game, extraClass = '') {
   // Đã thêm điều kiện chèn class 'badge-switch'
   const platformArray = (game.platform || 'PS5').split(',').map(p => p.trim());
   const badgePlatform = platformArray.map(p => 
-    `<span class="badge badge-platform ${p === 'Nintendo Switch' ? 'badge-switch' : ''}">${p}</span>`
+    // Đã lồng thêm điều kiện: Nếu là PC thì gọi class badge-pc
+    `<span class="badge badge-platform ${p === 'Nintendo Switch' ? 'badge-switch' : (p === 'PC' ? 'badge-pc' : '')}">${p}</span>`
   ).join(' ');
   const statusBadge = game.status
     ? `<span class="badge ${game.status.includes('100%') ? 'badge-done' : 'badge-wip'}">${game.status}</span>`

@@ -151,7 +151,7 @@ function renderGameDetail(game) {
     // Đã thêm điều kiện: Nếu là Nintendo Switch thì mặc áo 'badge-switch'
     const platformArray = (game.platform || 'PS5').split(',').map(p => p.trim());
     let html = platformArray.map(p => 
-      `<span class="badge badge-platform ${p === 'Nintendo Switch' ? 'badge-switch' : ''}">${p}</span>`
+      `<span class="badge badge-platform ${p === 'Nintendo Switch' ? 'badge-switch' : (p === 'PC' ? 'badge-pc' : '')}">${p}</span>`
     ).join(' ');
     
     if (game.isNew) html += '<span class="badge badge-new">🔥 Mới</span>';
