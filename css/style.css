@@ -522,3 +522,43 @@ button,
   color: #FFFFFF !important;            /* Chữ trắng cho nổi */
   border-color: #E60012 !important;
 }
+
+/* --- CSS cho Platform Checkboxes (Phong cách Neo-brutalism) --- */
+.platform-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.platform-checkbox-label {
+  cursor: pointer;
+  display: inline-flex;
+}
+
+/* 1. Ẩn cái ô vuông tick mặc định xấu xí đi */
+.platform-checkbox-label input[type="checkbox"] {
+  display: none;
+}
+
+/* 2. Thiết kế thẻ tag nổi lên lúc chưa tick */
+.platform-tag {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  background-color: #ffffff;
+  border: 2px solid var(--black, #000);
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 var(--black, #000);
+  transition: all 0.1s ease-in-out;
+  user-select: none;
+}
+
+/* 3. Hiệu ứng khi được tick (Nút lún xuống, đổi sang màu xanh xịn xò) */
+.platform-checkbox-label input[type="checkbox"]:checked + .platform-tag {
+  background-color: #00a8e8; /* Màu xanh của nút Xem Website */
+  color: #ffffff;
+  transform: translate(2px, 2px); /* Ép nút tụt xuống 2px tạo cảm giác bấm thật */
+  box-shadow: 0px 0px 0 var(--black, #000); /* Xóa bóng đổ vì nút đã lún sát nền */
+}
