@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   if (!game) return res.redirect('/');
 
   const title = `${game.title} Việt Hóa – CircleLifeTeam`;
-  const desc  = `Tải bản việt hóa ${game.title} cho PS4, PS5, Switch. ${game.status || ''}. ${game.descriptionVi || ''}`;
+  const desc  = `Tải bản việt hóa ${game.title} cho PS4, PS5, Switch, PC. ${game.status || ''}. ${game.descriptionVi || ''}`;
   const image = game.coverImage || 'https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png';
   const url   = `https://circlelifeteam.top/share/${slug}`;
 
