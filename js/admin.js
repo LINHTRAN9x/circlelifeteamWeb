@@ -92,6 +92,15 @@ async function loadDashboardStats() {
   if (el('stat-done')) el('stat-done').textContent = games.filter(g => g.status?.includes('100%')).length;
   if (el('stat-new')) el('stat-new').textContent = games.filter(g => g.isNew).length;
   if (el('stat-wip')) el('stat-wip').textContent = games.filter(g => !g.status?.includes('100%')).length;
+
+  // --- LẤY SỐ LƯỢT KHÁCH TỪ COUNTER API ---
+  try {
+    const res = await fetch('https://api.counterapi.dev/v1/circlelifeteam_top/unique_visitors');
+    const data = await res.json();
+    if (el('stat-views')) el('stat-views').textContent = data.count || 0;
+  } catch (err) {
+    if (el('stat-views')) el('stat-views').textContent = 'Lỗi';
+  }
 }
 
 // ── Games Table ──

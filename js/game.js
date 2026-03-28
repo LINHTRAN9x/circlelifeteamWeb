@@ -330,3 +330,20 @@ function showToast(message, type = 'success') {
   container.appendChild(toast);
   setTimeout(() => toast.remove(), 3500);
 }
+
+// ============================================================
+// ── Bộ đếm lượt khách (Chỉ đếm 1 lần mỗi thiết bị) ──
+// ============================================================
+window.addEventListener('load', () => {
+  const hasVisited = localStorage.getItem('clt_has_visited');
+  
+  if (!hasVisited) {
+    fetch('https://api.counterapi.dev/v1/circlelifeteam_top/unique_visitors/up')
+      .then(res => res.json())
+      .then(data => {
+        // Đánh dấu là máy này đã vào rồi để không đếm trùng nữa
+        localStorage.setItem('clt_has_visited', 'true');
+      })
+      .catch(err => console.error('Lỗi đếm truy cập:', err));
+  }
+});
