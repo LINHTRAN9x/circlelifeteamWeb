@@ -480,23 +480,56 @@ input, textarea, select { font-family: var(--font-body); outline: none; }
   .admin-sidebar { position: static; height: auto; display: flex; flex-wrap: wrap; gap: 8px; border-right: none; border-bottom: var(--border-solid); }
 }
 @media (max-width: 768px) {
-  .nav-links { 
-    display: none; 
+  .nav-links {
+    display: flex; /* Sử dụng flex để căn giữa */
     flex-direction: column;
-    position: absolute;
-    top: var(--nav-h); /* Thả ngay dưới thanh Nav */
+    justify-content: center; /* Căn giữa theo chiều dọc */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    gap: 3rem; /* Khoảng cách lớn giữa các link */
+    padding: 2rem;
+
+    /* Cố định phủ toàn bộ viewport */
+    position: fixed;
+    top: 0;
     left: 0;
-    width: 100%;
-    background-color: var(--white);
-    border-bottom: var(--border-solid);
-    padding: 24px;
-    gap: 16px;
-    box-shadow: var(--shadow-md);
+    width: 100vw;
+    height: 100vh;
+
+    background-color: var(--white, #fdfdfc);
+    z-index: 999; /* Nằm trên tất cả nội dung khác */
+    
+    /* Hiệu ứng ẩn/hiện mượt mà */
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px); /* Hơi trượt lên trên lúc ẩn */
   }
-  
-  /* Lệnh hiện menu khi được JS gọi */
+
+  /* Khi menu được mở (Class do JS thêm vào) */
   .nav-links.mobile-open {
-    display: flex !important;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* Trượt về vị trí cũ */
+  }
+
+  /* Chỉnh lại font chữ các link menu cho to và đậm hơn */
+  .nav-links a {
+    font-size: 24px;
+    font-weight: 800;
+    text-transform: uppercase; /* In hoa cho ngầu */
+    color: var(--text-black, #000000);
+    letter-spacing: 1px;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--blue-vivid); /* Đổi màu khi hover */
+  }
+
+  /* Đảm bảo nút Hamburger và Logo nằm trên cùng để user có thể đóng menu */
+  .nav-mobile-toggle, .nav-logo {
+    z-index: 1001; /* Phải cao hơn z-index của .nav-links (999) */
+    position: relative;
   }
   
   .nav-search { display: none; }
