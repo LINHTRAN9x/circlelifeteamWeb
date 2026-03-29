@@ -441,3 +441,118 @@ async function generateSitemap() {
   
   showToast('Đã tạo và tải xuống sitemap.xml chuẩn SEO mới!', 'success');
 }
+
+
+// ============================================================
+// ── TRẠM KÉO THẢ & UPLOAD ẢNH IMGBB ──
+// ============================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  initImageDropzones();
+});
+
+function initImageDropzones() {
+  const wrappers = document.querySelectorAll('.dropzone-wrapper');
+  
+  wrappers.forEach(wrapper => {
+    const dropzone = wrapper.querySelector('.dropzone-area');
+    const fileInput = wrapper.querySelector('.dropzone-file');
+    const targetInput = wrapper.querySelector('.target-input'); // Là ô input hoặc textarea
+    
+    if (!dropzone || !fileInput || !targetInput) return;
+
+    // 1. Kích hoạt nút bấm chọn file
+    dropzone.addEventListener('click', () => fileInput.click());
+
+    // 2. Xử lý sự kiện kéo thả (Drag & Drop)
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        handleFilesUpload(e.dataTransfer.files, dropzone, targetInput);
+      }
+    });
+
+    // 3. Xử lý khi chọn file bằng cửa sổ duyệt
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files.length > 0) {
+        handleFilesUpload(e.target.files, dropzone, targetInput);
+      }
+      fileInput.value = ''; // Reset lại ô input để lần sau chọn trùng file vẫn nhận
+    });
+
+    // 4. MỞ KHÓA TÍNH NĂNG PASTE (CTRL+V) TỪ CLIPBOARD
+    targetInput.addEventListener('paste', (e) => {
+      const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+      let files = [];
+      for (let index in items) {
+        const item = items[index];
+        if (item.kind === 'file') {
+          files.push(item.getAsFile());
+        }
+      }
+      if (files.length > 0) {
+        e.preventDefault(); // Chặn paste text chữ, bắt đầu paste ảnh
+        handleFilesUpload(files, dropzone, targetInput);
+      }
+    });
+  });
+}
+
+// Gọi API ImgBB
+async function handleFilesUpload(files, dropzone, targetInput) {
+  // Lấy API Key từ config (Hoặc hardcode thẳng vào đây nếu bạn chưa làm file config)
+  const apiKey = typeof CONFIG !== 'undefined' ? CONFIG.IMGBB_API_KEY : ''; 
+  if (!apiKey) {
+    showToast('Thiếu ImgBB API Key trong config.js', 'error');
+    return;
+  }
+
+  const originalText = dropzone.innerHTML;
+  dropzone.classList.add('is-uploading');
+  dropzone.innerHTML = '⏳ Đang tải lên...';
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    if (!file.type.startsWith('image/')) continue; // Bỏ qua nếu không phải ảnh
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.json();
+      
+      if (result.success) {
+        const imgUrl = result.data.url;
+        // Điền vào form
+        if (targetInput.tagName.toLowerCase() === 'textarea') {
+          // Nếu là textarea (Ảnh màn hình nhiều ảnh), nối URL vào dòng mới
+          targetInput.value += (targetInput.value ? '\n' : '') + imgUrl;
+        } else {
+          // Nếu là input URL (Ảnh bìa/Banner), ghi đè URL
+          targetInput.value = imgUrl;
+        }
+        showToast(`Đã tải lên: ${file.name}`, 'success');
+      } else {
+        throw new Error(result.error.message);
+      }
+    } catch (err) {
+      console.error(err);
+      showToast(`Lỗi tải lên ${file.name}: ${err.message}`, 'error');
+    }
+  }
+
+  dropzone.classList.remove('is-uploading');
+  dropzone.innerHTML = originalText;
+}

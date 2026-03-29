@@ -402,19 +402,31 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="form-coverImage">Ảnh Bìa Dọc (URL) *</label>
-          <input type="url" id="form-coverImage" class="form-input" placeholder="https://..." required>
+        <div class="form-group dropzone-wrapper">
+          <label class="form-label" for="form-coverImage">Ảnh Bìa Dọc (Kéo thả hoặc Ctrl+V) *</label>
+          <div class="dropzone-area" id="dz-cover">
+             <i class="fa-solid fa-cloud-arrow-up"></i> Kéo thả ảnh / Bấm để tải lên
+             <input type="file" accept="image/*" class="dropzone-file" hidden>
+          </div>
+          <input type="url" id="form-coverImage" class="form-input target-input" placeholder="URL sẽ tự động điền vào đây..." required>
         </div>
 
-        <div class="form-group">
+        <div class="form-group dropzone-wrapper">
           <label class="form-label" for="form-bannerImage">Ảnh Banner Ngang (Dùng cho Slideshow)</label>
-          <input type="url" id="form-bannerImage" class="form-input" placeholder="Khuyên dùng ảnh ngang tỷ lệ 21:10 (920x430)..." required>
+          <div class="dropzone-area" id="dz-banner">
+             <i class="fa-solid fa-cloud-arrow-up"></i> Kéo thả ảnh / Bấm để tải lên
+             <input type="file" accept="image/*" class="dropzone-file" hidden>
+          </div>
+          <input type="url" id="form-bannerImage" class="form-input target-input" placeholder="URL sẽ tự động điền vào đây..." required>
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="form-images">Ảnh Màn Hình (mỗi URL một dòng) *</label>
-          <textarea id="form-images" class="form-input" rows="3" placeholder="https://url1.jpg&#10;https://url2.jpg" required></textarea>
+        <div class="form-group dropzone-wrapper">
+          <label class="form-label" for="form-images">Ảnh Màn Hình (Kéo thả nhiều ảnh) *</label>
+          <div class="dropzone-area" id="dz-images">
+             <i class="fa-solid fa-cloud-arrow-up"></i> Kéo thả ảnh / Bấm để tải lên
+             <input type="file" accept="image/*" class="dropzone-file" multiple hidden>
+          </div>
+          <textarea id="form-images" class="form-input target-input" rows="4" placeholder="Các URL sẽ tự động nối đuôi nhau ở đây..." required></textarea>
         </div>
 
         <div class="form-group">

@@ -14,6 +14,7 @@ const CONFIG = {
   SITE_KEYWORDS: "game ps5 việt hóa, việt hóa ps5, bản dịch ps5, patch việt hóa, circlelifeteam, game ps5 tiếng việt, chép game việt hóa ps4 ps5, tải game việt hóa ps4",
 
   ADMIN_PASS_HASH: "0d9bfb393d6aa97a2736a1876739d6c4",
+  IMGBB_API_KEY: '39526b5bb4c2ef78855bd65a04ce9c3c'
 };
 
 // Dữ liệu mẫu (fallback khi chưa có JSONBin)

@@ -1112,3 +1112,52 @@ body.dark-mode .premium-showcase {
 .hero-left-col .hero-stat-label {
   font-size: 11px; /* Nhãn nhỏ đi */
 }
+
+
+/* --- TRẠM KÉO THẢ ẢNH (DRAG & DROP ZONE) --- */
+.dropzone-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.dropzone-area {
+  border: 2px dashed var(--text-dim, #888);
+  border-radius: var(--radius-sm, 6px);
+  padding: 20px;
+  text-align: center;
+  background: rgba(0,0,0,0.02);
+  color: var(--text-muted, #666);
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+  font-family: var(--font-vi);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Đổi màu khi kéo ảnh vào (Drag over) */
+.dropzone-area:hover, .dropzone-area.dragover {
+  background: var(--accent-yellow, #FECA57);
+  color: #000;
+  border-color: #000;
+  border-style: solid;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 #000;
+}
+
+/* Hiệu ứng mờ đi khi đang upload */
+.dropzone-area.is-uploading {
+  pointer-events: none;
+  opacity: 0.7;
+  animation: brutal-blink 1s infinite;
+}
+
+body.dark-mode .dropzone-area {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-muted);
+}
+body.dark-mode .dropzone-area:hover, 
+body.dark-mode .dropzone-area.dragover {
+  background: var(--accent-yellow, #FECA57);
+  color: #000;
+}
