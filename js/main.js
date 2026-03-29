@@ -60,6 +60,7 @@ async function initHomePage() {
     renderFeaturedGames(games);
     renderAllGames(games);
     updateHeroStats(games);
+    renderPremiumShowcase(games);
 
     setTimeout(() => {
       document.getElementById('ps5-loader')?.classList.add('hidden');
@@ -152,6 +153,8 @@ function newCardHTML(game) {
     </div>`;
 }
 
+
+
 // ── Featured Games ──
 function renderFeaturedGames(games) {
   const container = document.getElementById('featured-games');
@@ -178,84 +181,123 @@ function renderFeaturedGames(games) {
 }
 
 // ── All Games ──
-// ── All Games & Load More ──
-let currentGenre = 'all';
+// ── All Games & Load More & Filters ──
 let allGamesCache = [];
-let displayLimit = 12; // Mặc định chỉ hiện 12 game
+let displayLimit = 12;
 
 function renderAllGames(games) {
   allGamesCache = games;
-  renderGenreFilter(games);
-  filterAndRenderGames('all');
-  initLoadMoreBtn(); // Khởi tạo nút tải thêm
+  initFilters(games);
+  applyFilters();
+  initLoadMoreBtn();
 }
 
-function initLoadMoreBtn() {
-  const loadMoreBtn = document.getElementById('load-more-btn');
-  loadMoreBtn?.addEventListener('click', () => {
-    displayLimit += 12; // Mỗi lần bấm nhả thêm 12 game
-    filterAndRenderGames(currentGenre, true); // true = không reset limit
-  });
-}
+function initFilters(games) {
+  // 1. Tự động tạo danh sách Thể Loại từ kho game
+  const genreSelect = document.getElementById('filter-genre');
+  if (genreSelect) {
+    const genres = [...new Set(games.map(g => g.genre).filter(Boolean))];
+    genreSelect.innerHTML = `<option value="all">Tất Cả</option>` + 
+      genres.map(g => `<option value="${g}">${g}</option>`).join('');
+  }
 
-function renderGenreFilter(games) {
-  const container = document.getElementById('genre-filter');
-  if (!container) return;
-  const genres = ['all', ...new Set(games.map(g => g.genre).filter(Boolean))];
-  container.innerHTML = genres.map(g =>
-    `<button class="genre-btn ${g === 'all' ? 'active' : ''}" data-genre="${g}">
-      ${g === 'all' ? '🎮 Tất cả' : g}
-    </button>`
-  ).join('');
-  container.querySelectorAll('.genre-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      container.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      filterAndRenderGames(btn.dataset.genre);
+  // 2. PHỤC HỒI TRÍ NHỚ: Lấy lại các bộ lọc khách đã chọn trước khi sang trang khác
+  const savedGenre = sessionStorage.getItem('clt_filter_genre');
+  const savedPlatform = sessionStorage.getItem('clt_filter_platform');
+  const savedStatus = sessionStorage.getItem('clt_filter_status');
+  const savedSort = sessionStorage.getItem('clt_filter_sort');
+
+  // Nếu có trí nhớ, tự động gán lại vào các ô Select
+  if (savedGenre) document.getElementById('filter-genre').value = savedGenre;
+  if (savedPlatform) document.getElementById('filter-platform').value = savedPlatform;
+  if (savedStatus) document.getElementById('filter-status').value = savedStatus;
+  if (savedSort) document.getElementById('filter-sort').value = savedSort;
+
+  // 3. CÀI CẢM BIẾN: Khi khách đổi bộ lọc -> Vừa lọc game, vừa lưu trí nhớ mới
+  ['filter-genre', 'filter-platform', 'filter-status', 'filter-sort'].forEach(id => {
+    document.getElementById(id)?.addEventListener('change', (e) => {
+      displayLimit = 12; // Reset lại số lượng hiển thị về 12
+      
+      // Lưu lựa chọn mới vào SessionStorage
+      const filterKey = id.replace('filter-', 'clt_filter_');
+      sessionStorage.setItem(filterKey, e.target.value);
+      
+      applyFilters(); // Tiến hành lọc game
     });
   });
 }
 
-function filterAndRenderGames(genre, isLoadMore = false) {
-  currentGenre = genre;
-  
-  // Nếu bấm chọn bộ lọc thể loại mới -> Reset lại chỉ hiện 12 game
-  if (!isLoadMore) {
-    displayLimit = 12;
-  }
-
+function applyFilters(isLoadMore = false) {
   const container = document.getElementById('all-games-grid');
   const loadMoreContainer = document.getElementById('load-more-container');
   if (!container) return;
 
-  const filtered = genre === 'all'
-    ? allGamesCache
-    : allGamesCache.filter(g => g.genre === genre);
+  // Thu thập yêu cầu từ 4 ô chọn
+  const genre = document.getElementById('filter-genre')?.value || 'all';
+  const platform = document.getElementById('filter-platform')?.value || 'all';
+  const status = document.getElementById('filter-status')?.value || 'all';
+  const sort = document.getElementById('filter-sort')?.value || 'newest';
 
+  let filtered = [...allGamesCache];
+
+  // 1. Máy chém Thể loại
+  if (genre !== 'all') filtered = filtered.filter(g => g.genre === genre);
+
+  // 2. Máy chém Nền tảng (Vì 1 game có nhiều nền tảng nên dùng includes)
+  if (platform !== 'all') filtered = filtered.filter(g => (g.platform || '').includes(platform));
+
+  // 3. Máy chém Tiến độ
+  if (status === 'done') {
+    filtered = filtered.filter(g => g.status && g.status.includes('100%'));
+  } else if (status === 'wip') {
+    filtered = filtered.filter(g => !g.status || !g.status.includes('100%'));
+  }
+
+  // 4. Thuật toán Sắp xếp
+  if (sort === 'newest') {
+    filtered.sort((a, b) => {
+      const timeA = a.updatedAt || new Date(a.releaseDate || 0).getTime();
+      const timeB = b.updatedAt || new Date(b.releaseDate || 0).getTime();
+      return timeB - timeA;
+    });
+  } else if (sort === 'a-z') {
+    filtered.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sort === 'rating') {
+    filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+  }
+
+  // Render ra màn hình
   if (!filtered.length) {
     container.innerHTML = `
       <div class="empty-state" style="grid-column:1/-1">
-        <div class="empty-state-icon">🔍</div>
-        <div class="empty-state-text">Không có game nào</div>
-        <div class="empty-state-sub">Thể loại này chưa có bản việt hóa</div>
+        <div class="empty-state-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
+        <div class="empty-state-text">Không tìm thấy game nào phù hợp</div>
+        <div class="empty-state-sub">Hãy thử thay đổi tiêu chí lọc nhé</div>
       </div>`;
     if (loadMoreContainer) loadMoreContainer.style.display = 'none';
     return;
   }
 
-  // Chém mảng: Chỉ lấy số lượng game bằng với displayLimit
   const gamesToShow = filtered.slice(0, displayLimit);
   container.innerHTML = gamesToShow.map(g => gameCardHTML(g)).join('');
   bindGameCards(container);
 
-  // Hiển thị nút "Tải Thêm" nếu vẫn còn game bị giấu
+  // Xử lý ẩn/hiện nút "Tải Thêm"
   if (loadMoreContainer) {
-    if (filtered.length > displayLimit) {
-      loadMoreContainer.style.display = 'block';
-    } else {
-      loadMoreContainer.style.display = 'none'; // Đã hiện hết thì giấu nút đi
-    }
+    loadMoreContainer.style.display = filtered.length > displayLimit ? 'block' : 'none';
   }
+}
+
+function initLoadMoreBtn() {
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  // Xóa listener cũ (nếu có) để tránh click đúp
+  const newBtn = loadMoreBtn.cloneNode(true);
+  loadMoreBtn.parentNode.replaceChild(newBtn, loadMoreBtn);
+  
+  newBtn?.addEventListener('click', () => {
+    displayLimit += 12;
+    applyFilters(true);
+  });
 }
 
 // ── Game Card HTML ──
@@ -507,4 +549,75 @@ function initTheme() {
     // 2. Lưu vào trí nhớ của trình duyệt (LocalStorage)
     localStorage.setItem('clt_theme', isDark ? 'dark' : 'light');
   });
+}
+
+
+// ============================================================
+// ── PREMIUM SHOWCASE (SLIDER CÓ THUMBNAILS - NGẪU NHIÊN 6 GAME) ──
+// ============================================================
+let premiumSlideTimer;
+let currentPremiumIndex = 0;
+
+function renderPremiumShowcase(games) {
+  const mainContainer = document.getElementById('showcase-main-slides');
+  const thumbContainer = document.getElementById('showcase-thumbnails');
+  if (!mainContainer || !thumbContainer || !games.length) return;
+
+  clearInterval(premiumSlideTimer);
+
+  // Xáo trộn ngẫu nhiên toàn bộ danh sách game và cắt lấy 6 game đầu tiên
+  const shuffledGames = [...games].sort(() => 0.5 - Math.random());
+  const showcaseGames = shuffledGames.slice(0, 6);
+
+  // 1. In ảnh to
+  mainContainer.innerHTML = showcaseGames.map((g, i) => {
+    // Ưu tiên dùng bannerImage ngang, nếu không có thì dùng coverImage
+    const mainImg = g.bannerImage || g.coverImage || 'https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png';
+    return `
+      <div class="p-slide ${i === 0 ? 'active' : ''}" data-index="${i}">
+        <img src="${mainImg}" alt="Cover">
+        <div class="p-slide-info">
+          <h3>${g.title}</h3>
+          <a href="game.html?id=${g.slug}" class="p-btn-view">XEM THÊM</a>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // 2. In ảnh thu nhỏ
+  thumbContainer.innerHTML = showcaseGames.map((g, i) => `
+    <div class="thumb-item ${i === 0 ? 'active' : ''}" data-index="${i}">
+      <img src="${g.coverImage || 'https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png'}" alt="Thumb">
+    </div>
+  `).join('');
+
+  // 3. Xử lý click Thumbnails
+  const thumbs = thumbContainer.querySelectorAll('.thumb-item');
+  const slides = mainContainer.querySelectorAll('.p-slide');
+
+  const switchSlide = (index) => {
+    currentPremiumIndex = index;
+    slides.forEach(s => s.classList.remove('active'));
+    thumbs.forEach(t => t.classList.remove('active'));
+    
+    slides[index].classList.add('active');
+    thumbs[index].classList.add('active');
+  };
+
+  thumbs.forEach((thumb, i) => {
+    thumb.addEventListener('click', () => {
+      switchSlide(i);
+      resetPremiumTimer(slides.length, switchSlide);
+    });
+  });
+
+  resetPremiumTimer(slides.length, switchSlide);
+}
+
+function resetPremiumTimer(totalSlides, switchFn) {
+  clearInterval(premiumSlideTimer);
+  premiumSlideTimer = setInterval(() => {
+    currentPremiumIndex = (currentPremiumIndex + 1) % totalSlides;
+    switchFn(currentPremiumIndex);
+  }, 8000); 
 }

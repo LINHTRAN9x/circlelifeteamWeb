@@ -243,7 +243,7 @@ input, textarea, select { font-family: var(--font-body); outline: none; }
 /* ══════════════════════════════
    CARDS & GRIDS
 ══════════════════════════════ */
-.games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 32px; }
+.games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 32px; text-align: center; }
 .games-grid-lg { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 
 .game-card { background: var(--white); border: var(--border-solid); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); transition: var(--transition); cursor: pointer; display: flex; flex-direction: column; position: relative; }
@@ -777,4 +777,338 @@ body.dark-mode .game-card-overlay {
 /* Đổi icon khi hover cho nút Đổi giao diện */
 #theme-toggle:hover {
   background: var(--accent-pink) !important;
+}
+
+/* --- FIX LỖI TƯƠNG PHẢN MÀU SẮC TRONG DARK MODE --- */
+
+/* 1. Ép chữ, viền và bóng đổ về ĐEN TUYỀN cho các nút/nền sáng màu */
+body.dark-mode .btn-primary,
+body.dark-mode .btn-download,
+body.dark-mode .badge-wip,
+body.dark-mode .game-card-play-btn,
+body.dark-mode .genre-btn.active,
+body.dark-mode .nav-search:focus-within {
+  color: #000000 !important;
+  border-color: #000000 !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+}
+
+/* Đảm bảo các icon bên trong nút cũng màu đen */
+body.dark-mode .btn-primary i,
+body.dark-mode .btn-download i,
+body.dark-mode .game-card-play-btn i {
+  color: #000000 !important;
+}
+
+/* 2. Ép chữ về TRẮNG TUYỀN cho các tem nền Đậm (Đỏ, Xanh dương) */
+body.dark-mode .badge-new,
+body.dark-mode .badge-switch,
+body.dark-mode .badge-pc,
+body.dark-mode .badge-done {
+  color: #ffffff !important;
+  border-color: #000000 !important;
+}
+
+/* 3. Chỉnh lại màu cho Thẻ Thể loại (Genre tag) bên trong Game Card */
+body.dark-mode .game-card-genre {
+  background: #333333 !important; /* Đổi nền xám đậm */
+  color: #ffffff !important;      /* Chữ trắng */
+  border-color: var(--black) !important;
+}
+
+
+/* --- BỘ LỌC ĐA TẦNG (MULTI-LEVEL FILTER) --- */
+.filter-dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 40px;
+  background: var(--bg-card);
+  padding: 24px;
+  border: var(--border-solid);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 200px; /* Đảm bảo trên mobile rớt xuống dòng đẹp */
+}
+
+.filter-group label {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--black);
+  text-transform: uppercase;
+}
+
+.filter-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--black);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--black);
+  background-color: var(--white);
+  cursor: pointer;
+  box-shadow: inset 3px 3px 0 rgba(0,0,0,0.05);
+  transition: var(--transition);
+  
+  /* Xóa mũi tên mặc định và thay bằng SVG xịn hơn */
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2em;
+}
+
+.filter-select:focus, .filter-select:hover {
+  background-color: var(--accent-yellow);
+  box-shadow: 2px 2px 0 var(--black);
+  transform: translate(-2px, -2px);
+}
+
+/* Đảm bảo Dark Mode tương thích hoàn hảo */
+body.dark-mode .filter-group label {
+  color: var(--text-main);
+}
+body.dark-mode .filter-select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+body.dark-mode .filter-select:focus, 
+body.dark-mode .filter-select:hover {
+  color: #000 !important;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+
+
+/* ============================================================
+   HERO 2 CỘT + PREMIUM SHOWCASE (THUMBNAILS)
+   ============================================================ */
+
+/* 1. Ép lưới 2 cột, cấm tràn viền */
+.hero-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+  width: 100%;
+  max-width: 100%; /* Khóa chết chiều rộng */
+  position: relative; 
+  z-index: 10;
+}
+
+@media (min-width: 992px) {
+  .hero-grid-layout {
+    grid-template-columns: 1.1fr 0.9fr; /* Cột trái to hơn cột phải một chút */
+    text-align: left; /* Đẩy chữ sang trái */
+  }
+  
+  .hero-left-col .hero-title,
+  .hero-left-col .hero-sub,
+  .hero-left-col .hero-cta {
+    margin-left: 0;
+    margin-right: auto;
+    text-align: left;
+    justify-content: flex-start;
+  }
+  
+  .hero-left-col .hero-stats {
+    justify-content: flex-start; /* Đẩy số liệu sang trái */
+  }
+}
+
+/* Cấm các thành phần con phình to vượt quá cột */
+.hero-left-col, .hero-right-col {
+  min-width: 0; 
+}
+
+/* 2. Thiết kế Showcase có Thumbnails giống ảnh mẫu (ĐÃ FIX CHUẨN UX) */
+.premium-showcase {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 21 / 10; /* Mở rộng tỷ lệ một chút cho đỡ vuông */
+  border: 4px solid var(--black);
+  border-radius: var(--radius-lg);
+  box-shadow: 10px 10px 0 var(--black);
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.showcase-main-slides {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.p-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+
+.p-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.p-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top; /* Ưu tiên hiển thị mặt nhân vật ở nửa trên */
+}
+
+/* Kéo gradient cao lên để làm nền cho chữ và ảnh thu nhỏ */
+.p-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 7%, transparent 37%);
+  z-index: 3;
+}
+
+/* ĐẨY TOÀN BỘ CHỮ XUỐNG GÓC DƯỚI BÊN TRÁI */
+.p-slide-info {
+  position: absolute;
+  bottom: 109px; /* Nhường chỗ cho dải thumbnail bên dưới */
+  left: 24px;
+  right: 24px;
+  z-index: 4;
+  text-align: left;
+  transform: none; /* Xóa căn giữa */
+}
+
+.p-slide-info h3 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.5vw, 40px);
+  color: #fff;
+  text-shadow: 4px 4px 0 #000; /* Đổ bóng cứng cực ngầu */
+  margin-bottom: 16px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  display: none;
+}
+
+.p-btn-view {
+  display: inline-block;
+  background: var(--accent-yellow, #FECA57); /* Tone-sur-tone với web */
+  color: #000;
+  font-weight: 900;
+  padding: 5px 18px;
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0 #000;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.p-btn-view:hover {
+  background: #fff;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #000;
+}
+
+/* 3. Dải ảnh thu nhỏ (Thumbnails) */
+.showcase-thumbnails {
+  position: absolute;
+  bottom: 20px;
+  left: 24px; /* Căn thẳng hàng với chữ bên trên */
+  z-index: 5;
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 0;
+}
+
+.thumb-item {
+  width: 64px;
+  height: 77px; /* Đổi sang tỷ lệ nằm ngang như màn hình game */
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  opacity: 0.5;
+}
+
+.thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb-item.active {
+  border-color: var(--accent-yellow, #FECA57);
+  opacity: 1;
+  transform: scale(1.1);
+  box-shadow: 4px 4px 0 #000; /* Thêm bóng đổ đồng bộ */
+}
+
+.thumb-item:hover {
+  opacity: 1;
+}
+
+/* Đảm bảo Dark Mode viền trắng */
+body.dark-mode .premium-showcase {
+  border-color: #fff;
+  box-shadow: 10px 10px 0 rgba(255,255,255,0.1);
+}
+
+/* ============================================================
+   TINH CHỈNH: THU NHỎ CỘT TRÁI HERO (ÉP CÂN)
+   ============================================================ */
+
+/* 1. Thay đổi tỷ lệ lưới: Trái nhỏ đi (0.8fr), Phải to ra (1.2fr) */
+@media (min-width: 992px) {
+  .hero-grid-layout {
+    grid-template-columns: 0.8fr 1.2fr; 
+    gap: 30px; /* Thêm khoảng thở giữa 2 cột cho thoáng mắt */
+  }
+}
+
+/* 2. Thu nhỏ Tiêu đề siêu to khổng lồ */
+.hero-left-col .hero-title {
+  font-size: clamp(52px, 3.5vw, 48px); /* Chữ nhỏ gọn lại */
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+/* 3. Bóp gọn đoạn văn mô tả */
+.hero-left-col .hero-sub {
+  font-size: 15px; 
+  line-height: 1.6;
+  max-width: 90%; /* Không cho chữ chạy dài hết cột */
+  margin-bottom: 24px;
+}
+
+/* 4. Thu gọn nút bấm CTA */
+.hero-left-col .hero-cta {
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.hero-left-col .hero-cta .btn-primary,
+.hero-left-col .hero-cta .btn-outline {
+  padding: 10px 20px;
+  font-size: 13px;
+}
+
+/* 5. Ép cân cụm Thống kê (Stats) */
+.hero-left-col .hero-stats {
+  gap: 20px;
+}
+.hero-left-col .hero-stat-num {
+  font-size: 26px; /* Chữ số nhỏ đi */
+}
+.hero-left-col .hero-stat-label {
+  font-size: 11px; /* Nhãn nhỏ đi */
 }

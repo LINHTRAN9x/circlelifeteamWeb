@@ -51,7 +51,7 @@
 </head>
 <body>
   <script>if(localStorage.getItem('clt_theme') === 'dark') document.body.classList.add('dark-mode');</script>
-
+  
   <div id="ps5-loader" class="ps5-loader-screen">
   <div class="brutalist-loader-box">
     <div class="loader-content-inner">
@@ -113,43 +113,54 @@
     <div class="hero-bg-grid" aria-hidden="true"></div>
 
     <div class="container">
-      <div class="hero-content">
-        <div class="hero-eyebrow">
-          <div class="hero-eyebrow-dot"></div>
-          Circle Life Team
+      <div class="hero-grid-layout">
+        
+        <div class="hero-left-col">
+          
+
+          <h1 class="hero-title" id="hero-title">
+            Việt Hóa <span>Game PS4-PS5</span> Chất Lượng Cao
+          </h1>
+
+          <p class="hero-sub" id="hero-sub">
+            CircleLifeTeam – Đưa ngôn ngữ Việt vào từng tựa game PS4-PS5. Bản dịch chất lượng, cập nhật thường xuyên, hoàn toàn miễn phí.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#library" class="btn-primary">
+              <i class="fa-brands fa-playstation"></i> Xem Thư Viện Việt Hóa
+            </a>
+            <a href="#new-releases" class="btn-outline" id="hero-discord">
+              🔥 Mới Ra
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-num" id="stat-total">—</div>
+              <div class="hero-stat-label">Game Việt Hóa</div>
+            </div>
+            <div>
+              <div class="hero-stat-num" id="stat-done">—</div>
+              <div class="hero-stat-label">Hoàn Thành</div>
+            </div>
+            <div>
+              <div class="hero-stat-num" id="stat-new">—</div>
+              <div class="hero-stat-label">Mới Cập Nhật</div>
+            </div>
+          </div>
         </div>
 
-        <h1 class="hero-title" id="hero-title">
-          Việt Hóa <span>Game PS4-PS5</span> Chất Lượng Cao
-        </h1>
-
-        <p class="hero-sub" id="hero-sub">
-          CircleLifeTeam – Đưa ngôn ngữ Việt vào từng tựa game PS4-PS5. Bản dịch chất lượng, cập nhật thường xuyên, hoàn toàn miễn phí.
-        </p>
-
-        <div class="hero-cta">
-          <a href="#library" class="btn-primary">
-            <i class="fa-brands fa-playstation"></i> Xem Thư Viện Game Việt Hóa
-          </a>
-          <a href="#new-releases" class="btn-outline" id="hero-discord">
-            🔥 Việt Hóa Mới Ra
-          </a>
-        </div>
-
-        <div class="hero-stats">
-          <div>
-            <div class="hero-stat-num" id="stat-total">—</div>
-            <div class="hero-stat-label">Game Việt Hóa</div>
-          </div>
-          <div>
-            <div class="hero-stat-num" id="stat-done">—</div>
-            <div class="hero-stat-label">Hoàn Thành</div>
-          </div>
-          <div>
-            <div class="hero-stat-num" id="stat-new">—</div>
-            <div class="hero-stat-label">Mới Cập Nhật</div>
+        <div class="hero-right-col">
+          <div class="premium-showcase" id="premium-showcase">
+            <div class="showcase-main-slides" id="showcase-main-slides">
+               </div>
+            
+            <div class="showcase-thumbnails" id="showcase-thumbnails">
+               </div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -195,7 +206,44 @@
       </div>
 
       <!-- Genre Filter -->
-      <div class="genre-filter" id="genre-filter" role="group" aria-label="Filter by genre"></div>
+      <div class="filter-dashboard" id="filter-dashboard">
+        <div class="filter-group">
+          <label for="filter-genre">Thể Loại</label>
+          <select id="filter-genre" class="filter-select">
+            <option value="all">Tất Cả</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="filter-platform">Nền Tảng</label>
+          <select id="filter-platform" class="filter-select">
+            <option value="all">Tất Cả</option>
+            <option value="PS5">PS5</option>
+            <option value="PS4">PS4</option>
+            <option value="Nintendo Switch">Nintendo Switch</option>
+            <option value="PC">PC</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-status">Tiến Độ</label>
+          <select id="filter-status" class="filter-select">
+            <option value="all">Tất Cả</option>
+            <option value="done">Hoàn Thành 100%</option>
+            <option value="wip">Đang Dịch</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-sort">Sắp Xếp</label>
+          <select id="filter-sort" class="filter-select">
+            <option value="rating">Đánh Giá Cao Nhất</option>
+            <option value="newest">Mới Cập Nhật</option>
+            <option value="a-z">Tên A - Z</option>
+            
+          </select>
+        </div>
+      </div>
 
       <!-- Games Grid -->
       <div class="games-grid" id="all-games-grid" role="list" aria-label="Game library">

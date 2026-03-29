@@ -220,7 +220,7 @@ async function editGame(id) {
 
 function fillGameForm(game) {
   const fields = ['id', 'slug', 'title', 'titleVi', 'description', 'descriptionVi',
-    'coverImage', 'youtubeId', 'downloadLink', 'genre', 'platform', 'releaseDate',
+    'coverImage','bannerImage', 'youtubeId', 'downloadLink', 'genre', 'platform', 'releaseDate',
     'version', 'translator', 'status', 'rating'];
   fields.forEach(f => {
     const el = document.getElementById(`form-${f}`);
@@ -252,6 +252,7 @@ async function saveGameFromForm() {
     description: document.getElementById('form-description').value.trim(),
     descriptionVi: document.getElementById('form-descriptionVi').value.trim(),
     coverImage: document.getElementById('form-coverImage').value.trim(),
+    bannerImage: document.getElementById('form-bannerImage')?.value.trim(),
     images: document.getElementById('form-images').value.trim().split('\n').map(s => s.trim()).filter(Boolean),
     youtubeId: document.getElementById('form-youtubeId').value.trim(),
     downloadLink: document.getElementById('form-downloadLink').value.trim(),
