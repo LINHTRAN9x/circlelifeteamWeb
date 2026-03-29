@@ -933,7 +933,7 @@ body.dark-mode .filter-select:hover {
 .premium-showcase {
   position: relative;
   width: 100%;
-  aspect-ratio: 21 / 10; /* Mở rộng tỷ lệ một chút cho đỡ vuông */
+  aspect-ratio: 18 / 10; /* Mở rộng tỷ lệ một chút cho đỡ vuông */
   border: 4px solid var(--black);
   border-radius: var(--radius-lg);
   box-shadow: 10px 10px 0 var(--black);
