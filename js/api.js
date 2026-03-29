@@ -51,25 +51,31 @@ const API = (() => {
 
   // Ghi dữ liệu lên Firebase (chỉ admin có SECRET mới ghi được)
   async function saveData(data) {
-    if (CONFIG.FIREBASE_DB_URL === "https://ten-du-an-cua-ban.firebaseio.com") {
-      cachedData = data;
-      return true;
-    }
-
-    try {
-      const res = await fetch(`${CONFIG.FIREBASE_DB_URL}/.json?auth=${CONFIG.FIREBASE_SECRET}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+  try {
+    // Chờ Firebase Auth load xong (tránh race condition)
+    const user = await new Promise((resolve) => {
+      const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+        unsubscribe();
+        resolve(user);
       });
-      if (!res.ok) throw new Error("Save failed");
-      cachedData = data;
-      return true;
-    } catch (e) {
-      console.error("Save error:", e);
-      return false;
-    }
+    });
+
+    if (!user) throw new Error("Chưa đăng nhập Firebase");
+    const token = await user.getIdToken();
+
+    const res = await fetch(`${CONFIG.FIREBASE_DB_URL}/.json?auth=${token}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) throw new Error("Save failed");
+    cachedData = data;
+    return true;
+  } catch (e) {
+    console.error("Save error:", e);
+    return false;
   }
+}
 
   function clearCache() { 
     cachedData = null; 

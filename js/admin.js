@@ -18,16 +18,36 @@ document.addEventListener('DOMContentLoaded', () => {
 function isLoggedIn() {
   return sessionStorage.getItem(ADMIN_SESSION_KEY) === 'authenticated';
 }
-function login(pass) {
+async function login(pass) {
   const hash = md5(pass);
+  
+  let email = null;
+  let role = null;
+
   if (hash === CONFIG.ADMIN_PASS_HASH) {
-    sessionStorage.setItem(ADMIN_SESSION_KEY, 'authenticated');
-    return true;
+    email = "tranvanlinh99xx@gmail.com"; // tài khoản bạn tạo trong Firebase Auth
+    role = 'superadmin';
+  } else if (hash === CONFIG.EDITOR_PASS_HASH) {
+    email = "phuocle@gmail.com";
+    role = 'editor';
+  } else {
+    return false;
   }
-  return false;
+
+  try {
+    await firebase.auth().signInWithEmailAndPassword(email, pass);
+    sessionStorage.setItem(ADMIN_SESSION_KEY, 'authenticated');
+    sessionStorage.setItem('clt_admin_role', role);
+    return true;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
 }
 function logout() {
+  firebase.auth().signOut();
   sessionStorage.removeItem(ADMIN_SESSION_KEY);
+  sessionStorage.removeItem('clt_admin_role'); // ← thêm
   API.clearCache();
   showLogin();
 }
@@ -44,11 +64,11 @@ function showDashboard() {
 }
 
 // Login form
-document.getElementById('login-form')?.addEventListener('submit', e => {
+document.getElementById('login-form')?.addEventListener('submit', async e => {  // thêm async
   e.preventDefault();
   const pass = document.getElementById('admin-pass').value;
   const err = document.getElementById('login-error');
-  if (login(pass)) {
+  if (await login(pass)) {    // ✅ thêm await
     showDashboard();
     initDashboard();
   } else {
@@ -67,6 +87,10 @@ async function initDashboard() {
   initGameModal();
   initSettingsForm();
   initAdminSearch();
+
+  if (sessionStorage.getItem('clt_admin_role') === 'editor') {
+    document.querySelector('[data-target="settings"]')?.remove();
+  }
 }
 
 function initAdminSearch() {
@@ -288,6 +312,11 @@ async function saveGameFromForm() {
 }
 
 async function deleteGameConfirm(id, title) {
+
+  if (sessionStorage.getItem('clt_admin_role') === 'editor') { // ← thêm
+    showToast('Bạn không có quyền xóa game', 'error');          // ← thêm
+    return;                                                      // ← thêm
+  }  
   if (!confirm(`Bạn có chắc muốn xóa game "${title}"?`)) return;
   const ok = await API.deleteGame(id);
   if (ok) {
@@ -420,7 +449,7 @@ async function generateSitemap() {
     }
     
     xml += `  <url>\n`;
-    xml += `    <loc>${baseUrl}/game.html?id=${game.slug}</loc>\n`;
+    xml += `    <loc>${baseUrl}/share/${game.slug}</loc>\n`;
     xml += `    <lastmod>${lastMod}</lastmod>\n`;
     xml += `    <priority>0.8</priority>\n`;
     xml += `  </url>\n`;

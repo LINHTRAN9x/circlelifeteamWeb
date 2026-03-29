@@ -5,7 +5,16 @@
 
 const CONFIG = {
   FIREBASE_DB_URL: "https://circlelifeteam-default-rtdb.asia-southeast1.firebasedatabase.app",
-  FIREBASE_SECRET: "l6tLSy8F41yVd8bb1Vd10MCMRad89NaaSuERfPvd",
+  FIREBASE_CONFIG: {
+    apiKey: "AIzaSyCcXeRailJEvuGg4Der0cG7R09Yqoivwz0",
+    authDomain: "circlelifeteam.firebaseapp.com",
+    databaseURL: "https://circlelifeteam-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "circlelifeteam",
+    storageBucket: "circlelifeteam.firebasestorage.app",
+    messagingSenderId: "383212723921",
+    appId: "1:383212723921:web:b0e279b62bc1ae3ad2eff0",
+    measurementId: "G-7WJGDBEQG1"
+  },
 
   // Tên website
   SITE_NAME: "CircleLifeTeam",
@@ -13,9 +22,12 @@ const CONFIG = {
   SITE_DESCRIPTION: "Website việt hóa game PS5 hàng đầu Việt Nam – bản dịch chất lượng cao từ đội ngũ CircleLifeTeam",
   SITE_KEYWORDS: "game ps5 việt hóa, việt hóa ps5, bản dịch ps5, patch việt hóa, circlelifeteam, game ps5 tiếng việt, chép game việt hóa ps4 ps5, tải game việt hóa ps4",
 
-  ADMIN_PASS_HASH: "0d9bfb393d6aa97a2736a1876739d6c4",
+  ADMIN_PASS_HASH: "60f601c6ba77ed1cfabbdb9c1d79fd50",
+  EDITOR_PASS_HASH: "0d9bfb393d6aa97a2736a1876739d6c4",
   IMGBB_API_KEY: '39526b5bb4c2ef78855bd65a04ce9c3c'
 };
+
+firebase.initializeApp(CONFIG.FIREBASE_CONFIG);
 
 // Dữ liệu mẫu (fallback khi chưa có JSONBin)
 const SAMPLE_DATA = {
