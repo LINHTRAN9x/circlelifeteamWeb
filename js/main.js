@@ -381,6 +381,26 @@ function initSearch() {
   const navSearch = document.querySelector('.nav-search input');
   const searchIcon = document.querySelector('.nav-search-icon');
 
+  const menuSearchBtn = document.getElementById('menu-search-btn');
+
+  function openSearch(e) {
+    if(e) e.preventDefault(); // Chặn thẻ <a> nhảy trang lung tung
+    if (overlay) {
+      overlay.classList.add('open');
+      setTimeout(() => input?.focus(), 100);
+    }
+  }
+  function closeSearch() { overlay?.classList.remove('open'); }
+
+  navSearch?.addEventListener('focus', openSearch);
+  searchIcon?.addEventListener('click', openSearch);
+  
+  // THÊM: Bấm chữ Tìm kiếm trong menu sẽ mở bảng
+  menuSearchBtn?.addEventListener('click', openSearch);
+
+  closeBtn?.addEventListener('click', closeSearch);
+  overlay?.addEventListener('click', e => { if (e.target === overlay) closeSearch(); });
+
   function openSearch() {
     if (overlay) {
       overlay.classList.add('open');

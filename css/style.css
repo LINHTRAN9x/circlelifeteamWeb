@@ -1376,3 +1376,17 @@ body.dark-mode .dropzone-area.dragover {
   .about-grid { grid-template-columns: 1fr !important; gap: 24px; }
   .team-grid { grid-template-columns: 1fr 1fr !important; }
 }
+
+
+/* ============================================================
+   NÚT TÌM KIẾM TRONG MENU MOBILE
+   ============================================================ */
+.mobile-only-search {
+  display: none; /* Mặc định ẨN trên PC */
+}
+
+@media (max-width: 768px) {
+  .mobile-only-search {
+    display: block; /* Chỉ hiện trên Điện thoại/Tablet */
+  }
+}
