@@ -1161,3 +1161,214 @@ body.dark-mode .dropzone-area.dragover {
   background: var(--accent-yellow, #FECA57);
   color: #000;
 }
+
+
+
+/* ============================================================
+   MOBILE RESPONSIVE FIX — Thêm vào cuối style.css
+   ============================================================ */
+
+/* ── 480px: Điện thoại nhỏ ── */
+@media (max-width: 480px) {
+
+  /* Container padding */
+  .container { padding: 0 16px; }
+
+  .nav-logo{
+    font-size: 19px!important;
+  }
+
+  .nav-admin-btn{
+    margin-left: 3px!important;
+    padding: 8px 13px!important;
+  }
+
+  .p-btn-view{
+    font-weight: 900;
+    font-size: 13px;
+    padding: 0px 6px;
+  }
+
+  .showcase-thumbnails{
+    bottom: 4px;
+    left: 9px;
+    z-index: 5;
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .thumb-item{
+    width: 49px;
+    height: 62px;
+  }
+
+  .p-slide-info{
+    bottom: 73px;
+    left: 8px;
+    right: 24px;
+  }
+
+  .new-card{
+    width: 120px;
+  }
+
+  .section-link{
+    display: none;
+  }
+
+  .badge{
+    padding: 1px 3px;
+  }
+
+  .badge-new{
+    font-size: 9px;
+  }
+
+  .badge-switch{
+    font-size: 9px;
+  }
+
+  .filter-group{
+    display: flex;
+    flex-direction: row!important;
+    gap: 4px;
+    flex: 1;
+    min-width: 160px;
+  }
+  #library-title.section-title::before{
+        width: 28px!important;
+          height: 19px!important;
+      }
+  .game-card-play-btn{
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+
+  .filter-select{
+    font-size: 13px;
+  }
+
+  .filter-group label{
+    font-size: 11px;
+  }
+  
+
+  /* ── HERO ── */
+  .hero { min-height: auto; }
+  .hero-content { padding: 40px 0 32px; }
+  .hero-title {
+    font-size: 28px !important;
+    -webkit-text-stroke: 1.5px var(--black);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    word-break: break-word;
+    margin-top: 10px;
+  }
+  .hero-sub { font-size: 14px; padding: 12px; margin-bottom: 24px; }
+  .hero-eyebrow { font-size: 11px; padding: 6px 14px; margin-bottom: 16px; }
+  .hero-cta { flex-direction: column; gap: 10px; }
+  .hero-cta .btn-primary,
+  .hero-cta .btn-outline { width: 100%; justify-content: center; padding: 12px 20px; font-size: 14px; }
+  .hero-stats { gap: 16px; flex-wrap: wrap; margin-top: 24px; padding-top: 20px; }
+  .hero-stat-num { font-size: 28px; }
+  .hero-stat-label { font-size: 10px; padding: 3px 6px; }
+
+  /* ── SECTIONS ── */
+  .section { padding: 40px 0; }
+  .section-title { font-size: 20px; gap: 10px; }
+  .section-title::before { width: 18px; height: 18px; }
+  .section-header { margin-bottom: 24px; }
+  .section-link { font-size: 12px; padding: 6px 12px; }
+
+  /* ── GAME CARDS GRID ── */
+  .games-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .games-grid-lg { grid-template-columns: 1fr 1fr; }
+  .game-card-title { font-size: 14px; }
+  .game-card-title-vi { font-size: 11px; }
+  .game-card-body { padding: 12px; }
+
+  /* ── NEW RELEASES CAROUSEL ── */
+  .new-releases-track { gap: 12px; }
+  .new-card { min-width: 160px; }
+  .new-card-title { font-size: 12px; }
+
+  /* ── GENRE FILTERS ── */
+  .genre-filters { gap: 8px; }
+  .genre-btn { padding: 8px 14px; font-size: 12px; }
+
+  /* ── GAME DETAIL PAGE ── */
+  .game-detail-hero { padding: 0; }
+  .game-detail-title {
+    font-size: 24px !important;
+    -webkit-text-stroke: 1px var(--black);
+  }
+  .game-detail-title-vi { font-size: 14px; }
+  .game-detail-meta-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .game-detail-actions { flex-direction: column; gap: 10px; }
+  .game-detail-actions a { width: 100%; justify-content: center; }
+  .btn-download { padding: 12px 20px; font-size: 14px; }
+
+  /* ── LIBRARY PAGE ── */
+  .library-layout { grid-template-columns: 1fr !important; }
+  .library-filters { position: static !important; }
+
+  /* ── FOOTER ── */
+  .footer { padding: 32px 0 20px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+
+  /* ── BUTTONS ── */
+  .btn-primary, .btn-outline { padding: 10px 18px; font-size: 13px; }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb { font-size: 12px; flex-wrap: wrap; }
+}
+
+/* ── 768px: Tablet ── */
+@media (max-width: 768px) {
+
+  /* ── HERO ── */
+  .hero-title {
+    font-size: clamp(28px, 7vw, 44px) !important;
+    -webkit-text-stroke: 1.5px var(--black);
+  }
+  .hero-content { padding: 48px 0 40px; }
+  .hero-stats { gap: 20px; }
+
+  .nav-logo{
+    font-size: 19px!important;
+  }
+
+  .nav-admin-btn{
+    margin-left: 3px!important;
+    padding: 8px 13px!important;
+  }
+
+
+  /* ── SECTIONS ── */
+  .section-title { font-size: 22px; }
+
+  /* ── GAME CARDS ── */
+  .games-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr))!important; gap: 16px; }
+
+  /* ── GAME DETAIL ── */
+  .game-detail-cover { max-width: 200px; margin: 0 auto; }
+  .game-detail-info { text-align: left; }
+
+  /* ── ADMIN STATS ── */
+  .admin-stats-grid { grid-template-columns: 1fr 1fr; }
+  .admin-stat-num { font-size: 28px; }
+
+  /* ── MODAL ── */
+  .modal-content { 
+    width: 95vw; 
+    max-height: 90vh; 
+    overflow-y: auto;
+    margin: 20px auto;
+  }
+  .form-row { grid-template-columns: 1fr; }
+
+  /* ── ABOUT / INFO SECTIONS ── */
+  .about-grid { grid-template-columns: 1fr !important; gap: 24px; }
+  .team-grid { grid-template-columns: 1fr 1fr !important; }
+}
