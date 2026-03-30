@@ -449,7 +449,7 @@ async function generateSitemap() {
     }
     
     xml += `  <url>\n`;
-    xml += `    <loc>${baseUrl}/share/${game.slug}</loc>\n`;
+    xml += `    <loc>${baseUrl}/game.html?id=${game.slug}</loc>\n`;
     xml += `    <lastmod>${lastMod}</lastmod>\n`;
     xml += `    <priority>0.8</priority>\n`;
     xml += `  </url>\n`;
