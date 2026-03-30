@@ -17,7 +17,6 @@ const API = (() => {
 
     if (!isAdmin && localData && cacheTime && (now - cacheTime < 3 * 60 * 1000)) {
       cachedData = JSON.parse(localData);
-      console.log("🚀 Dùng dữ liệu từ Cache");
       return cachedData;
     }
 
