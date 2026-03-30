@@ -1252,6 +1252,10 @@ body.dark-mode .dropzone-area.dragover {
   .filter-group label{
     font-size: 11px;
   }
+
+  .lybraBlock{
+    display: none;
+  }
   
 
   /* ── HERO ── */
@@ -1349,10 +1353,10 @@ body.dark-mode .dropzone-area.dragover {
   .section-title { font-size: 22px; }
 
   /* ── GAME CARDS ── */
-  .games-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr))!important; gap: 16px; }
+  .games-grid { gap: 16px; }
 
   /* ── GAME DETAIL ── */
-  .game-detail-cover { max-width: 200px; margin: 0 auto; }
+  .game-detail-cover { max-width: 200px; margin: 8px auto; }
   .game-detail-info { text-align: left; }
 
   /* ── ADMIN STATS ── */
