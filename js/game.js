@@ -206,8 +206,8 @@ function updateSEO(game) {
   if (canonical) canonical.href = `${CONFIG.SITE_URL}/share/${game.slug}`;
 
   // Update breadcrumb text trên giao diện HTML
-  const bcGame = document.getElementById('bc-game');
-  if (bcGame) bcGame.textContent = game.title;
+  // const bcGame = document.getElementById('bc-game');
+  // if (bcGame) bcGame.textContent = game.title;
 }
 
 function setMeta(name, content) {
@@ -223,6 +223,52 @@ function setOG(prop, content) {
 
 // ── Render Game Detail ──
 function renderGameDetail(game) {
+  // ==========================================================
+  // ── XỬ LÝ BREADCRUMB ĐỘNG (Dựa trên lịch sử duyệt web) ──
+  // ==========================================================
+  const breadcrumbNav = document.querySelector('.breadcrumb');
+  if (breadcrumbNav) {
+    let parentName = '';
+    let parentLink = '';
+
+    // 1. Cố gắng đọc xem người dùng vừa từ trang Category nào chui vào
+    if (document.referrer) {
+      try {
+        const refUrl = new URL(document.referrer);
+        if (refUrl.pathname.includes('category.html')) {
+          const params = new URLSearchParams(refUrl.search);
+          if (params.get('platform')) {
+            parentName = `Game ${params.get('platform')}`;
+            parentLink = `/category.html${refUrl.search}`;
+          } else if (params.get('genre')) {
+            parentName = `Game ${params.get('genre')}`;
+            parentLink = `/category.html${refUrl.search}`;
+          } else if (params.get('tag')) {
+            parentName = `#${params.get('tag')}`;
+            parentLink = `/category.html${refUrl.search}`;
+          }
+        }
+      } catch(e) {}
+    }
+
+    // 2. Nếu không đi từ category (vào thẳng từ Trang chủ hoặc Google)
+    // -> Tự động lấy hệ máy đầu tiên của game làm danh mục cha
+    if (!parentName) {
+      const primaryPlatform = (game.platform || 'PS5').split(',')[0].trim();
+      parentName = `Game ${primaryPlatform}`;
+      parentLink = `/category.html?platform=${encodeURIComponent(primaryPlatform)}`;
+    }
+
+    // 3. Vẽ lại thanh điều hướng
+    breadcrumbNav.innerHTML = `
+      <a href="/"><i class="fa-solid fa-house"></i> Trang Chủ</a>
+      <span aria-hidden="true">›</span>
+      <a href="${parentLink}">${parentName}</a>
+      <span aria-hidden="true">›</span>
+      <span id="bc-game" aria-current="page">${game.title}</span>
+    `;
+  }
+  // ==========================================================
   // Background blur
   const bg = document.getElementById('game-detail-bg');
   if (bg && game.coverImage) bg.style.backgroundImage = `url(${game.coverImage})`;
