@@ -1548,7 +1548,3 @@ body.dark-mode .toc-list a:hover {
 }
 
 /* 2. Tăng tốc độ Render màn hình ban đầu (Chỉ dựng hình những thẻ game nằm trong tầm nhìn) */
-.games-grid {
-  content-visibility: auto;
-  contain-intrinsic-size: 800px; /* Ước lượng chiều cao tạm để không mất scrollbar */
-}
