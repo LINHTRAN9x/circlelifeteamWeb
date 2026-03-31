@@ -96,8 +96,9 @@ async function loadCategoryData(platform, genre, tag) {
 
 // Hàm render Game Card chuẩn Neo-Brutalist (bê nguyên từ main.js)
 function gameCardHTML(game, extraClass = '') {
+  // 1. Đã fix lỗi mất dấu '"> ở cuối thẻ img
   const img = game.coverImage
-    ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\"game-card-thumb-placeholder\\"><span>🎮</span><p>No Image</p></div>>`
+    ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'game-card-thumb-placeholder\\'><span>🎮</span><p>No Image</p></div>'">`
     : '<div class="game-card-thumb-placeholder"><span>🎮</span><p>No Image</p></div>';
 
   const badgeNew = game.isNew ? '<span class="badge badge-new">🔥 Mới</span>' : '';
@@ -123,12 +124,12 @@ function gameCardHTML(game, extraClass = '') {
     ? `<div class="game-card-desc">${game.descriptionVi}</div>`
     : '';
     
-  // Nút bấm bên trong Card đổi từ <a> thành <span> để HTML hợp lệ
+  // Nút xem chi tiết (khi là game nổi bật) đổi thành thẻ span để không lỗi HTML
   const ctaHTML = isFeatured
     ? `<span class="btn-primary" style="font-size:13px;padding:10px 20px">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></span>`
     : '';
 
-  // Đổi thẻ bao quanh ngoài cùng thành <a>
+  // 2. Đã đổi thẻ bao quanh ngoài cùng từ <div onclick="..."> thành <a href="...">
   return `
     <a href="/game.html?id=${game.slug}" class="game-card ${extraClass}" data-slug="${game.slug}">
       <div class="game-card-thumb">
