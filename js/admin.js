@@ -5,6 +5,69 @@
 
 const ADMIN_SESSION_KEY = 'clt_admin_token';
 
+
+const FIXED_TAGS = [
+  // ── Thể loại gốc (Việt hóa) ──
+  "Thế Giới Mở", "Souls-like", "Kinh Dị", "Sinh Tồn",
+  "Cốt Truyện Hay", "Giải Đố", "Co-op", "Nhập Vai",
+  "Đồ họa Pixel", "Gia Đình", "Anime", "Thể Thao",
+
+  // ── Action / Combat ──
+  "Action", "Beat 'em Up", "Fighting", "Hack and Slash",
+  "Metroidvania", "Roguelike", "Shoot 'em Up", "Bullet Hell",
+  "Tower Defense", "Stealth", "Battle Royale",
+
+  // ── Shooter ──
+  "First-Person Shooter", "Third-Person Shooter", "Tactical Shooter",
+  "Hero Shooter", "Looter Shooter",
+
+  // ── Role-Playing ──
+  "RPG", "JRPG", "MMORPG", "CRPG", "Dungeon Crawler",
+  "Tactical RPG", "Deck Builder",
+
+  // ── Strategy ──
+  "Real-Time Strategy", "Turn-Based Strategy", "Grand Strategy",
+  "4X", "City Builder", "Colony Sim", "Auto Battler", "Wargame",
+
+  // ── Simulation / Management ──
+  "Life Sim", "Farming Sim", "Flight Sim", "Driving Sim",
+  "Space Sim", "Tycoon", "Sandbox", "God Game",
+
+  // ── Adventure / Narrative ──
+  "Adventure", "Point and Click", "Visual Novel",
+  "Walking Simulator", "Interactive Fiction",
+
+  // ── Puzzle ──
+  "Physics Puzzle", "Logic Puzzle", "Escape Room", "Hidden Object",
+
+  // ── Platformer ──
+  "2D Platformer", "3D Platformer", "Precision Platformer", "Run and Gun",
+
+  // ── Horror ──
+  "Survival Horror", "Psychological Horror",
+
+  // ── Sports / Racing ──
+  "Racing", "Soccer", "Basketball", "Baseball", "Motorsport",
+  "Skateboarding", "Fishing",
+
+  // ── Multiplayer / Social ──
+  "PvP", "PvE", "Local Co-op", "Party Game",
+  "Social Deduction", "Asymmetric",
+
+  // ── Casual / Indie ──
+  "Casual", "Indie", "Cozy", "Idle / Clicker", "Endless Runner",
+
+  // ── Music / Rhythm ──
+  "Rhythm", "Dance",
+
+  // ── Setting / Theme ──
+  "Sci-Fi", "Fantasy", "Cyberpunk", "Post-Apocalyptic",
+  "Steampunk", "Historical", "Mythology", "Noir", "Western",
+
+  // ── Other ──
+  "Crafting", "Exploration", "Extraction Shooter",
+  "Card Game", "Board Game", "Educational", "VR",
+];
 document.addEventListener('DOMContentLoaded', () => {
   if (isLoggedIn()) {
     showDashboard();
@@ -223,6 +286,46 @@ function initGameModal() {
     e.preventDefault();
     await saveGameFromForm();
   });
+
+
+  const tagContent = document.getElementById('tag-dropdown-content');
+  const tagBtn = document.getElementById('tag-dropdown-btn');
+
+  // In danh sách checkbox từ FIXED_TAGS
+  if (tagContent) {
+    tagContent.innerHTML = FIXED_TAGS.map(tag => `
+      <label class="tag-cb-label">
+        <input type="checkbox" value="${tag}" name="game_tags"> ${tag}
+      </label>
+    `).join('');
+  }
+
+  // Xử lý bật/tắt dropdown
+  tagBtn?.addEventListener('click', () => {
+    const isHidden = tagContent.style.display === 'none';
+    tagContent.style.display = isHidden ? 'flex' : 'none';
+  });
+
+  // Đóng dropdown khi click ra ngoài
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.custom-multi-select')) {
+      if(tagContent) tagContent.style.display = 'none';
+    }
+  });
+
+  // Cập nhật text trên nút khi tick chọn
+  document.querySelectorAll('input[name="game_tags"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const selected = Array.from(document.querySelectorAll('input[name="game_tags"]:checked')).map(el => el.value);
+      const textEl = document.getElementById('selected-tags-text');
+      if (selected.length > 0) {
+        // Rút gọn text nếu chọn nhiều quá (VD: Thế Giới Mở, +2 tags)
+        textEl.textContent = selected.length > 2 ? `${selected[0]}, +${selected.length - 1} tags` : selected.join(', ');
+      } else {
+        textEl.textContent = 'Chọn tags...';
+      }
+    });
+  });
 }
 
 function resetGameForm() {
@@ -262,6 +365,17 @@ function fillGameForm(game) {
       if (cb) cb.checked = true;
     });
   }
+
+  // (Bên dưới đoạn load platform cũ)
+  document.querySelectorAll('input[name="game_tags"]').forEach(cb => cb.checked = false);
+  if (game.tags && Array.isArray(game.tags)) {
+    game.tags.forEach(t => {
+      const cb = document.querySelector(`input[name="game_tags"][value="${t}"]`);
+      if(cb) cb.checked = true;
+    });
+  }
+  // Kích hoạt thủ công 1 event để cập nhật lại chữ trên nút Dropdown
+  document.querySelector('input[name="game_tags"]')?.dispatchEvent(new Event('change'));
 }
 
 async function saveGameFromForm() {
@@ -289,6 +403,7 @@ async function saveGameFromForm() {
     rating: parseInt(document.getElementById('form-rating').value) || 0,
     isNew: document.getElementById('form-isNew').checked,
     isFeatured: document.getElementById('form-isFeatured').checked,
+    tags: Array.from(document.querySelectorAll('input[name="game_tags"]:checked')).map(cb => cb.value),
     updatedAt: Date.now(),
   };
 
@@ -426,49 +541,54 @@ window.deleteGameConfirm = deleteGameConfirm;
 // Hàm tự động tạo nội dung Sitemap từ dữ liệu thực tế (ĐÃ UPDATE CHUẨN SEO)
 async function generateSitemap() {
   const games = await API.getGames();
-  // Loại bỏ dấu gạch chéo ở cuối baseUrl (nếu có) để tránh bị lỗi 2 dấu gạch //
   const baseUrl = CONFIG.SITE_URL.replace(/\/$/, ''); 
   const today = new Date().toISOString().split('T')[0];
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
-  // 1. Thêm trang chủ (Đã bỏ đuôi index.html)
+  // 1. Trang chủ
   xml += `  <url>\n    <loc>${baseUrl}/</loc>\n    <lastmod>${today}</lastmod>\n    <priority>1.0</priority>\n  </url>\n`;
 
-  // 2. Thêm danh sách game (Đã dùng link /share/ siêu ngắn)
+  // ---- THÊM MỚI: TẠO LINK CHUYÊN MỤC SEO ----
+  // Lọc ra các Thể loại và Hệ máy không trùng lặp
+  const genres = [...new Set(games.map(g => g.genre).filter(Boolean))];
+  const platforms = [...new Set(games.flatMap(g => (g.platform || 'PS5').split(',').map(p => p.trim())))];
+
+  // Link các hệ máy (PS5, PS4, PC...)
+  platforms.forEach(p => {
+    // encodeURIComponent để biến khoảng trắng (Nintendo Switch) thành %20 hợp lệ cho XML
+    xml += `  <url>\n    <loc>${baseUrl}/category.html?platform=${encodeURIComponent(p)}</loc>\n    <priority>0.9</priority>\n  </url>\n`;
+  });
+
+  // Link các thể loại (RPG, Action...)
+  genres.forEach(g => {
+    xml += `  <url>\n    <loc>${baseUrl}/category.html?genre=${encodeURIComponent(g)}</loc>\n    <priority>0.8</priority>\n  </url>\n`;
+  });
+  // ------------------------------------------
+
+  // 2. Link từng trang Game chi tiết
   games.forEach(game => {
-    // Ép kiểu ngày phát hành về đúng chuẩn YYYY-MM-DD của Google
     let lastMod = today;
     if (game.releaseDate) {
-      try {
-        lastMod = new Date(game.releaseDate).toISOString().split('T')[0];
-      } catch (e) {
-        lastMod = today; // Nếu ngày bị lỗi thì lấy ngày hôm nay
-      }
+      try { lastMod = new Date(game.releaseDate).toISOString().split('T')[0]; } 
+      catch (e) { lastMod = today; }
     }
-    
     xml += `  <url>\n`;
     xml += `    <loc>${baseUrl}/game.html?id=${game.slug}</loc>\n`;
     xml += `    <lastmod>${lastMod}</lastmod>\n`;
-    xml += `    <priority>0.8</priority>\n`;
+    xml += `    <priority>0.7</priority>\n`;
     xml += `  </url>\n`;
   });
 
   xml += `</urlset>`;
 
-  // Hiển thị ra console để dễ debug
-  console.log("%c--- NỘI DUNG SITEMAP.XML CHUẨN SEO ---", "color: #009AC7; font-weight: bold;");
-  console.log(xml);
-  
-  // Tự động tải file về máy
   const blob = new Blob([xml], { type: 'text/xml' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = 'sitemap.xml';
   link.click();
-  
-  showToast('Đã tạo và tải xuống sitemap.xml chuẩn SEO mới!', 'success');
+  showToast('Đã tạo sitemap.xml có kèm link Danh mục SEO!', 'success');
 }
 
 

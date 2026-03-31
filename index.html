@@ -48,6 +48,8 @@
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="icon" type="image/svg+xml" href="logo.png">
+  <link rel="preconnect" href="https://circlelifeteam-default-rtdb.asia-southeast1.firebasedatabase.app" crossorigin>
+  <link rel="preconnect" href="https://i.ibb.co" crossorigin>
 </head>
 <body>
   <script>if(localStorage.getItem('clt_theme') === 'dark') document.body.classList.add('dark-mode');</script>
@@ -310,10 +312,10 @@
       <div>
         <div class="footer-col-title">Thể Loại</div>
         <ul class="footer-links" id="footer-genres">
-          <li><a href="#library">Action-Adventure</a></li>
-          <li><a href="#library">RPG</a></li>
-          <li><a href="#library">Action RPG</a></li>
-          <li><a href="#library">Sports</a></li>
+          <li><a href="category.html?genre=Action-Adventure">Game Action-Adventure</a></li>
+          <li><a href="category.html?platform=PC">Game PC</a></li>
+          <li><a href="category.html?platform=PS5">Game PS5 Việt Hóa</a></li>
+          <li><a href="category.html?platform=Nintendo Switch">Game Switch Việt Hóa</a></li>
         </ul>
       </div>
 
@@ -351,12 +353,12 @@
 <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
 <!-- SCRIPTS -->
- <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
- <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
-<script src="js/config.js"></script>
-<script src="js/api.js"></script>
-<script src="js/main.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js" defer></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js" defer></script>
+<script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js" defer></script>
+<script src="js/config.js" defer></script>
+<script src="js/api.js" defer></script>
+<script src="js/main.js" defer></script>
 
 </body>
 </html>

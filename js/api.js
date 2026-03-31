@@ -2,6 +2,7 @@
 //  CircleLifeTeam — api.js
 //  Xử lý gọi API Firebase
 // ============================================================
+// Danh sách các tags cố định do admin tự quy định (Bác có thể thêm bớt tùy ý)
 
 const API = (() => {
   let cachedData = null;

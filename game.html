@@ -43,6 +43,8 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="icon" type="image/svg+xml" href="/logo.png">
+  <link rel="preconnect" href="https://circlelifeteam-default-rtdb.asia-southeast1.firebasedatabase.app" crossorigin>
+  <link rel="preconnect" href="https://i.ibb.co" crossorigin>
 </head>
 <body>
   <script>if(localStorage.getItem('clt_theme') === 'dark') document.body.classList.add('dark-mode');</script>
@@ -134,6 +136,13 @@
 
   <!-- DESCRIPTION + MEDIA -->
   <div class="container">
+    <div class="toc-wrapper" id="toc-container" style="margin-top: 40px; display: none;" aria-label="Table of Contents">
+      <div class="toc-title">
+        <i class="fa-solid fa-list-ul" style="color: var(--accent-red);"></i> NỘI DUNG CHÍNH
+      </div>
+      <ul class="toc-list" id="toc-list" role="list">
+        </ul>
+    </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:48px 0" class="game-detail-two-col">
 
       <!-- Left: Description -->
@@ -179,6 +188,29 @@
       <a href="#" class="btn-download" id="download-btn-2" aria-label="Download Vietnamese patch">
         <i class="fa-solid fa-download"></i> Tải Ngay
       </a>
+    </section>
+    <section style="padding-bottom:48px" aria-labelledby="faq-title">
+      <h2 style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--black);text-transform:uppercase;letter-spacing:.5px;margin-bottom:20px;display:flex;align-items:center;gap:10px" id="faq-title">
+        <span style="display:block;width:4px;height:20px;background:linear-gradient(180deg,var(--blue-vivid),var(--cyan-accent));border-radius:2px"></span>
+        Hỏi đáp nhanh (FAQ)
+      </h2>
+      
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="background: var(--white); border: 2px solid var(--black); border-radius: var(--radius-md); padding: 16px; box-shadow: 4px 4px 0 var(--black);">
+          <h3 style="font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 8px;">Bản việt hóa này chơi được trên máy nào?</h3>
+          <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">Hiện tại bản việt hóa này hỗ trợ trên các hệ máy như đã niêm yết ở trên. Bạn cần làm theo hướng dẫn cài đặt của CircleLifeTeam để trải nghiệm game.</p>
+        </div>
+        
+        <div style="background: var(--white); border: 2px solid var(--black); border-radius: var(--radius-md); padding: 16px; box-shadow: 4px 4px 0 var(--black);">
+          <h3 style="font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 8px;">Patch tiếng Việt do ai thực hiện?</h3>
+          <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">Bản dịch này được thực hiện bởi nhóm CircleLifeTeam cùng các cộng tác viên với chất lượng cao nhất.</p>
+        </div>
+
+        <div style="background: var(--white); border: 2px solid var(--black); border-radius: var(--radius-md); padding: 16px; box-shadow: 4px 4px 0 var(--black);">
+          <h3 style="font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 8px;">Tiến độ việt hóa đến đâu rồi?</h3>
+          <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">Vui lòng xem trạng thái "Tiến độ" ở phần thông tin game phía trên để biết % hoàn thành mới nhất.</p>
+        </div>
+      </div>
     </section>
   </div>
 

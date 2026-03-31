@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh Sách Game Việt Hóa | CircleLifeTeam</title>
+
+  <meta name="description" content="Tổng hợp danh sách game việt hóa chất lượng cao từ CircleLifeTeam.">
+  <meta name="keywords" content="game việt hóa, tải game tiếng việt, circlelifeteam">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" id="canonical" href="https://circlelifeteam.top/category.html">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/svg+xml" href="logo.png">
+  <link rel="preconnect" href="https://circlelifeteam-default-rtdb.asia-southeast1.firebasedatabase.app" crossorigin>
+  <link rel="preconnect" href="https://i.ibb.co" crossorigin>
+</head>
+<body>
+  <script>if(localStorage.getItem('clt_theme') === 'dark') document.body.classList.add('dark-mode');</script>
+
+  <div class="wiiu-deco"></div>
+  <div class="wiiu-deco-2"></div>
+
+  <nav class="navbar" role="navigation">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><img class="logo-icon" src="logo.png" alt=""></div>
+      <span>Circle<span>Life</span>Team</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li class="mobile-only-search"><a href="#" id="menu-search-btn"><i class="fa-solid fa-magnifying-glass"></i> Tìm Kiếm</a></li>
+      <li><a href="index.html">Trang Chủ</a></li>
+      <li><a href="category.html?platform=PS5">Game PS5</a></li>
+      <li><a href="category.html?platform=Nintendo Switch">Game Switch</a></li>
+      <li><a href="category.html?platform=PC">Game PC</a></li>
+    </ul>
+
+    <div class="nav-spacer"></div>
+
+    <div class="nav-search" role="search">
+      <span class="nav-search-icon" aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Tìm game việt hóa... (Ctrl+K)" id="nav-search-input">
+    </div>
+
+    <button id="theme-toggle" class="btn-outline" style="padding: 8px; margin-left: 16px; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+
+    <a href="admin.html" class="nav-admin-btn"><i class="fa-solid fa-gear"></i></a>
+    <button class="nav-mobile-toggle">☰</button>
+  </nav>
+
+  <main class="page" id="top">
+    <div class="container">
+      
+      <nav class="breadcrumb" aria-label="Breadcrumb" style="padding-top: 24px;">
+        <a href="index.html"><i class="fa-solid fa-house"></i> Trang Chủ</a>
+        <span aria-hidden="true">›</span>
+        <span id="bc-category" aria-current="page">Danh mục...</span>
+      </nav>
+
+      <div class="section-header" style="flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 20px; border-bottom: var(--border-solid); padding-bottom: 32px; margin-bottom: 40px;">
+        <div class="hero-eyebrow" id="cat-eyebrow" style="margin-bottom: 0;">Chuyên Mục</div>
+        <h1 id="cat-title" style="font-family: var(--font-display); font-size: clamp(32px, 5vw, 48px); font-weight: 900; color: var(--black); text-transform: uppercase;">
+          Tất Cả Game
+        </h1>
+        <p id="cat-desc" style="font-family: var(--font-vi); font-size: 16px; color: var(--text-muted); max-width: 800px; line-height: 1.6;">
+          Đang tải danh sách game...
+        </p>
+      </div>
+
+      <div class="games-grid" id="category-games-grid" style="margin-bottom: 80px;">
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2024 <a href="index.html">CircleLifeTeam</a>. Game Việt Hóa | Patch Tiếng Việt Miễn Phí</p>
+        <a href="index.html" class="btn-outline" style="font-size:12px;padding:6px 14px"><i class="fa-solid fa-arrow-left"></i> Về Trang Chủ</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-box">
+      <div class="search-box-input">
+        <span style="font-size:18px">🔍</span>
+        <input type="search" id="search-input-main" placeholder="Tìm kiếm game việt hóa..." autocomplete="off">
+        <button class="search-close" id="search-close">✕</button>
+      </div>
+      <div class="search-results-list" id="search-results-list"></div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/category.js"></script> </body>
+</html>
