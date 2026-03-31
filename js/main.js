@@ -598,9 +598,16 @@ function renderPremiumShowcase(games) {
   mainContainer.innerHTML = showcaseGames.map((g, i) => {
     // Ưu tiên dùng bannerImage ngang, nếu không có thì dùng coverImage
     const mainImg = g.bannerImage || g.coverImage || 'https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png';
+    
+    // TỐI ƯU CORE WEB VITALS: 
+    // Ảnh đầu tiên (i=0) hiện ra ngay -> Buff tải nhanh nhất.
+    // Các ảnh sau bị ẩn đi -> Cho tải chậm (lazy) để đỡ tốn mạng.
+    const priorityAttr = i === 0 ? 'fetchpriority="high"' : 'loading="lazy"';
+
     return `
       <div class="p-slide ${i === 0 ? 'active' : ''}" data-index="${i}">
-        <img src="${mainImg}" alt="Cover">
+        <img src="${mainImg}" alt="Cover ${g.title}" ${priorityAttr}>
+        
         <div class="p-slide-info">
           <h3>${g.title}</h3>
           <a href="game.html?id=${g.slug}" class="p-btn-view">XEM THÊM</a>

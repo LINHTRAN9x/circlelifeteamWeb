@@ -277,12 +277,13 @@ function renderGameDetail(game) {
   const coverEl = document.getElementById('game-cover');
   if (coverEl) {
     if (game.coverImage) {
-      // Tự động nối nền tảng (PS5, PC...) và tên tiếng Việt vào từ khóa
+      // (Đoạn này giữ nguyên SEO alt ảnh hôm trước mình làm)
       const plat = game.platform || 'PS5';
       const viName = game.titleVi ? ` (${game.titleVi})` : '';
       const coverAlt = `Ảnh bìa tải game ${game.title}${viName} việt hóa cho máy ${plat} miễn phí`;
       
-      coverEl.innerHTML = `<img src="${game.coverImage}" alt="${coverAlt}" title="${coverAlt}" onerror="this.parentElement.innerHTML='<div class=\\'game-detail-cover-placeholder\\'><span>🎮</span></div>'">`;
+      // THÊM: fetchpriority="high" và ĐẢM BẢO TUYỆT ĐỐI KHÔNG CÓ chữ loading="lazy" ở đây
+      coverEl.innerHTML = `<img src="${game.coverImage}" alt="${coverAlt}" title="${coverAlt}" fetchpriority="high" onerror="this.parentElement.innerHTML='<div class=\\'game-detail-cover-placeholder\\'><span>🎮</span></div>'">`;
     } else {
       coverEl.innerHTML = '<div class="game-detail-cover-placeholder"><span>🎮</span></div>';
     }
