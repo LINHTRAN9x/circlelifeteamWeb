@@ -305,7 +305,7 @@ function initLoadMoreBtn() {
 // ── Game Card HTML ──
 function gameCardHTML(game, extraClass = '') {
   const img = game.coverImage
-    ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\"game-card-thumb-placeholder\\"><span>🎮</span><p>No Image</p></div>'">`
+    ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\"game-card-thumb-placeholder\\"><span>🎮</span><p>No Image</p></div>>`
     : '<div class="game-card-thumb-placeholder"><span>🎮</span><p>No Image</p></div>';
 
   const badgeNew = game.isNew ? '<span class="badge badge-new">🔥 Mới</span>' : '';
