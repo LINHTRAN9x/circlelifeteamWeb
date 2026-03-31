@@ -143,14 +143,16 @@ function newCardHTML(game) {
     ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'new-card-thumb-placeholder\\'>🎮</div>'">`
     : '<div class="new-card-thumb-placeholder">🎮</div>';
   const date = game.releaseDate ? new Date(game.releaseDate).toLocaleDateString('vi-VN') : '';
+  
+  // Đổi <div> thành thẻ <a> chuẩn SEO
   return `
-    <div class="new-card" data-slug="${game.slug}">
+    <a href="/game.html?id=${game.slug}" class="new-card" data-slug="${game.slug}">
       <div class="new-card-thumb">${img}</div>
       <div class="new-card-body">
         <div class="new-card-title">${game.title}</div>
         ${date ? `<div class="new-card-date"><i class="fa-regular fa-calendar"></i> ${date}</div>` : ''}
       </div>
-    </div>`;
+    </a>`;
 }
 
 
@@ -303,16 +305,15 @@ function initLoadMoreBtn() {
 // ── Game Card HTML ──
 function gameCardHTML(game, extraClass = '') {
   const img = game.coverImage
-    ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\"game-card-thumb-placeholder\\"><span>🎮</span><p>No Image</p></div>`
+    ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\"game-card-thumb-placeholder\\"><span>🎮</span><p>No Image</p></div>'">`
     : '<div class="game-card-thumb-placeholder"><span>🎮</span><p>No Image</p></div>';
 
   const badgeNew = game.isNew ? '<span class="badge badge-new">🔥 Mới</span>' : '';
-  // Đã thêm điều kiện chèn class 'badge-switch'
   const platformArray = (game.platform || 'PS5').split(',').map(p => p.trim());
   const badgePlatform = platformArray.map(p => 
-    // Đã lồng thêm điều kiện: Nếu là PC thì gọi class badge-pc
     `<span class="badge badge-platform ${p === 'Nintendo Switch' ? 'badge-switch' : (p === 'PC' ? 'badge-pc' : '')}">${p}</span>`
   ).join(' ');
+  
   const statusBadge = game.status
     ? `<span class="badge ${game.status.includes('100%') ? 'badge-done' : 'badge-wip'}">${game.status}</span>`
     : '';
@@ -329,12 +330,15 @@ function gameCardHTML(game, extraClass = '') {
   const descHTML = isFeatured && game.descriptionVi
     ? `<div class="game-card-desc">${game.descriptionVi}</div>`
     : '';
+    
+  // Nút bấm bên trong Card đổi từ <a> thành <span> để HTML hợp lệ
   const ctaHTML = isFeatured
-    ? `<a href="#" class="btn-primary" data-slug="${game.slug}" style="font-size:13px;padding:10px 20px">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>`
+    ? `<span class="btn-primary" style="font-size:13px;padding:10px 20px">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></span>`
     : '';
 
+  // Đổi thẻ bao quanh ngoài cùng thành <a>
   return `
-    <div class="game-card ${extraClass}" data-slug="${game.slug}" onclick="navigateToGame('${game.slug}')">
+    <a href="/game.html?id=${game.slug}" class="game-card ${extraClass}" data-slug="${game.slug}">
       <div class="game-card-thumb">
         ${img}
         <div class="game-card-badges">
@@ -356,7 +360,7 @@ function gameCardHTML(game, extraClass = '') {
         </div>
         ${ctaHTML}
       </div>
-    </div>`;
+    </a>`;
 }
 
 function bindGameCards(container) {
@@ -444,7 +448,7 @@ async function performSearch(query) {
     return;
   }
   list.innerHTML = results.map(g => `
-    <div class="search-result-item" onclick="navigateToGame('${g.slug}')">
+    <a href="/game.html?id=${g.slug}" class="search-result-item">
       ${g.coverImage
         ? `<img class="search-result-thumb" src="${g.coverImage}" alt="${g.title}" onerror="this.src=''">`
         : '<div class="search-result-thumb" style="background:var(--bg-dark);display:flex;align-items:center;justify-content:center">🎮</div>'}
@@ -453,7 +457,7 @@ async function performSearch(query) {
         <div class="search-result-sub">${g.titleVi || ''} · ${g.platform || 'PS5'} · ${g.status || ''}</div>
       </div>
       <span style="color:var(--text-dim);font-size:12px"><i class="fa-solid fa-arrow-right-long"></i></span>
-    </div>
+    </a>
   `).join('');
 }
 

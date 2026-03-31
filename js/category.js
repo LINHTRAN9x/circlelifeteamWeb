@@ -95,33 +95,64 @@ async function loadCategoryData(platform, genre, tag) {
 }
 
 // Hàm render Game Card chuẩn Neo-Brutalist (bê nguyên từ main.js)
-function gameCardHTML(game) {
-  const img = game.coverImage ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy">` : '<div class="game-card-thumb-placeholder"><span>🎮</span></div>';
-  const badgeNew = game.isNew ? '<span class="badge badge-new">🔥 Mới</span>' : '';
-  
-  const platformArray = (game.platform || 'PS5').split(',').map(p => p.trim());
-  const badgePlatform = platformArray.map(p => `<span class="badge badge-platform ${p === 'Nintendo Switch' ? 'badge-switch' : (p === 'PC' ? 'badge-pc' : '')}">${p}</span>`).join(' ');
-  
-  const statusBadge = game.status ? `<span class="badge ${game.status.includes('100%') ? 'badge-done' : 'badge-wip'}">${game.status}</span>` : '';
-  const stars = game.rating ? Array.from({length: 5}, (_, i) => i < game.rating ? `<img src="/ratingstar1.svg" style="width:16px;height:16px;">` : `<span style="font-size:14px;color:var(--text-dim);width:16px;text-align:center">☆</span>`).join('') : '';
+function gameCardHTML(game, extraClass = '') {
+  const img = game.coverImage
+    ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\"game-card-thumb-placeholder\\"><span>🎮</span><p>No Image</p></div>'">`
+    : '<div class="game-card-thumb-placeholder"><span>🎮</span><p>No Image</p></div>';
 
+  const badgeNew = game.isNew ? '<span class="badge badge-new">🔥 Mới</span>' : '';
+  const platformArray = (game.platform || 'PS5').split(',').map(p => p.trim());
+  const badgePlatform = platformArray.map(p => 
+    `<span class="badge badge-platform ${p === 'Nintendo Switch' ? 'badge-switch' : (p === 'PC' ? 'badge-pc' : '')}">${p}</span>`
+  ).join(' ');
+  
+  const statusBadge = game.status
+    ? `<span class="badge ${game.status.includes('100%') ? 'badge-done' : 'badge-wip'}">${game.status}</span>`
+    : '';
+
+  const stars = game.rating
+    ? Array.from({length: 5}, (_, i) => {
+        return i < game.rating 
+          ? `<img src="/ratingstar1.svg" alt="star" style="width:16px;height:16px;object-fit:contain">` 
+          : `<span style="font-size:14px;color:var(--text-dim);display:inline-block;width:16px;text-align:center">☆</span>`;
+      }).join('')
+    : '';
+
+  const isFeatured = extraClass.includes('featured');
+  const descHTML = isFeatured && game.descriptionVi
+    ? `<div class="game-card-desc">${game.descriptionVi}</div>`
+    : '';
+    
+  // Nút bấm bên trong Card đổi từ <a> thành <span> để HTML hợp lệ
+  const ctaHTML = isFeatured
+    ? `<span class="btn-primary" style="font-size:13px;padding:10px 20px">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></span>`
+    : '';
+
+  // Đổi thẻ bao quanh ngoài cùng thành <a>
   return `
-    <div class="game-card" data-slug="${game.slug}">
+    <a href="/game.html?id=${game.slug}" class="game-card ${extraClass}" data-slug="${game.slug}">
       <div class="game-card-thumb">
         ${img}
-        <div class="game-card-badges">${badgeNew} ${badgePlatform}</div>
-        <div class="game-card-overlay"><div class="game-card-play-btn">Xem chi tiết</div></div>
+        <div class="game-card-badges">
+          ${badgeNew}
+          ${badgePlatform}
+        </div>
+        <div class="game-card-overlay">
+          <div class="game-card-play-btn">Xem chi tiết</div>
+        </div>
       </div>
       <div class="game-card-body">
         <div class="game-card-title">${game.title}</div>
         ${game.titleVi ? `<div class="game-card-title-vi">${game.titleVi}</div>` : ''}
+        ${descHTML}
         <div class="game-card-meta">
           ${game.genre ? `<span class="game-card-genre">${game.genre}</span>` : ''}
           ${statusBadge}
           ${stars ? `<div class="game-card-stars">${stars}</div>` : ''}
         </div>
+        ${ctaHTML}
       </div>
-    </div>`;
+    </a>`;
 }
 
 // ==========================================

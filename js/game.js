@@ -450,14 +450,16 @@ function relatedCardHTML(game) {
   const img = game.coverImage
     ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy">`
     : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg-dark);font-size:28px">🎮</div>';
+    
+  // Thay thế onclick bằng thẻ <a>
   return `
-    <div class="game-card" onclick="navigateToGame('${game.slug}')">
+    <a href="/game.html?id=${game.slug}" class="game-card">
       <div class="game-card-thumb" style="aspect-ratio:3/4">${img}</div>
       <div class="game-card-body">
         <div class="game-card-title">${game.title}</div>
         ${game.titleVi ? `<div class="game-card-title-vi">${game.titleVi}</div>` : ''}
       </div>
-    </div>`;
+    </a>`;
 }
 
 // ── Lightbox ──
