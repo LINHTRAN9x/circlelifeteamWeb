@@ -381,9 +381,13 @@ function renderGameDetail(game) {
   // Description
   const descEl = document.getElementById('game-description');
   if (descEl) {
+    // Cho văn bản chạy qua thuật toán bắt từ khóa tự động
+    const processedDescVi = autoInternalLinks(game.descriptionVi);
+    const processedDescEn = autoInternalLinks(game.description);
+
     descEl.innerHTML = `
-      ${game.descriptionVi ? `<p class="game-desc-text" style="margin-bottom:16px">${game.descriptionVi}</p>` : ''}
-      ${game.description ? `<p class="game-desc-text" style="color:var(--text-dim);font-size:13px;font-style:italic">${game.description}</p>` : ''}
+      ${processedDescVi ? `<div class="game-desc-html" style="margin-bottom:16px">${processedDescVi}</div>` : ''}
+      ${processedDescEn ? `<p class="game-desc-text" style="color:var(--text-dim);font-size:13px;font-style:italic">${processedDescEn}</p>` : ''}
     `;
   }
 
@@ -551,36 +555,124 @@ function initTheme() {
 
 
 // ── Xây Dựng Mục Lục (Table of Contents) cho SEO ──
+// ── Xây Dựng Mục Lục (Table of Contents) cho SEO ──
 function buildTableOfContents() {
   const tocContainer = document.getElementById('toc-container');
   const tocList = document.getElementById('toc-list');
   if (!tocContainer || !tocList) return;
 
-  // Quét tìm tất cả các thẻ tiêu đề (h2) quan trọng trên trang
-  const headings = document.querySelectorAll('#desc-title, #trailer-title, #screens-title, #faq-title, #related-title');
+  // QUAN TRỌNG: Quét thêm các thẻ h2, h3 nằm bên trong phần mô tả (.game-desc-html)
+  const headings = document.querySelectorAll('#desc-title, .game-desc-html h2, .game-desc-html h3, #trailer-title, #screens-title, #faq-title, #related-title');
 
   if (headings.length === 0) return;
 
   let tocHTML = '';
   headings.forEach((heading, index) => {
-    // Nếu tiêu đề chưa có ID (dù mình đã gán sẵn trong HTML), tạo tạm ID cho nó
+    // Tự động tạo ID cho các thẻ H2, H3 sinh ra từ Quill Editor nếu chưa có
     if (!heading.id) {
-      heading.id = 'section-' + index;
+      heading.id = 'section-dynamic-' + index;
     }
 
-    // Lấy nội dung text của tiêu đề (Xóa đi các icon SVG hoặc thanh màu gradient trang trí)
+    // Xóa khoảng trắng thừa
     let text = heading.textContent.trim();
+    
+    // Kiểm tra xem đây có phải là thẻ H3 (Tiêu đề con) không để thụt lề
+    let isSubHeading = heading.tagName.toLowerCase() === 'h3';
 
-    // Tạo link neo (Anchor link)
+    // Sinh HTML: Nếu là H3 thì font chữ nhỏ hơn 1 chút và thụt lề (padding-left)
     tocHTML += `
-      <li>
+      <li style="${isSubHeading ? 'padding-left: 20px; font-size: 13px;' : ''}">
         <a href="#${heading.id}" class="toc-link">
-          <span class="toc-hash">#</span> ${text}
+          <span class="toc-hash" style="${isSubHeading ? 'font-size: 12px;' : ''}">#</span> ${text}
         </a>
       </li>
     `;
   });
 
   tocList.innerHTML = tocHTML;
-  tocContainer.style.display = 'block'; // Mở khóa cho mục lục hiện ra
+  tocContainer.style.display = 'block';
+}
+
+
+// ==========================================
+// ── SMART INTERNAL LINKING (SEO) ──
+// ==========================================
+function autoInternalLinks(html) {
+  if (!html) return '';
+  
+  // 1. Danh sách Nền tảng cơ bản
+  const baseLinks = [
+    { kw: 'PS5', url: '/category.html?platform=PS5' },
+    { kw: 'PlayStation 5', url: '/category.html?platform=PS5' },
+    { kw: 'PS4', url: '/category.html?platform=PS4' },
+    { kw: 'PlayStation 4', url: '/category.html?platform=PS4' },
+    { kw: 'Nintendo Switch', url: '/category.html?platform=Nintendo%20Switch' },
+    { kw: 'Steam', url: '/category.html?platform=PC' },
+    { kw: 'PC', url: '/category.html?platform=PC' }
+  ];
+
+  // 2. Bê nguyên mảng Tags từ admin.js sang
+  const FIXED_TAGS = [
+    "Thế Giới Mở", "Souls-like", "Kinh Dị", "Sinh Tồn",
+    "Cốt Truyện Hay", "Giải Đố", "Co-op", "Nhập Vai",
+    "Đồ họa Pixel", "Gia Đình", "Anime", "Thể Thao",
+    "Action", "Beat 'em Up", "Fighting", "Hack and Slash",
+    "Metroidvania", "Roguelike", "Shoot 'em Up", "Bullet Hell",
+    "Tower Defense", "Stealth", "Battle Royale",
+    "First-Person Shooter", "Third-Person Shooter", "Tactical Shooter",
+    "Hero Shooter", "Looter Shooter",
+    "RPG", "JRPG", "MMORPG", "CRPG", "Dungeon Crawler",
+    "Tactical RPG", "Deck Builder",
+    "Real-Time Strategy", "Turn-Based Strategy", "Grand Strategy",
+    "4X", "City Builder", "Colony Sim", "Auto Battler", "Wargame",
+    "Life Sim", "Farming Sim", "Flight Sim", "Driving Sim",
+    "Space Sim", "Tycoon", "Sandbox", "God Game",
+    "Adventure", "Point and Click", "Visual Novel",
+    "Walking Simulator", "Interactive Fiction",
+    "Physics Puzzle", "Logic Puzzle", "Escape Room", "Hidden Object",
+    "2D Platformer", "3D Platformer", "Precision Platformer", "Run and Gun",
+    "Survival Horror", "Psychological Horror",
+    "Racing", "Soccer", "Basketball", "Baseball", "Motorsport",
+    "Skateboarding", "Fishing",
+    "PvP", "PvE", "Local Co-op", "Party Game",
+    "Social Deduction", "Asymmetric",
+    "Casual", "Indie", "Cozy", "Idle / Clicker", "Endless Runner",
+    "Rhythm", "Dance",
+    "Sci-Fi", "Fantasy", "Cyberpunk", "Post-Apocalyptic",
+    "Steampunk", "Historical", "Mythology", "Noir", "Western",
+    "Crafting", "Exploration", "Extraction Shooter",
+    "Card Game", "Board Game", "Educational", "VR"
+  ];
+
+  // 3. JS tự động gom Nền tảng + Tags lại thành danh sách Map hoàn chỉnh
+  let linksMap = [
+    ...baseLinks,
+    ...FIXED_TAGS.map(tag => ({
+      kw: tag,
+      url: `/category.html?tag=${encodeURIComponent(tag)}`
+    }))
+  ];
+
+  // 💡 MẸO SEO CHÍ MẠNG: Ép JS ưu tiên quét từ khóa dài trước từ khóa ngắn.
+  // (Ví dụ: Nó sẽ quét và gắn link cho chữ "Survival Horror" trước, rồi mới quét chữ "Horror". Tránh lỗi lồng thẻ HTML).
+  linksMap.sort((a, b) => b.kw.length - a.kw.length);
+
+  // 4. Thuật toán bóc tách HTML an toàn
+  const parts = html.split(/(<[^>]+>)/g);
+  let inAnchor = false;
+
+  for (let i = 0; i < parts.length; i++) {
+    if (parts[i].match(/^<a\b/i)) inAnchor = true;
+    if (parts[i].match(/^<\/a>/i)) inAnchor = false;
+
+    // Nếu là đoạn chữ bình thường (Không phải thẻ HTML và không nằm trong thẻ link <a> có sẵn)
+    if (!parts[i].startsWith('<') && !inAnchor) {
+      linksMap.forEach(item => {
+        // Tìm đúng từ khóa đứng độc lập (Bỏ qua hoa thường)
+        const regex = new RegExp(`(^|\\s|[.,(])(${item.kw})(?=\\s|[.,)]|$)`, 'gi');
+        parts[i] = parts[i].replace(regex, `$1<a href="${item.url}" class="seo-auto-link" title="Xem thêm game $2">$2</a>`);
+      });
+    }
+  }
+  return parts.join('');
 }

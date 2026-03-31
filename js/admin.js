@@ -5,6 +5,8 @@
 
 const ADMIN_SESSION_KEY = 'clt_admin_token';
 
+let quillEditor;
+
 
 const FIXED_TAGS = [
   // ── Thể loại gốc (Việt hóa) ──
@@ -268,6 +270,14 @@ function initAdminNav() {
 let editingId = null;
 
 function initGameModal() {
+  // Khởi tạo Quill Editor nếu chưa có
+  if (!quillEditor && document.getElementById('quill-editor')) {
+    quillEditor = new Quill('#quill-editor', {
+      theme: 'snow',
+      modules: { toolbar: '#quill-toolbar' },
+      placeholder: 'Nội dung giới thiệu vào đây...'
+    });
+  }
   const modal = document.getElementById('game-modal');
   const openBtn = document.getElementById('add-game-btn');
   const closeBtn = document.getElementById('modal-close');
@@ -346,13 +356,18 @@ async function editGame(id) {
 }
 
 function fillGameForm(game) {
-  const fields = ['id', 'slug', 'title', 'titleVi', 'description', 'descriptionVi',
+  const fields = ['id', 'slug', 'title', 'titleVi', 'description',
     'coverImage','bannerImage', 'youtubeId', 'downloadLink', 'genre', 'platform', 'releaseDate',
     'version', 'translator', 'status', 'rating'];
   fields.forEach(f => {
     const el = document.getElementById(`form-${f}`);
     if (el) el.value = game[f] || '';
   });
+  if (game.descriptionVi) {
+    quillEditor.root.innerHTML = game.descriptionVi;
+  } else {
+    quillEditor.root.innerHTML = '';
+  }
   document.getElementById('form-isNew').checked = !!game.isNew;
   document.getElementById('form-isFeatured').checked = !!game.isFeatured;
   document.getElementById('form-images').value = (game.images || []).join('\n');
@@ -388,7 +403,7 @@ async function saveGameFromForm() {
     title: document.getElementById('form-title').value.trim(),
     titleVi: document.getElementById('form-titleVi').value.trim(),
     description: document.getElementById('form-description').value.trim(),
-    descriptionVi: document.getElementById('form-descriptionVi').value.trim(),
+    descriptionVi: quillEditor.root.innerHTML === '<p><br></p>' ? '' : quillEditor.root.innerHTML,
     coverImage: document.getElementById('form-coverImage').value.trim(),
     bannerImage: document.getElementById('form-bannerImage')?.value.trim(),
     images: document.getElementById('form-images').value.trim().split('\n').map(s => s.trim()).filter(Boolean),
@@ -538,46 +553,57 @@ window.editGame = editGame;
 window.deleteGameConfirm = deleteGameConfirm;
 
 
-// Hàm tự động tạo nội dung Sitemap từ dữ liệu thực tế (ĐÃ UPDATE CHUẨN SEO)
+// Hàm tự động tạo nội dung Sitemap từ dữ liệu thực tế (ĐÃ UPDATE CHUẨN SEO + HÌNH ẢNH)
 async function generateSitemap() {
   const games = await API.getGames();
   const baseUrl = CONFIG.SITE_URL.replace(/\/$/, ''); 
   const today = new Date().toISOString().split('T')[0];
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+  
+  // 1. THÊM NAMESPACE ẢNH (xmlns:image)
+  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n`;
 
-  // 1. Trang chủ
+  // 2. Trang chủ
   xml += `  <url>\n    <loc>${baseUrl}/</loc>\n    <lastmod>${today}</lastmod>\n    <priority>1.0</priority>\n  </url>\n`;
 
-  // ---- THÊM MỚI: TẠO LINK CHUYÊN MỤC SEO ----
-  // Lọc ra các Thể loại và Hệ máy không trùng lặp
+  // 3. Link chuyên mục SEO
   const genres = [...new Set(games.map(g => g.genre).filter(Boolean))];
   const platforms = [...new Set(games.flatMap(g => (g.platform || 'PS5').split(',').map(p => p.trim())))];
 
-  // Link các hệ máy (PS5, PS4, PC...)
   platforms.forEach(p => {
-    // encodeURIComponent để biến khoảng trắng (Nintendo Switch) thành %20 hợp lệ cho XML
     xml += `  <url>\n    <loc>${baseUrl}/category.html?platform=${encodeURIComponent(p)}</loc>\n    <priority>0.9</priority>\n  </url>\n`;
   });
-
-  // Link các thể loại (RPG, Action...)
   genres.forEach(g => {
     xml += `  <url>\n    <loc>${baseUrl}/category.html?genre=${encodeURIComponent(g)}</loc>\n    <priority>0.8</priority>\n  </url>\n`;
   });
-  // ------------------------------------------
 
-  // 2. Link từng trang Game chi tiết
+  // 4. Link trang chi tiết Game + DỮ LIỆU ẢNH BÌA
   games.forEach(game => {
+    if (!game.slug) return;
     let lastMod = today;
     if (game.releaseDate) {
       try { lastMod = new Date(game.releaseDate).toISOString().split('T')[0]; } 
       catch (e) { lastMod = today; }
     }
+    
     xml += `  <url>\n`;
+    // ✅ Giữ lại định dạng link game.html?id= để Googlebot crawl nhanh nhất
     xml += `    <loc>${baseUrl}/game.html?id=${game.slug}</loc>\n`;
     xml += `    <lastmod>${lastMod}</lastmod>\n`;
     xml += `    <priority>0.7</priority>\n`;
+
+    // CHÈN DỮ LIỆU ẢNH BÌA
+    if (game.coverImage) {
+      const safeTitle = (game.title + " Việt Hóa").replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+      const safeImgUrl = game.coverImage.replace(/&/g, '&amp;');
+
+      xml += `    <image:image>\n`;
+      xml += `      <image:loc>${safeImgUrl}</image:loc>\n`;
+      xml += `      <image:title>${safeTitle}</image:title>\n`;
+      xml += `    </image:image>\n`;
+    }
+
     xml += `  </url>\n`;
   });
 
@@ -588,7 +614,7 @@ async function generateSitemap() {
   link.href = URL.createObjectURL(blob);
   link.download = 'sitemap.xml';
   link.click();
-  showToast('Đã tạo sitemap.xml có kèm link Danh mục SEO!', 'success');
+  showToast('Đã xuất Sitemap thành công (Có kèm Hình Ảnh)!', 'success');
 }
 
 

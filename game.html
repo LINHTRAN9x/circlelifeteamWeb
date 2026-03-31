@@ -143,9 +143,8 @@
       <ul class="toc-list" id="toc-list" role="list">
         </ul>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:48px 0" class="game-detail-two-col">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:48px 0;align-items:start" class="game-detail-two-col">
 
-      <!-- Left: Description -->
       <section aria-labelledby="desc-title">
         <h2 style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--black);text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;display:flex;align-items:center;gap:10px" id="desc-title">
           <span style="display:block;width:4px;height:20px;background:linear-gradient(180deg,var(--blue-vivid),var(--cyan-accent));border-radius:2px"></span>
@@ -157,18 +156,27 @@
         </div>
       </section>
 
-      <!-- Right: Trailer -->
-      <section aria-labelledby="trailer-title">
-        <h2 style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--black);text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;display:flex;align-items:center;gap:10px" id="trailer-title">
-          <span style="display:block;width:4px;height:20px;background:linear-gradient(180deg,var(--blue-vivid),var(--cyan-accent));border-radius:2px"></span>
-          Video việt hóa
-        </h2>
-        <div class="youtube-wrapper" id="youtube-wrapper">
-          <div class="skeleton" style="position:absolute;inset:0;border-radius:0"></div>
-        </div>
-      </section>
+      <div style="position: sticky; top: 100px; display: flex; flex-direction: column; gap: 40px;">
+        
+        <section aria-labelledby="trailer-title">
+          <h2 style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--black);text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;display:flex;align-items:center;gap:10px" id="trailer-title">
+            <span style="display:block;width:4px;height:20px;background:linear-gradient(180deg,var(--blue-vivid),var(--cyan-accent));border-radius:2px"></span>
+            Video việt hóa
+          </h2>
+          <div class="youtube-wrapper" id="youtube-wrapper">
+            <div class="skeleton" style="position:absolute;inset:0;border-radius:0"></div>
+          </div>
+        </section>
 
-    </div>
+        <div class="toc-wrapper" id="toc-container" style="display: none;" aria-label="Table of Contents">
+          <div class="toc-title">
+            <i class="fa-solid fa-list-ul" style="color: var(--accent-red);"></i> NỘI DUNG CHÍNH
+          </div>
+          <ul class="toc-list" id="toc-list" role="list" style="display:flex; flex-direction:column; gap:8px;">
+            </ul>
+        </div>
+        
+      </div> </div>
 
     <!-- Screenshots -->
     <section style="padding-bottom:48px" aria-labelledby="screens-title">

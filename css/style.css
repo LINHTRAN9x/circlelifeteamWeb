@@ -1547,4 +1547,53 @@ body.dark-mode .toc-list a:hover {
   display: block;
 }
 
-/* 2. Tăng tốc độ Render màn hình ban đầu (Chỉ dựng hình những thẻ game nằm trong tầm nhìn) */
+/* ============================================================
+   GIAO DIỆN QUILL EDITOR TRONG ADMIN
+   ============================================================ */
+.ql-toolbar.ql-snow {
+  border: var(--border-solid) !important;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: var(--accent-yellow);
+}
+.ql-container.ql-snow {
+  border: var(--border-solid) !important;
+  border-top: none !important;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  background: var(--white);
+  font-family: var(--font-body) !important;
+  font-size: 15px !important;
+}
+.ql-editor { color: var(--black); }
+
+/* ============================================================
+   HIỂN THỊ HTML NGOÀI TRANG CHI TIẾT GAME
+   ============================================================ */
+.game-desc-html p { margin-bottom: 12px; line-height: 1.8; font-size: 16px; color: var(--text-main); font-weight: 600; }
+.game-desc-html h2, .game-desc-html h3 { font-family: var(--font-display); color: var(--black); margin: 32px 0 12px; text-transform: uppercase; }
+.game-desc-html h2 { font-size: 22px; border-bottom: 2px dashed var(--black); padding-bottom: 8px;}
+.game-desc-html h3 { font-size: 18px; }
+.game-desc-html ul, .game-desc-html ol { margin: 0 0 16px 24px; font-weight: 600;}
+.game-desc-html li { margin-bottom: 8px; }
+.game-desc-html a { color: var(--blue-vivid); text-decoration: underline; text-underline-offset: 3px; font-weight: 800;}
+
+
+/* ============================================================
+   SMART INTERNAL LINKING (SEO)
+   ============================================================ */
+.seo-auto-link {
+  color: var(--blue-vivid) !important;
+  text-decoration: underline !important;
+  text-decoration-style: dotted !important; /* Dùng nét đứt để tạo sự chú ý */
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 4px;
+  font-weight: 800;
+  transition: all 0.2s ease;
+  padding: 0 2px;
+}
+
+.seo-auto-link:hover {
+  color: var(--black) !important;
+  background: var(--accent-yellow);
+  text-decoration-style: solid !important;
+  border-radius: 4px;
+}
