@@ -1256,6 +1256,7 @@ body.dark-mode .dropzone-area.dragover {
   .lybraBlock{
     display: none;
   }
+
   
 
   /* ── HERO ── */
@@ -1268,6 +1269,7 @@ body.dark-mode .dropzone-area.dragover {
     margin-bottom: 16px;
     word-break: break-word;
     margin-top: 10px;
+    text-shadow: none;
   }
   .hero-sub { font-size: 14px; padding: 12px; margin-bottom: 24px; }
   .hero-eyebrow { font-size: 11px; padding: 6px 14px; margin-bottom: 16px; }
