@@ -20,6 +20,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadCategoryData(platform, genre, tag); 
 });
 
+// Biến toàn cục để lưu trữ dữ liệu phân trang
+let catFilteredGames = [];
+let catCurrentPage = 1;
+const CAT_ITEMS_PER_PAGE = 12; // Số game trên 1 trang (Bác có thể sửa tùy ý)
+
 async function loadCategoryData(platform, genre, tag) { 
   try {
     const allGames = await API.getGames();
@@ -28,7 +33,7 @@ async function loadCategoryData(platform, genre, tag) {
     let pageDesc = "Tổng hợp toàn bộ danh sách game việt hóa chất lượng cao từ CircleLifeTeam.";
     let breadcrumbText = "Tất cả game";
 
-    // Lọc dữ liệu & Set Title
+    // Lọc dữ liệu & Set Title (Giữ nguyên logic cũ của bác)
     if (platform) {
       filteredGames = allGames.filter(g => (g.platform || '').includes(platform));
       pageTitle = `Game ${platform} Việt Hóa`;
@@ -44,7 +49,6 @@ async function loadCategoryData(platform, genre, tag) {
       document.getElementById('cat-eyebrow').innerHTML = `<i class="fa-solid fa-tags"></i> Thể Loại`;
       
     } else if (tag) { 
-      // Xử lý Lọc theo Tag
       filteredGames = allGames.filter(g => g.tags && Array.isArray(g.tags) && g.tags.includes(tag));
       pageTitle = `Game có từ khóa: ${tag}`;
       pageDesc = `Tuyển tập các tựa game mang yếu tố ${tag} siêu hay, việt hóa chất lượng cao bởi CircleLifeTeam.`;
@@ -55,43 +59,108 @@ async function loadCategoryData(platform, genre, tag) {
       document.getElementById('cat-eyebrow').style.display = 'none';
     }
 
-    // Cập nhật DOM
+    // Cập nhật DOM tiêu đề
     document.getElementById('cat-title').textContent = pageTitle;
     document.getElementById('cat-desc').textContent = pageDesc;
     document.getElementById('bc-category').textContent = breadcrumbText;
-
-    // Cập nhật thẻ SEO (Cực kỳ quan trọng)
     document.title = `${pageTitle} – Tải Patch Tiếng Việt | CircleLifeTeam`;
     const metaDesc = document.querySelector('meta[name="description"]');
     if(metaDesc) metaDesc.content = pageDesc;
 
-    // Render lưới Game
-    const grid = document.getElementById('category-games-grid');
-    if (filteredGames.length === 0) {
-      grid.innerHTML = `
-        <div class="empty-state" style="grid-column:1/-1; padding: 60px;">
-          <div class="empty-state-icon" style="font-size: 40px; margin-bottom: 16px;">😕</div>
-          <div class="empty-state-text" style="font-family: var(--font-display); font-size: 20px; font-weight: 800;">Chưa có game nào thuộc chuyên mục này</div>
-          <div class="empty-state-sub" style="color: var(--text-dim);">Team đang cố gắng cập nhật thêm. Bạn quay lại sau nhé!</div>
-        </div>`;
-      return;
-    }
-
-    // Sắp xếp game mới nhất lên đầu
-    filteredGames.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
-    grid.innerHTML = filteredGames.map(g => gameCardHTML(g)).join('');
-
-    // Bắt sự kiện Click vào Card
-    grid.querySelectorAll('.game-card').forEach(card => {
-      card.addEventListener('click', () => {
-        window.location.href = `game.html?id=${card.dataset.slug}`;
-      });
-    });
+    // Sắp xếp game mới nhất lên đầu và nạp vào Biến toàn cục
+    catFilteredGames = filteredGames.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+    
+    // Khởi động render Trang 1
+    renderCategoryPage(1);
 
   } catch (error) {
     console.error("Lỗi:", error);
     document.getElementById('category-games-grid').innerHTML = `<p>Lỗi tải dữ liệu. Vui lòng tải lại trang.</p>`;
   }
+}
+
+// HÀM IN LƯỚI GAME THEO TRANG
+function renderCategoryPage(page) {
+  catCurrentPage = page;
+  const grid = document.getElementById('category-games-grid');
+  const totalItems = catFilteredGames.length;
+  const totalPages = Math.ceil(totalItems / CAT_ITEMS_PER_PAGE);
+
+  // Xử lý nếu danh mục trống
+  if (totalItems === 0) {
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1; padding: 60px;">
+        <div class="empty-state-icon" style="font-size: 40px; margin-bottom: 16px;">😕</div>
+        <div class="empty-state-text" style="font-family: var(--font-display); font-size: 20px; font-weight: 800;">Chưa có game nào thuộc chuyên mục này</div>
+        <div class="empty-state-sub" style="color: var(--text-dim);">Team đang cố gắng cập nhật thêm. Bạn quay lại sau nhé!</div>
+      </div>`;
+    document.getElementById('pagination-container').innerHTML = ''; // Giấu phân trang
+    return;
+  }
+
+  // Cắt mảng (Ví dụ: Trang 2 -> Lấy từ index 12 đến 24)
+  const startIndex = (page - 1) * CAT_ITEMS_PER_PAGE;
+  const endIndex = startIndex + CAT_ITEMS_PER_PAGE;
+  const pageData = catFilteredGames.slice(startIndex, endIndex);
+
+  // In HTML
+  grid.innerHTML = pageData.map(g => gameCardHTML(g)).join('');
+
+  // Gắn sự kiện click
+  grid.querySelectorAll('.game-card').forEach(card => {
+    card.addEventListener('click', () => {
+      window.location.href = `game.html?id=${card.dataset.slug}`;
+    });
+  });
+
+  // Vẽ nút phân trang
+  renderCategoryPagination(totalPages);
+
+  // Cuộn mượt màn hình lên đầu danh sách khi chuyển trang (Trừ lúc mới load lần đầu)
+  if (page > 1 || event) {
+    const topElement = document.getElementById('cat-title');
+    if (topElement && typeof lenis !== 'undefined') {
+      lenis.scrollTo(topElement, { offset: -100 });
+    }
+  }
+}
+
+// HÀM VẼ NÚT PHÂN TRANG THÔNG MINH (Dạng 1 2 3 ... 10)
+function renderCategoryPagination(totalPages) {
+  const container = document.getElementById('pagination-container');
+  if (!container) return;
+
+  if (totalPages <= 1) {
+    container.innerHTML = ''; // Có 1 trang thì không hiện nút làm gì
+    return;
+  }
+
+  let html = '';
+  
+  // Nút Prev (Trái)
+  html += `<button class="page-btn" onclick="renderCategoryPage(${catCurrentPage - 1})" ${catCurrentPage === 1 ? 'disabled' : ''}><i class="fa-solid fa-chevron-left"></i></button>`;
+
+  // In các số trang (Thuật toán tự động thu gọn bằng dấu ... nếu quá nhiều trang)
+  for (let i = 1; i <= totalPages; i++) {
+    if (totalPages <= 5) {
+      // Nếu ít hơn 5 trang -> In tuốt
+      html += `<button class="page-btn ${i === catCurrentPage ? 'active' : ''}" onclick="renderCategoryPage(${i})">${i}</button>`;
+    } else {
+      // Nếu nhiều trang -> Ẩn bớt đi
+      if (i === 1 || i === totalPages || (i >= catCurrentPage - 1 && i <= catCurrentPage + 1)) {
+        html += `<button class="page-btn ${i === catCurrentPage ? 'active' : ''}" onclick="renderCategoryPage(${i})">${i}</button>`;
+      } else if (i === 2 && catCurrentPage > 3) {
+        html += `<span style="font-weight: 800; padding: 0 4px; color: var(--text-dim);">...</span>`;
+      } else if (i === totalPages - 1 && catCurrentPage < totalPages - 2) {
+        html += `<span style="font-weight: 800; padding: 0 4px; color: var(--text-dim);">...</span>`;
+      }
+    }
+  }
+
+  // Nút Next (Phải)
+  html += `<button class="page-btn" onclick="renderCategoryPage(${catCurrentPage + 1})" ${catCurrentPage === totalPages ? 'disabled' : ''}><i class="fa-solid fa-chevron-right"></i></button>`;
+
+  container.innerHTML = html;
 }
 
 // Hàm render Game Card chuẩn Neo-Brutalist (bê nguyên từ main.js)

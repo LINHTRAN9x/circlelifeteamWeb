@@ -1760,3 +1760,63 @@ body.dark-mode .toc-list a:hover {
     justify-content: center;
   }
 }
+
+
+/* ============================================================
+   PHÂN TRANG (PAGINATION)
+   ============================================================ */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  background: var(--white);
+  color: var(--black);
+  border: 2px solid var(--black);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--black);
+  transition: var(--transition);
+}
+.page-btn:hover:not(:disabled) {
+  background: var(--accent-yellow);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--black);
+}
+.page-btn.active {
+  background: var(--accent-blue);
+  color: var(--black);
+  cursor: default;
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+.page-btn:disabled {
+  background: var(--bg-dark);
+  color: var(--text-dim);
+  border-color: var(--text-dim);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+body.dark-mode .page-btn {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border-color: var(--black);
+}
+body.dark-mode .page-btn.active {
+  background: var(--accent-blue);
+  color: #000;
+}
