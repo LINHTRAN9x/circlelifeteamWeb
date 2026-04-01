@@ -9,15 +9,17 @@ function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
 requestAnimationFrame(raf);
 
 document.addEventListener('DOMContentLoaded', async () => {
-  initUI(); // Khởi tạo Menu, Darkmode, Search
+  initUI(); 
   
   const params = new URLSearchParams(window.location.search);
   const platform = params.get('platform');
   const genre = params.get('genre');
-  const tag = params.get('tag'); // Đã hứng tag ở đây
+  const tag = params.get('tag');
+  // Lấy số trang từ thanh địa chỉ (Mặc định là 1 nếu không có)
+  const page = parseInt(params.get('page')) || 1; 
 
-  // Chạy hàm load với đủ 3 tham số
-  await loadCategoryData(platform, genre, tag); 
+  // Truyền thêm page vào hàm load
+  await loadCategoryData(platform, genre, tag, page); 
 });
 
 // Biến toàn cục để lưu trữ dữ liệu phân trang
@@ -25,7 +27,7 @@ let catFilteredGames = [];
 let catCurrentPage = 1;
 const CAT_ITEMS_PER_PAGE = 12; // Số game trên 1 trang (Bác có thể sửa tùy ý)
 
-async function loadCategoryData(platform, genre, tag) { 
+async function loadCategoryData(platform, genre, tag, initialPage = 1) { 
   try {
     const allGames = await API.getGames();
     let filteredGames = allGames;
@@ -71,7 +73,7 @@ async function loadCategoryData(platform, genre, tag) {
     catFilteredGames = filteredGames.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
     
     // Khởi động render Trang 1
-    renderCategoryPage(1);
+    renderCategoryPage(initialPage);
 
   } catch (error) {
     console.error("Lỗi:", error);
@@ -126,29 +128,39 @@ function renderCategoryPage(page) {
 }
 
 // HÀM VẼ NÚT PHÂN TRANG THÔNG MINH (Dạng 1 2 3 ... 10)
+// HÀM VẼ NÚT PHÂN TRANG THÔNG MINH (Chuẩn SEO với thẻ <a href>)
 function renderCategoryPagination(totalPages) {
   const container = document.getElementById('pagination-container');
   if (!container) return;
 
   if (totalPages <= 1) {
-    container.innerHTML = ''; // Có 1 trang thì không hiện nút làm gì
+    container.innerHTML = ''; 
     return;
   }
+
+  // Lấy URL hiện tại để giữ nguyên các bộ lọc (platform, genre, tag) khi chuyển trang
+  const currentUrl = new URL(window.location.href);
+  const createPageLink = (pageNum) => {
+    currentUrl.searchParams.set('page', pageNum);
+    return currentUrl.toString();
+  };
 
   let html = '';
   
   // Nút Prev (Trái)
-  html += `<button class="page-btn" onclick="renderCategoryPage(${catCurrentPage - 1})" ${catCurrentPage === 1 ? 'disabled' : ''}><i class="fa-solid fa-chevron-left"></i></button>`;
+  if (catCurrentPage > 1) {
+    html += `<a href="${createPageLink(catCurrentPage - 1)}" class="page-btn"><i class="fa-solid fa-chevron-left"></i></a>`;
+  } else {
+    html += `<button class="page-btn" disabled><i class="fa-solid fa-chevron-left"></i></button>`;
+  }
 
-  // In các số trang (Thuật toán tự động thu gọn bằng dấu ... nếu quá nhiều trang)
+  // In các số trang (Thay thế button bằng the a)
   for (let i = 1; i <= totalPages; i++) {
     if (totalPages <= 5) {
-      // Nếu ít hơn 5 trang -> In tuốt
-      html += `<button class="page-btn ${i === catCurrentPage ? 'active' : ''}" onclick="renderCategoryPage(${i})">${i}</button>`;
+      html += `<a href="${createPageLink(i)}" class="page-btn ${i === catCurrentPage ? 'active' : ''}">${i}</a>`;
     } else {
-      // Nếu nhiều trang -> Ẩn bớt đi
       if (i === 1 || i === totalPages || (i >= catCurrentPage - 1 && i <= catCurrentPage + 1)) {
-        html += `<button class="page-btn ${i === catCurrentPage ? 'active' : ''}" onclick="renderCategoryPage(${i})">${i}</button>`;
+        html += `<a href="${createPageLink(i)}" class="page-btn ${i === catCurrentPage ? 'active' : ''}">${i}</a>`;
       } else if (i === 2 && catCurrentPage > 3) {
         html += `<span style="font-weight: 800; padding: 0 4px; color: var(--text-dim);">...</span>`;
       } else if (i === totalPages - 1 && catCurrentPage < totalPages - 2) {
@@ -158,7 +170,11 @@ function renderCategoryPagination(totalPages) {
   }
 
   // Nút Next (Phải)
-  html += `<button class="page-btn" onclick="renderCategoryPage(${catCurrentPage + 1})" ${catCurrentPage === totalPages ? 'disabled' : ''}><i class="fa-solid fa-chevron-right"></i></button>`;
+  if (catCurrentPage < totalPages) {
+    html += `<a href="${createPageLink(catCurrentPage + 1)}" class="page-btn"><i class="fa-solid fa-chevron-right"></i></a>`;
+  } else {
+    html += `<button class="page-btn" disabled><i class="fa-solid fa-chevron-right"></i></button>`;
+  }
 
   container.innerHTML = html;
 }
