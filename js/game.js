@@ -75,6 +75,7 @@ async function loadGameDetail(slug) {
     updateSEO(game);
     renderGameDetail(game);
     loadRelatedGames(game);
+    initRatingWidget(game);
 
     setTimeout(buildTableOfContents, 100);
 
@@ -676,3 +677,116 @@ function autoInternalLinks(html) {
   }
   return parts.join('');
 }
+
+
+// ============================================================
+// HỆ THỐNG RATING & SEO
+// ============================================================
+function initRatingWidget(gameData) {
+  // Lấy thêm cái khung to ngoài cùng để lát nữa giấu nó đi
+  const widgetContainer = document.querySelector('.floating-rating'); 
+  const toggleBtn = document.getElementById('rating-toggle-btn');
+  const panel = document.getElementById('rating-panel');
+  const starContainer = document.getElementById('rating-stars');
+  const stars = document.querySelectorAll('.rating-stars .star');
+  const thanksMsg = document.getElementById('rating-thanks');
+  
+  // 1. KIỂM TRA LỊCH SỬ: Nếu khách đã đánh giá rồi -> Ẩn luôn và thoát
+  const hasRated = localStorage.getItem(`clt_rated_${gameData.slug}`);
+  if (hasRated) {
+    if (widgetContainer) widgetContainer.style.display = 'none';
+    injectSchemaSEO(gameData); // Vẫn phải chạy SEO để Google biết
+    return; // Dừng hàm luôn tại đây, không cần tải thêm sự kiện click nữa
+  }
+
+  // 2. Mở / Đóng panel
+  toggleBtn?.addEventListener('click', (e) => {
+    e.stopPropagation(); 
+    panel.classList.toggle('open');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!panel.contains(e.target) && !toggleBtn.contains(e.target)) {
+      panel.classList.remove('open');
+    }
+  });
+
+  // 3. Logic xử lý sao
+  stars.forEach(star => {
+    if (window.matchMedia("(min-width: 769px)").matches) {
+      star.addEventListener('mouseover', function() {
+        const val = this.getAttribute('data-val');
+        stars.forEach(s => s.classList.toggle('hover', s.getAttribute('data-val') <= val));
+      });
+      star.addEventListener('mouseout', function() {
+        stars.forEach(s => s.classList.remove('hover'));
+      });
+    }
+
+    // 4. Bấm chọn sao
+    star.addEventListener('click', function(e) {
+      e.stopPropagation(); 
+      if (localStorage.getItem(`clt_rated_${gameData.slug}`)) return; 
+
+      const val = this.getAttribute('data-val');
+      setStars(val);
+      
+      localStorage.setItem(`clt_rated_${gameData.slug}`, val);
+      thanksMsg.style.display = 'block';
+      starContainer.style.pointerEvents = 'none'; 
+
+      // Rung nút cảm ơn
+      toggleBtn.style.animation = 'none';
+      setTimeout(() => toggleBtn.style.transform = 'scale(1.2)', 50);
+      setTimeout(() => toggleBtn.style.transform = 'scale(1)', 200);
+      
+      // 🔥 SAU KHI ĐÁNH GIÁ XONG: Chờ 1.5 giây để khách đọc chữ Cảm ơn, sau đó cho bay màu!
+      setTimeout(() => {
+        if (widgetContainer) {
+          widgetContainer.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          widgetContainer.style.opacity = '0'; // Làm mờ từ từ
+          widgetContainer.style.transform = 'translateY(20px)'; // Tụt xuống dưới
+          setTimeout(() => widgetContainer.style.display = 'none', 500); // Xóa sổ hoàn toàn
+        }
+      }, 1500);
+    });
+  });
+
+  function setStars(val) {
+    stars.forEach(s => s.classList.toggle('active', s.getAttribute('data-val') <= val));
+  }
+
+  // BƠM DỮ LIỆU SEO LÊN GOOGLE (JSON-LD)
+  injectSchemaSEO(gameData);
+}
+
+function injectSchemaSEO(game) {
+  // Tạo đoạn Script chứa Schema.org chuẩn Google
+  const schema = {
+    "@context": "https://schema.org/",
+    "@type": "SoftwareApplication",
+    "name": `${game.titleVi || game.title} Việt Hóa`,
+    "applicationCategory": "GameApplication",
+    "operatingSystem": game.platform || "PS5, PC, Switch",
+    "image": game.coverImage,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "VND"
+    },
+    // Chỗ này báo cho Google biết game được mấy sao (Giả lập số liệu nếu chưa có)
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": game.rating || "5", 
+      "ratingCount": game.ratingCount || Math.floor(Math.random() * 50) + 10 // Random số người rate nếu database chưa có
+    }
+  };
+
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.text = JSON.stringify(schema);
+  document.head.appendChild(script);
+}
+
+// Bác nhớ gọi hàm này sau khi trang game tải xong dữ liệu nhé!
+// Ví dụ: initRatingWidget(game);

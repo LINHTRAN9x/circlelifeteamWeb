@@ -1333,6 +1333,40 @@ body.dark-mode .dropzone-area.dragover {
 /* ── 768px: Tablet ── */
 @media (max-width: 768px) {
 
+
+  .floating-rating {
+    bottom: 22px !important; /* Hạ thấp một chút cho đỡ che content, cách đáy 70px */
+    right: 16px !important;  /* Ép sát lề phải hơn */
+    gap: 10px !important;
+  }
+
+  /* Thu nhỏ cái nút ⭐ nổi một xíu cho tinh tế */
+  .rating-btn {
+    width: 39px !important;
+    height: 39px !important;
+    font-size: 20px !important;
+    box-shadow: 2px 2px 0 var(--black) !important;
+  }
+
+  /* Tối ưu cái bảng chọn sao trên màn hình hẹp */
+  .rating-panel {
+    padding: 12px !important;
+    max-width: calc(100vw - 32px) !important; /* Đảm bảo panel không bao giờ tràn viền màn hình */
+    width: max-content !important; /* Shrink to content */
+    align-items: center !important;
+    box-shadow: 4px 4px 0 var(--black) !important;
+  }
+  
+  .rating-panel .star-title {
+    font-size: 11px !important; /* Tiêu đề nhỏ lại */
+  }
+
+  /* 🔥 TRÁI TIM CỦA MOBILE-FIRST: PHÓNG TO SAO LÊN ĐỂ DỄ BẤM TRÚNG */
+  .rating-stars {
+    font-size: 32px !important; /* Phóng to từ 24px lên 32px cho user "ngón tay to" */
+    gap: 8px !important;       /* Tăng khoảng cách giữa các sao để không bị bấm nhầm */
+  }
+
   /* ── HERO ── */
   .hero-title {
     font-size: clamp(28px, 7vw, 44px) !important;
@@ -1808,3 +1842,94 @@ body.dark-mode .page-btn.active {
   background: var(--accent-blue);
   color: #000;
 }
+
+
+/* ============================================================
+   FLOATING RATING WIDGET (ĐÁNH GIÁ SAO)
+   ============================================================ */
+.floating-rating {
+  position: fixed;
+  bottom: 90px; /* Nằm ngay trên nút Zalo/Chat hoặc cách đáy 90px */
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+/* Nút bấm tròn có hiệu ứng rung */
+.rating-btn {
+  width: 56px;
+  height: 56px;
+  background: var(--accent-yellow);
+  border: 3px solid var(--black);
+  border-radius: 50%;
+  box-shadow: 4px 4px 0 var(--black);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  animation: wiggle 2s infinite; /* Hiệu ứng rung */
+}
+.rating-btn:hover {
+  transform: scale(1.1);
+  animation: none; /* Rê chuột vào thì ngừng rung */
+}
+
+/* Keyframes Rung chuông */
+@keyframes wiggle {
+  0%, 7% { transform: rotateZ(0); }
+  15% { transform: rotateZ(-15deg); }
+  20% { transform: rotateZ(10deg); }
+  25% { transform: rotateZ(-10deg); }
+  30% { transform: rotateZ(6deg); }
+  35% { transform: rotateZ(-4deg); }
+  40%, 100% { transform: rotateZ(0); }
+}
+
+/* Bảng chọn sao (ẩn mặc định, trồi lên khi bấm) */
+.rating-panel {
+  background: var(--white);
+  border: 3px solid var(--black);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: 6px 6px 0 var(--black);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transform-origin: bottom right;
+  animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.rating-panel.open {
+  display: flex;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 4px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #ddd; /* Màu sao trống */
+}
+.rating-stars .star {
+  transition: var(--transition);
+}
+/* Đổi màu vàng khi hover hoặc đã chọn */
+.rating-stars .star.hover,
+.rating-stars .star.active {
+  color: var(--accent-yellow);
+  text-shadow: 2px 2px 0 var(--black);
+  transform: scale(1.1);
+}
+
+@keyframes popUp {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+body.dark-mode .rating-panel { background: var(--bg-card); }
+body.dark-mode .rating-stars { color: var(--text-dim); }
