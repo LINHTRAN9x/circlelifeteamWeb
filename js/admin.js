@@ -227,7 +227,12 @@ async function loadGamesTable(searchQuery = '') {
             ? `<img class="admin-table-thumb" src="${g.coverImage}" alt="${g.title}" onerror="this.style.display='none'">`
             : '<div class="admin-table-thumb" style="display:flex;align-items:center;justify-content:center;background:var(--bg-dark)">🎮</div>'}
           <div>
-            <div style="font-weight:700;font-size:13px">${g.title}</div>
+            <div style="font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+              <span style="cursor:pointer;color:var(--blue-vivid);text-decoration:underline;text-underline-offset:2px" onclick="postToFBConfirm('${g.id}', '${g.title.replace(/'/g, "\\'")}')" title="Click để đăng bài lên Facebook">
+                ${g.title} <i class="fa-brands fa-facebook" style="color:#1877F2"></i>
+              </span>
+              ${g.isPostedToFB ? '<span class="badge" style="background:#1877F2;color:#fff;padding:2px 6px;font-size:9px;border:none;box-shadow:none"><i class="fa-solid fa-check"></i> Đã đăng FB</span>' : ''}
+            </div>
             <div style="font-size:11px;color:var(--text-muted);font-style:italic">${g.titleVi || ''}</div>
           </div>
         </div>
@@ -391,6 +396,10 @@ function fillGameForm(game) {
   }
   // Kích hoạt thủ công 1 event để cập nhật lại chữ trên nút Dropdown
   document.querySelector('input[name="game_tags"]')?.dispatchEvent(new Event('change'));
+
+  // Đổ dữ liệu trạng thái FB vào form ẩn
+  const elFb = document.getElementById('form-isPostedToFB');
+  if (elFb) elFb.value = game.isPostedToFB ? 'true' : 'false';
 }
 
 async function saveGameFromForm() {
@@ -420,6 +429,7 @@ async function saveGameFromForm() {
     isFeatured: document.getElementById('form-isFeatured').checked,
     tags: Array.from(document.querySelectorAll('input[name="game_tags"]:checked')).map(cb => cb.value),
     updatedAt: Date.now(),
+    isPostedToFB: document.getElementById('form-isPostedToFB')?.value === 'true',
   };
 
   if (!game.title) {
@@ -731,3 +741,56 @@ async function handleFilesUpload(files, dropzone, targetInput) {
   dropzone.classList.remove('is-uploading');
   dropzone.innerHTML = originalText;
 }
+
+
+// ============================================================
+// ── TÍNH NĂNG: ĐĂNG BÀI LÊN FACEBOOK BẰNG TAY ──
+// ============================================================
+async function postToFBConfirm(id, title) {
+  // 1. Chặn nếu tài khoản chỉ là Editor
+  if (sessionStorage.getItem('clt_admin_role') === 'editor') {
+    showToast('Bạn không có quyền đăng bài!', 'error');
+    return;
+  }
+
+  // 2. Tìm thông tin game
+  const games = await API.getGames();
+  const game = games.find(g => g.id === id);
+  if (!game) return;
+
+  // 3. Hỏi xác nhận kép (Nếu đã đăng rồi thì cảnh báo)
+  if (game.isPostedToFB) {
+    if (!confirm(`⚠️ Game "${title}" ĐÃ ĐƯỢC ĐĂNG lên Facebook trước đó.\nBạn có chắc chắn muốn đăng trùng lại một lần nữa không?`)) return;
+  } else {
+    if (!confirm(`Bạn có chắc muốn bắn game "${title}" lên Fanpage Facebook ngay bây giờ?`)) return;
+  }
+
+  try {
+    // ⚠️ QUAN TRỌNG: BÁC NHỚ DÁN LẠI CÁI LINK WEBHOOK CỦA MAKE.COM VÀO ĐÂY NHÉ
+    const webhookUrl = 'https://hook.eu1.make.com/gfbb8wkq2hiogglanea9cghknnnt2el4';
+    
+    showToast('🚀 Đang đẩy bài lên Facebook...', 'info');
+    
+    // Bắn sang Make.com
+    await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(game)
+    });
+
+    // 4. Lưu dấu ấn "Đã đăng" vào Database
+    game.isPostedToFB = true;
+    await API.saveGame(game);
+    
+    localStorage.removeItem('clt_cache_data');
+    showToast(`✅ Đã đăng "${title}" lên Facebook thành công!`, 'success');
+    
+    // Load lại bảng để cục Tem màu xanh hiện lên
+    await loadGamesTable(); 
+    
+  } catch(e) { 
+    console.error('Lỗi Webhook:', e); 
+    showToast('❌ Lỗi kết nối đến Make.com', 'error');
+  }
+}
+window.postToFBConfirm = postToFBConfirm; // Kích hoạt hàm ra toàn cục
