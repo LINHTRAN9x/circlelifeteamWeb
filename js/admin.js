@@ -564,6 +564,7 @@ window.deleteGameConfirm = deleteGameConfirm;
 
 
 // Hàm tự động tạo nội dung Sitemap từ dữ liệu thực tế (ĐÃ UPDATE CHUẨN SEO + HÌNH ẢNH)
+// Hàm tự động tạo nội dung Sitemap từ dữ liệu thực tế (BẢN CẬP NHẬT SẠCH DỮ LIỆU)
 async function generateSitemap() {
   const games = await API.getGames();
   const baseUrl = CONFIG.SITE_URL.replace(/\/$/, ''); 
@@ -571,41 +572,42 @@ async function generateSitemap() {
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   
-  // 1. THÊM NAMESPACE ẢNH (xmlns:image)
+  // 1. Khai báo Namespace cho chuẩn SEO Hình ảnh và Video
   xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n`;
 
-  // 2. Trang chủ
-  xml += `  <url>\n    <loc>${baseUrl}/</loc>\n    <lastmod>${today}</lastmod>\n    <priority>1.0</priority>\n  </url>\n`;
+  // 2. Trang chủ (Độ ưu tiên cao nhất)
+  xml += `  <url>\n    <loc>${baseUrl}/</loc>\n    <lastmod>${today}</lastmod>\n    <priority>1.0</priority>\n    <changefreq>daily</changefreq>\n  </url>\n`;
 
-  // 3. Link chuyên mục SEO
-  const genres = [...new Set(games.map(g => g.genre).filter(Boolean))];
+  // 3. Link chuyên mục SEO (Nền tảng & Thể loại)
   const platforms = [...new Set(games.flatMap(g => (g.platform || 'PS5').split(',').map(p => p.trim())))];
-
   platforms.forEach(p => {
-    xml += `  <url>\n    <loc>${baseUrl}/category.html?platform=${encodeURIComponent(p)}</loc>\n    <priority>0.9</priority>\n  </url>\n`;
-  });
-  genres.forEach(g => {
-    xml += `  <url>\n    <loc>${baseUrl}/category.html?genre=${encodeURIComponent(g)}</loc>\n    <priority>0.8</priority>\n  </url>\n`;
+    xml += `  <url>\n    <loc>${baseUrl}/category.html?platform=${encodeURIComponent(p)}</loc>\n    <priority>0.9</priority>\n    <changefreq>weekly</changefreq>\n  </url>\n`;
   });
 
-  // 4. Link trang chi tiết Game + DỮ LIỆU ẢNH BÌA
+  // 4. Link trang chi tiết Game
   games.forEach(game => {
     if (!game.slug) return;
+    
+    // 🔥 CẢI TIẾN: Lấy updatedAt để làm lastmod. 
+    // Nếu bác vừa sửa điểm đánh giá hay link tải, Google sẽ biết trang này vừa "mới" lại để vào crawl ngay.
     let lastMod = today;
-    if (game.releaseDate) {
-      try { lastMod = new Date(game.releaseDate).toISOString().split('T')[0]; } 
-      catch (e) { lastMod = today; }
+    if (game.updatedAt) {
+      lastMod = new Date(game.updatedAt).toISOString().split('T')[0];
+    } else if (game.releaseDate) {
+      lastMod = new Date(game.releaseDate).toISOString().split('T')[0];
     }
     
+    // 🔥 CẢI TIẾN: Game mới hoặc Game 5 sao thì ưu tiên cao hơn (0.8), game cũ hơn thì 0.6
+    let priority = game.isNew || (game.rating >= 4) ? "0.8" : "0.6";
+
     xml += `  <url>\n`;
-    // ✅ Giữ lại định dạng link game.html?id= để Googlebot crawl nhanh nhất
     xml += `    <loc>${baseUrl}/game.html?id=${game.slug}</loc>\n`;
     xml += `    <lastmod>${lastMod}</lastmod>\n`;
-    xml += `    <priority>0.7</priority>\n`;
+    xml += `    <priority>${priority}</priority>\n`;
 
-    // CHÈN DỮ LIỆU ẢNH BÌA
+    // CHÈN DỮ LIỆU ẢNH (Giúp Google Image Search index ảnh bìa đẹp hơn)
     if (game.coverImage) {
-      const safeTitle = (game.title + " Việt Hóa").replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+      const safeTitle = `${game.title} Việt Hóa`.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       const safeImgUrl = game.coverImage.replace(/&/g, '&amp;');
 
       xml += `    <image:image>\n`;
@@ -624,7 +626,7 @@ async function generateSitemap() {
   link.href = URL.createObjectURL(blob);
   link.download = 'sitemap.xml';
   link.click();
-  showToast('Đã xuất Sitemap thành công (Có kèm Hình Ảnh)!', 'success');
+  showToast('🚀 Đã xuất Sitemap sạch (Dựa trên updatedAt) thành công!', 'success');
 }
 
 

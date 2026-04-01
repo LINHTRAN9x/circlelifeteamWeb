@@ -122,15 +122,13 @@ function updateSEO(game) {
   };
 
   // Nếu game có điểm số, khai báo để Google hiện sao vàng
-  if (game.rating) {
+  if (game.rating && game.ratingCount >= 5) {
     videoGameSchema.aggregateRating = {
       "@type": "AggregateRating",
       "ratingValue": game.rating,
       "bestRating": "5",
       "worstRating": "1",
-      // Google bắt buộc phải có số lượt đánh giá.
-      // Tạm thời mình dùng công thức giả lập (rating * 42 + 15) để ra con số trông có vẻ tự nhiên, không bị báo lỗi thiếu trường.
-      "ratingCount": (game.rating * 42) + 15 
+      "ratingCount": game.ratingCount
     };
   }
 
@@ -209,6 +207,13 @@ function updateSEO(game) {
   // Update breadcrumb text trên giao diện HTML
   // const bcGame = document.getElementById('bc-game');
   // if (bcGame) bcGame.textContent = game.title;
+
+  // Cập nhật hreflang cho trang game
+  const hreflangVi = document.querySelector('link[hreflang="vi"]');
+  const hreflangDef = document.querySelector('link[hreflang="x-default"]');
+  const gameUrl = `${CONFIG.SITE_URL}/share/${game.slug}`;
+  if (hreflangVi) hreflangVi.href = gameUrl;
+  if (hreflangDef) hreflangDef.href = gameUrl;
 }
 
 function setMeta(name, content) {
@@ -695,7 +700,7 @@ function initRatingWidget(gameData) {
   const hasRated = localStorage.getItem(`clt_rated_${gameData.slug}`);
   if (hasRated) {
     if (widgetContainer) widgetContainer.style.display = 'none';
-    injectSchemaSEO(gameData); // Vẫn phải chạy SEO để Google biết
+    
     return; // Dừng hàm luôn tại đây, không cần tải thêm sự kiện click nữa
   }
 
@@ -757,36 +762,5 @@ function initRatingWidget(gameData) {
   }
 
   // BƠM DỮ LIỆU SEO LÊN GOOGLE (JSON-LD)
-  injectSchemaSEO(gameData);
+  
 }
-
-function injectSchemaSEO(game) {
-  // Tạo đoạn Script chứa Schema.org chuẩn Google
-  const schema = {
-    "@context": "https://schema.org/",
-    "@type": "SoftwareApplication",
-    "name": `${game.titleVi || game.title} Việt Hóa`,
-    "applicationCategory": "GameApplication",
-    "operatingSystem": game.platform || "PS5, PC, Switch",
-    "image": game.coverImage,
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "VND"
-    },
-    // Chỗ này báo cho Google biết game được mấy sao (Giả lập số liệu nếu chưa có)
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": game.rating || "5", 
-      "ratingCount": game.ratingCount || Math.floor(Math.random() * 50) + 10 // Random số người rate nếu database chưa có
-    }
-  };
-
-  const script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.text = JSON.stringify(schema);
-  document.head.appendChild(script);
-}
-
-// Bác nhớ gọi hàm này sau khi trang game tải xong dữ liệu nhé!
-// Ví dụ: initRatingWidget(game);

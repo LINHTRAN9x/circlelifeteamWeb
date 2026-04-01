@@ -69,6 +69,18 @@ async function loadCategoryData(platform, genre, tag, initialPage = 1) {
     const metaDesc = document.querySelector('meta[name="description"]');
     if(metaDesc) metaDesc.content = pageDesc;
 
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    const twTitle = document.querySelector('meta[name="twitter:title"]');
+    const twDesc = document.querySelector('meta[name="twitter:description"]');
+
+    if (ogTitle) ogTitle.content = document.title;
+    if (ogDesc) ogDesc.content = pageDesc;
+    if (ogUrl) ogUrl.content = window.location.href;
+    if (twTitle) twTitle.content = document.title;
+    if (twDesc) twDesc.content = pageDesc;
+
     // Sắp xếp game mới nhất lên đầu và nạp vào Biến toàn cục
     catFilteredGames = filteredGames.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
     
@@ -124,6 +136,33 @@ function renderCategoryPage(page) {
     if (topElement && typeof lenis !== 'undefined') {
       lenis.scrollTo(topElement, { offset: -100 });
     }
+  }
+
+  updatePaginationLinks(page, totalPages);
+}
+
+function updatePaginationLinks(currentPage, totalPages) {
+  // Xóa thẻ prev/next cũ nếu có
+  document.querySelectorAll('link[rel="prev"], link[rel="next"]').forEach(el => el.remove());
+
+  const currentUrl = new URL(window.location.href);
+
+  if (currentPage > 1) {
+    const prevUrl = new URL(currentUrl);
+    prevUrl.searchParams.set('page', currentPage - 1);
+    const prevLink = document.createElement('link');
+    prevLink.rel = 'prev';
+    prevLink.href = prevUrl.toString();
+    document.head.appendChild(prevLink);
+  }
+
+  if (currentPage < totalPages) {
+    const nextUrl = new URL(currentUrl);
+    nextUrl.searchParams.set('page', currentPage + 1);
+    const nextLink = document.createElement('link');
+    nextLink.rel = 'next';
+    nextLink.href = nextUrl.toString();
+    document.head.appendChild(nextLink);
   }
 }
 
