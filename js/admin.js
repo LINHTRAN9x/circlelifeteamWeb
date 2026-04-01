@@ -231,7 +231,7 @@ async function loadGamesTable(searchQuery = '') {
               <span style="cursor:pointer;color:var(--blue-vivid);text-decoration:underline;text-underline-offset:2px" onclick="postToFBConfirm('${g.id}', '${g.title.replace(/'/g, "\\'")}')" title="Click để đăng bài lên Facebook">
                 ${g.title} <i class="fa-brands fa-facebook" style="color:#1877F2"></i>
               </span>
-              ${g.isPostedToFB ? '<span class="badge" style="background:#1877F2;color:#fff;padding:2px 6px;font-size:9px;border:none;box-shadow:none"><i class="fa-solid fa-check"></i> Đã đăng FB</span>' : ''}
+              ${g.isPostedToFB ? '<span class="badge" style="background:#1877F2;color:#fff;padding:2px 6px;font-size:9px;border:none;box-shadow:none"><i class="fa-solid fa-check"></i></span>' : ''}
             </div>
             <div style="font-size:11px;color:var(--text-muted);font-style:italic">${g.titleVi || ''}</div>
           </div>
