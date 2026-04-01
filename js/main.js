@@ -5,15 +5,15 @@
 // ============================================================
 //  Khởi tạo cuộn mượt Lenis (Dán lên đầu file)
 // ============================================================
-const lenis = new Lenis({
-  duration: 1.2, /* Độ dài của quán tính (tăng để trượt dài hơn) */
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), /* Gia tốc trượt */
-  direction: 'vertical',
-  gestureDirection: 'vertical',
-  smooth: true,
-  mouseMultiplier: 1,
-  smoothTouch: false, /* Tắt trên điện thoại vì đt cuộn cảm ứng vốn đã mượt */
-});
+// const lenis = new Lenis({
+//   duration: 1.2, /* Độ dài của quán tính (tăng để trượt dài hơn) */
+//   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), /* Gia tốc trượt */
+//   direction: 'vertical',
+//   gestureDirection: 'vertical',
+//   smooth: true,
+//   mouseMultiplier: 1,
+//   smoothTouch: false, /* Tắt trên điện thoại vì đt cuộn cảm ứng vốn đã mượt */
+// });
 
 function raf(time) {
   lenis.raf(time);

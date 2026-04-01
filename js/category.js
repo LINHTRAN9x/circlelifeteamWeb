@@ -4,9 +4,9 @@
 // ============================================================
 
 // 1. Khởi tạo Lenis (Cuộn mượt)
-const lenis = new Lenis({ duration: 1.2, smooth: true });
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
+// const lenis = new Lenis({ duration: 1.2, smooth: true });
+// function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+// requestAnimationFrame(raf);
 
 document.addEventListener('DOMContentLoaded', async () => {
   initUI(); 
