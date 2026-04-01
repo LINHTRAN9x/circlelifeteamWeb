@@ -1597,3 +1597,166 @@ body.dark-mode .toc-list a:hover {
   text-decoration-style: solid !important;
   border-radius: 4px;
 }
+
+
+/* ============================================================
+   FIX GIAO DIỆN ADMIN TRÊN MOBILE (Đã sửa chuẩn Class)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* 1. Fix thanh Navbar Admin (Nút Đăng xuất bị tràn) */
+  .navbar {
+    height: auto !important;
+    padding: 12px 16px !important;
+    flex-wrap: wrap; /* Cho phép rớt dòng */
+  }
+  .navbar .nav-logo {
+    width: 100%; /* Logo chiếm 1 dòng riêng trên cùng */
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  .navbar .nav-spacer { display: none; } /* Xóa khoảng trống */
+  .navbar > span { display: none; } /* Ẩn chữ "Admin Panel" cho đỡ chật */
+  
+  /* Ép 2 nút Xem Website và Đăng xuất dàn đều 50/50 */
+  .navbar .btn-outline, 
+  .navbar .nav-admin-btn {
+    flex: 1; 
+    margin: 0 !important;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* 2. Fix Menu Cột Trái (Sidebar) */
+  .admin-sidebar {
+    height: auto !important;
+    position: static !important;
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 16px !important;
+    border-right: none !important;
+    border-bottom: var(--border-solid) !important;
+  }
+  .admin-sidebar-title { 
+    width: 100%; 
+    text-align: center; 
+    margin-bottom: 8px !important; 
+  }
+  .admin-nav-item {
+    flex: 1 1 calc(50% - 8px); /* Bẻ menu thành 2 cột */
+    justify-content: center;
+    margin-bottom: 0 !important;
+  }
+  .admin-sidebar > div:last-child {
+    width: 100%; /* Cụm Xem Website ở dưới đáy menu chiếm 1 dòng */
+  }
+
+  /* 3. Fix Lưới Thống Kê (Stats) */
+  .admin-stats-grid {
+    grid-template-columns: 1fr 1fr !important; /* Lưới 2 cột */
+    gap: 12px !important;
+  }
+  .admin-stats-grid > .admin-stat-card:last-child {
+    grid-column: 1 / -1; /* Ép thẻ Lượt khách (thẻ số 5) dàn full bề ngang */
+  }
+  .admin-stat-num { 
+    font-size: 28px !important; /* Chữ số thu nhỏ lại 1 chút */
+  }
+  /* 5. Biến Bảng thành Thẻ (Table to Card) trên Mobile cực xịn */
+  .admin-table-wrapper {
+    overflow-x: hidden !important;
+    background: transparent !important; /* Xóa nền của khung bọc */
+    border: none !important;            /* Xóa viền khung */
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  
+  /* Ép bảng thành dạng khối (block) thay vì dạng bảng */
+  .admin-table, 
+  .admin-table tbody, 
+  .admin-table tr, 
+  .admin-table td {
+    display: block;
+    width: 100% !important;
+    min-width: 0 !important; /* Hủy cái lệnh min-width 700px cũ */
+  }
+
+  /* Giấu cái thanh tiêu đề (Cột) đi vì không cần thiết nữa */
+  .admin-table thead {
+    display: none;
+  }
+
+  /* 🎨 Biến mỗi dòng Game thành 1 cái Thẻ (Card) */
+  .admin-table tr {
+    background: var(--white);
+    border: var(--border-solid);
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    padding: 12px 16px;
+  }
+
+  /* 🎨 Cấu trúc lại các dòng dữ liệu bên trong Thẻ */
+  .admin-table td {
+    display: flex;
+    justify-content: space-between; /* Đẩy chữ dàn sang 2 bên */
+    align-items: center;
+    padding: 10px 0 !important;
+    border-bottom: 1px dashed rgba(0,0,0,0.1) !important;
+    text-align: right;
+  }
+  .admin-page-title{
+    font-size: 23px;
+  }
+
+  .admin-table tr td:last-child {
+    border-bottom: none !important;
+    justify-content: center; /* Nút thao tác đưa ra giữa */
+    padding-bottom: 0 !important;
+    padding-top: 16px !important;
+  }
+
+  /* 💡 Tự động sinh ra "Nhãn (Label)" bằng CSS để người dùng biết dòng nào là dòng nào */
+  .admin-table td::before {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    text-align: left;
+  }
+
+  /* Ô số 1: Ảnh bìa + Tên game (Làm Tiêu đề thẻ) */
+  .admin-table td:nth-child(1) {
+    justify-content: flex-start;
+    border-bottom: 2px solid var(--black) !important;
+    padding-bottom: 16px !important;
+    margin-bottom: 8px;
+  }
+  .admin-table td:nth-child(1)::before { content: none; } /* Không cần nhãn */
+
+  /* Ô số 2: Thể loại */
+  .admin-table td:nth-child(2)::before { content: "Thể loại:"; }
+  
+  /* Ô số 3: Tiến độ */
+  .admin-table td:nth-child(3)::before { content: "Tiến độ:"; }
+  
+  /* Ô số 4: Phiên bản */
+  .admin-table td:nth-child(4)::before { content: "Phiên bản:"; }
+  
+  /* Ô số 5: Tags */
+  .admin-table td:nth-child(5)::before { content: "Nhãn:"; }
+  
+  /* Ô số 6: Nút Xóa/Sửa */
+  .admin-table td:nth-child(6)::before { content: none; }
+
+  .admin-page .nav-search {
+    display: flex !important;
+    max-width: 100% !important; /* Ép nó dài tràn viền cho dễ bấm */
+  }
+  
+  /* 2. Ép nút "Thêm Game Mới" full chiều ngang cho đồng bộ */
+  #add-game-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

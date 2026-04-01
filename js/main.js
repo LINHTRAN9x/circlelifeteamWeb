@@ -194,13 +194,49 @@ function renderAllGames(games) {
   initLoadMoreBtn();
 }
 
+
+function normalizeGenre(text) {
+  if (!text) return '';
+  // Tách từ bằng dấu cách hoặc gạch ngang (Gộp Action-RPG và Action RPG làm một)
+  let words = text.toLowerCase().trim().split(/[\s-]+/);
+
+  let finalWord = words.map((word, index) => {
+    // 1. Viết hoa toàn bộ các từ khóa đặc biệt
+    if (['rpg', 'jrpg', 'fps', 'vr', '2d', '3d'].includes(word)) return word.toUpperCase();
+    // 2. Không viết hoa các từ nối (trừ khi nó đứng đầu)
+    if (['and', 'or', 'of', 'in'].includes(word) && index !== 0) return word.toLowerCase();
+    // 3. Viết hoa chữ cái đầu cho các chữ bình thường
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+
+  // Trả lại dấu gạch ngang cho các từ chuyên ngành để sát chuẩn quốc tế
+  return finalWord.replace('Souls Like', 'Souls-like')
+                  .replace('Co Op', 'Co-op')
+                  .replace('Sci Fi', 'Sci-Fi')
+                  .replace('Turn Based', 'Turn-Based')
+                  .replace('First Person', 'First-Person')
+                  .replace('Third Person', 'Third-Person');
+}
+
 function initFilters(games) {
-  // 1. Tự động tạo danh sách Thể Loại từ kho game
+  // 1. Tự động tạo danh sách Thể Loại thông minh từ kho game
   const genreSelect = document.getElementById('filter-genre');
   if (genreSelect) {
-    const genres = [...new Set(games.map(g => g.genre).filter(Boolean))];
+    let allGenres = [];
+    games.forEach(g => {
+      if (g.genre) {
+        // Tách các thể loại bị dính chùm bởi dấu "/" hoặc ","
+        const parts = g.genre.split(/[\/,]/).map(p => p.trim()).filter(Boolean);
+        // Đưa qua "máy lọc" trước khi nhét vào danh sách
+        parts.forEach(p => allGenres.push(normalizeGenre(p)));
+      }
+    });
+
+    // Lọc trùng lặp và sắp xếp theo bảng chữ cái A-Z
+    const uniqueGenres = [...new Set(allGenres)].sort();
+
     genreSelect.innerHTML = `<option value="all">Tất Cả</option>` + 
-      genres.map(g => `<option value="${g}">${g}</option>`).join('');
+      uniqueGenres.map(g => `<option value="${g}">${g}</option>`).join('');
   }
 
   // 2. PHỤC HỒI TRÍ NHỚ: Lấy lại các bộ lọc khách đã chọn trước khi sang trang khác
@@ -243,7 +279,14 @@ function applyFilters(isLoadMore = false) {
   let filtered = [...allGamesCache];
 
   // 1. Máy chém Thể loại
-  if (genre !== 'all') filtered = filtered.filter(g => g.genre === genre);
+  if (genre !== 'all') {
+    filtered = filtered.filter(g => {
+      if (!g.genre) return false;
+      // Tách và làm sạch thể loại của từng game y như lúc tạo menu
+      const gameGenres = g.genre.split(/[\/,]/).map(p => normalizeGenre(p.trim()));
+      return gameGenres.includes(genre); // So sánh đồ sạch với đồ sạch
+    });
+  }
 
   // 2. Máy chém Nền tảng (Vì 1 game có nhiều nền tảng nên dùng includes)
   if (platform !== 'all') filtered = filtered.filter(g => (g.platform || '').includes(platform));
