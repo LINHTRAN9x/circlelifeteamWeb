@@ -64,6 +64,7 @@
   </a>
 
   <ul class="nav-links" role="list">
+    <li class="mobile-only-search"><a href="#" id="menu-search-btn"><i class="fa-solid fa-magnifying-glass"></i> Tìm Kiếm</a></li>
     <li><a href="/">Trang Chủ</a></li>
     <li><a href="/category.html">Thư Viện</a></li>
     <li><a href="/#new-releases">Mới Ra</a></li>
@@ -72,7 +73,14 @@
 
   <div class="nav-spacer"></div>
 
-  <a href="/#library" class="btn-outline lybraBlock" style="font-size:13px;padding:7px 14px"><i class="fa-solid fa-arrow-left"></i> Thư Viện</a>
+  <div class="nav-search" role="search">
+    <span class="nav-search-icon" aria-hidden="true">🔍</span>
+    <input type="search" placeholder="Tìm game việt hóa... (Ctrl+K)" aria-label="Search games">
+  </div>
+
+  <button id="theme-toggle" class="btn-outline" style="padding: 8px; margin-left: 16px; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+    <i class="fa-solid fa-moon"></i>
+  </button>
   
   <a href="/admin.html" class="nav-admin-btn" style="margin-left:8px"><i class="fa-solid fa-gear"></i></a>
   <button class="nav-mobile-toggle" aria-label="Toggle menu">☰</button>
@@ -254,6 +262,16 @@
       ⭐
     </button>
   </div>
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search games">
+  <div class="search-box">
+    <div class="search-box-input">
+      <span style="font-size:18px">🔍</span>
+      <input type="search" id="search-input-main" placeholder="Tìm kiếm game việt hóa..." aria-label="Search input" autocomplete="off">
+      <button class="search-close" id="search-close" aria-label="Close search">✕</button>
+    </div>
+    <div class="search-results-list" id="search-results-list" role="listbox" aria-label="Search results"></div>
+  </div>
+</div>
 
 </main>
 

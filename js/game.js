@@ -43,8 +43,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   const slug = getSlugFromURL();
   if (!slug) { window.location.href = '/'; return; }
   await loadGameDetail(slug);
-  initNavScroll();
+  initSearch();      // Chạy tìm kiếm
+  initTheme();       // Chạy đổi màu tối/sáng
+  initNavScroll();   // Chạy hiệu ứng thanh menu
+  initMobileMenu();
 });
+
+function initMobileMenu() {
+  const toggle = document.querySelector('.nav-mobile-toggle');
+  const links = document.querySelector('.nav-links');
+  const body = document.body;
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = links.classList.toggle('mobile-open');
+    toggle.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '☰';
+    body.style.overflow = isOpen ? 'hidden' : '';
+  });
+}
 
 function getSlugFromURL() {
   // 1. Thử tìm theo cách cũ (?id=...)
@@ -763,4 +778,88 @@ function initRatingWidget(gameData) {
 
   // BƠM DỮ LIỆU SEO LÊN GOOGLE (JSON-LD)
   
+}
+
+
+function initSearch() {
+  const overlay = document.getElementById('search-overlay');
+  const input = document.getElementById('search-input-main');
+  const closeBtn = document.getElementById('search-close');
+  const navSearch = document.querySelector('.nav-search input');
+  const searchIcon = document.querySelector('.nav-search-icon');
+
+  const menuSearchBtn = document.getElementById('menu-search-btn');
+
+  function openSearch(e) {
+    if(e) e.preventDefault(); // Chặn thẻ <a> nhảy trang lung tung
+    if (overlay) {
+      overlay.classList.add('open');
+      setTimeout(() => input?.focus(), 100);
+    }
+  }
+  function closeSearch() { overlay?.classList.remove('open'); }
+
+  navSearch?.addEventListener('focus', openSearch);
+  searchIcon?.addEventListener('click', openSearch);
+  
+  // THÊM: Bấm chữ Tìm kiếm trong menu sẽ mở bảng
+  menuSearchBtn?.addEventListener('click', openSearch);
+
+  closeBtn?.addEventListener('click', closeSearch);
+  overlay?.addEventListener('click', e => { if (e.target === overlay) closeSearch(); });
+
+  function openSearch() {
+    if (overlay) {
+      overlay.classList.add('open');
+      setTimeout(() => input?.focus(), 100);
+    }
+  }
+  function closeSearch() { overlay?.classList.remove('open'); }
+
+  navSearch?.addEventListener('focus', openSearch);
+  searchIcon?.addEventListener('click', openSearch);
+  closeBtn?.addEventListener('click', closeSearch);
+  overlay?.addEventListener('click', e => { if (e.target === overlay) closeSearch(); });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeSearch();
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
+  });
+
+  let debounceTimer;
+  input?.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => performSearch(input.value), 200);
+  });
+}
+
+async function performSearch(query) {
+  const list = document.getElementById('search-results-list');
+  if (!list) return;
+  const q = query.trim().toLowerCase();
+  if (!q) { list.innerHTML = ''; return; }
+
+  const games = await API.getGames();
+  const results = games.filter(g =>
+    g.title.toLowerCase().includes(q) ||
+    (g.titleVi || '').toLowerCase().includes(q) ||
+    (g.genre || '').toLowerCase().includes(q)
+  ).slice(0, 6);
+
+  if (!results.length) {
+    list.innerHTML = '<div class="empty-state" style="padding:24px"><div class="empty-state-text">Không tìm thấy game</div></div>';
+    return;
+  }
+  list.innerHTML = results.map(g => `
+    <a href="/game.html?id=${g.slug}" class="search-result-item">
+      ${g.coverImage
+        ? `<img class="search-result-thumb" src="${g.coverImage}" alt="${g.title}" onerror="this.src=''">`
+        : '<div class="search-result-thumb" style="background:var(--bg-dark);display:flex;align-items:center;justify-content:center">🎮</div>'}
+      <div class="search-result-info">
+        <div class="search-result-title">${g.title}</div>
+        <div class="search-result-sub">${g.titleVi || ''} · ${g.platform || 'PS5'} · ${g.status || ''}</div>
+      </div>
+      <span style="color:var(--text-dim);font-size:12px"><i class="fa-solid fa-arrow-right-long"></i></span>
+    </a>
+  `).join('');
 }
