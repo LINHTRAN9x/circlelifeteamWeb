@@ -1,16 +1,22 @@
 // Thay đổi link thành nhà mới Firebase
 const FIREBASE_DB_URL = 'https://circlelifeteam-default-rtdb.asia-southeast1.firebasedatabase.app';
 
-// Hàm gọt sạch thẻ HTML và làm gọn chữ
+// Hàm gọt sạch thẻ HTML, gom chữ và bọc giáp (Escape) chống vỡ thẻ Meta
 function stripHTML(html) {
   if (!html) return '';
-  // Xóa mọi thẻ <...>, đổi &nbsp; thành dấu cách, và gom khoảng trắng thừa
-  let text = html.replace(/<[^>]*>?/gm, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
-  // Cắt ngắn gọn khoảng 140 ký tự cho chuẩn đẹp trên Discord/Facebook
-  if (text.length > 140) {
-    text = text.substring(0, 140) + '...';
+  let text = html
+    .replace(/<[^>]+>/g, ' ')   // 1. Quét sạch mọi thẻ HTML (Regex chuẩn hơn)
+    .replace(/&nbsp;/g, ' ')     // 2. Dọn khoảng trắng dị
+    .replace(/\s+/g, ' ')        // 3. Gom nhiều dấu cách thành 1
+    .trim();
+  
+  // 4. Cắt ngắn gọn khoảng 140 ký tự
+  if (text.length > 240) {
+    text = text.substring(0, 240) + '...';
   }
-  return text;
+  
+  // 5. QUAN TRỌNG NHẤT: Bọc giáp các dấu ngoặc kép, ngoặc đơn để không làm nổ thẻ <meta>
+  return text.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
 export default async function handler(req, res) {
@@ -19,7 +25,6 @@ export default async function handler(req, res) {
 
   let game = null;
   try {
-    // Gọi API sang Firebase thay vì JSONBin
     const r = await fetch(`${FIREBASE_DB_URL}/.json`);
     const data = await r.json();
     game = (data.games || []).find(g => g.slug === slug);
@@ -28,13 +33,13 @@ export default async function handler(req, res) {
     return res.redirect('/');
   }
 
-  // Nếu Firebase không có game này thì mới bị văng về trang chủ
   if (!game) return res.redirect('/');
 
-  // Lọc sạch nội dung HTML từ Editor
+  // Lọc nội dung
   const cleanDescVi = stripHTML(game.descriptionVi);
 
-  const title = `${game.title} Việt Hóa – CircleLifeTeam`;
+  // Thoát ngoặc kép cho cả Title để an toàn tuyệt đối
+  const title = `${game.title} Việt Hóa – CircleLifeTeam`.replace(/"/g, '&quot;');
   const desc  = `Tải bản việt hóa ${game.title} cho ${game.platform}. ${game.status || ''}. ${cleanDescVi}`;
   const image = game.coverImage || 'https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png';
   const url   = `https://circlelifeteam.top/share/${slug}`;
