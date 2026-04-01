@@ -11,8 +11,8 @@ function stripHTML(html) {
     .trim();
   
   // 4. Cắt ngắn gọn khoảng 140 ký tự
-  if (text.length > 240) {
-    text = text.substring(0, 240) + '...';
+  if (text.length > 340) {
+    text = text.substring(0, 340) + '...';
   }
   
   // 5. QUAN TRỌNG NHẤT: Bọc giáp các dấu ngoặc kép, ngoặc đơn để không làm nổ thẻ <meta>
