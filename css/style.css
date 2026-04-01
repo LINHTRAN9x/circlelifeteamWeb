@@ -1603,19 +1603,7 @@ body.dark-mode .toc-list a:hover {
    FIX GIAO DIỆN ADMIN TRÊN MOBILE (Đã sửa chuẩn Class)
    ============================================================ */
 @media (max-width: 768px) {
-  /* 1. Fix thanh Navbar Admin (Nút Đăng xuất bị tràn) */
-  .navbar {
-    height: auto !important;
-    padding: 12px 16px !important;
-    flex-wrap: wrap; /* Cho phép rớt dòng */
-  }
-  .navbar .nav-logo {
-    width: 100%; /* Logo chiếm 1 dòng riêng trên cùng */
-    justify-content: center;
-    margin-bottom: 12px;
-  }
-  .navbar .nav-spacer { display: none; } /* Xóa khoảng trống */
-  .navbar > span { display: none; } /* Ẩn chữ "Admin Panel" cho đỡ chật */
+  
   
   /* Ép 2 nút Xem Website và Đăng xuất dàn đều 50/50 */
   .navbar .btn-outline, 
