@@ -50,6 +50,7 @@ export default async function handler(req, res) {
 <head>
   <meta charset="UTF-8">
   <title>${title}</title>
+  <meta property="fb:app_id"       content="2150545185759559">
   <meta property="og:type"         content="article">
   <meta property="og:title"        content="${title}">
   <meta property="og:description"  content="${desc}">
