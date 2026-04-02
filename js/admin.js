@@ -363,7 +363,7 @@ async function editGame(id) {
 function fillGameForm(game) {
   const fields = ['id', 'slug', 'title', 'titleVi', 'description',
     'coverImage','bannerImage', 'youtubeId', 'downloadLink', 'genre', 'platform', 'releaseDate',
-    'version', 'translator', 'status', 'rating'];
+    'version', 'translator', 'status', 'rating', 'price'];
   fields.forEach(f => {
     const el = document.getElementById(`form-${f}`);
     if (el) el.value = game[f] || '';
@@ -425,6 +425,7 @@ async function saveGameFromForm() {
     translator: document.getElementById('form-translator').value.trim() || 'CircleLife Team',
     status: document.getElementById('form-status').value.trim(),
     rating: parseInt(document.getElementById('form-rating').value) || 0,
+    price: document.getElementById('form-price')?.value.trim() || '',
     isNew: document.getElementById('form-isNew').checked,
     isFeatured: document.getElementById('form-isFeatured').checked,
     tags: Array.from(document.querySelectorAll('input[name="game_tags"]:checked')).map(cb => cb.value),

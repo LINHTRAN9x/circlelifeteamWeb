@@ -1960,3 +1960,37 @@ body.dark-mode .page-btn.active {
 
 body.dark-mode .rating-panel { background: var(--bg-card); }
 body.dark-mode .rating-stars { color: var(--text-dim); }
+
+
+/* ============================================================
+   TEM HIỂN THỊ GIÁ GAME
+   ============================================================ */
+.game-price-tag {
+  display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--accent-red);
+    color: var(--black) !important;
+    border: 3px solid var(--black) !important;
+    border-radius: var(--radius-md);
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 900;
+    box-shadow: 4px 4px 0 var(--black) !important;
+    /* margin-left: auto; */
+    animation: popUp 0.3s ease;
+}
+
+body.dark-mode .game-price-tag {
+  background: var(--accent-red); /* Giữ màu nổi trong darkmode */
+}
+
+/* Tối ưu cho điện thoại: Rớt xuống dòng thì nằm giữa cho đẹp */
+@media (max-width: 768px) {
+  .game-price-tag {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+}

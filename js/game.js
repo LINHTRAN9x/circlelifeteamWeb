@@ -453,6 +453,22 @@ function renderGameDetail(game) {
       screensEl.innerHTML = `<p style="color:var(--text-dim);font-size:13px;grid-column:1/-1">Chưa có ảnh màn hình.</p>`;
     }
   }
+
+  // ==========================================
+  // HIỂN THỊ GIÁ GAME (PRICE TAG)
+  // ==========================================
+  const actionsContainer = document.querySelector('.game-detail-actions');
+  const oldPriceTag = document.getElementById('display-price-tag');
+  if (oldPriceTag) oldPriceTag.remove(); // Xóa tag cũ đi để tránh bị nhân đôi khi F5
+
+  // Chỉ in ra nếu Admin có điền Giá
+  if (game.price && actionsContainer) {
+    actionsContainer.insertAdjacentHTML('beforeend', `
+      <div id="display-price-tag" class="game-price-tag" title="Giá việt hóa">
+        <i class="fa-solid fa-tag"></i> ${game.price}
+      </div>
+    `);
+  }
 }
 
 // ── Related Games ──
