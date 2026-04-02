@@ -108,7 +108,7 @@ function renderHeroSettings(settings) {
 
   // Footer social buttons (💬 👥 ▶) — theo đúng thứ tự trong HTML
   const socialBtns = document.querySelectorAll('.footer-social .social-btn');
-  const socialOrder = [settings.discordLink, settings.facebookLink, settings.facebookPageLink, settings.facebookGroupLink, settings.youtubeLink];
+  const socialOrder = [settings.discordLink, settings.facebookPageLink, settings.facebookGroupLink, settings.youtubeLink];
   socialBtns.forEach((btn, i) => {
     if (socialOrder[i] && socialOrder[i] !== '#') btn.href = socialOrder[i];
   });
