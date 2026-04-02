@@ -289,12 +289,39 @@ input, textarea, select { font-family: var(--font-body); outline: none; }
 
 /* New Releases Scroll */
 .new-releases-scroll { display: flex; gap: 24px; overflow-x: auto; padding: 10px 10px 24px 10px; }
-.new-card { min-width: 200px; background: var(--white); border: var(--border-solid); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); transition: var(--transition); cursor: pointer; flex-shrink: 0; }
+.new-card { 
+  width: 250px; /* Chuyển từ min-width sang width để ép mọi card đều tăm tắp 200px */
+  background: var(--white); 
+  border: var(--border-solid); 
+  border-radius: var(--radius-md); 
+  box-shadow: var(--shadow-sm); 
+  transition: var(--transition); 
+  cursor: pointer; 
+  flex-shrink: 0; /* Không cho phép card bị co lại khi hàng quá dài */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Cắt bỏ bất kỳ phần nào tràn ra ngoài */
+}
 .new-card:hover { transform: translate(-4px,-4px); box-shadow: var(--shadow-md); }
 .new-card-thumb { aspect-ratio: 3/4; border-bottom: var(--border-solid); }
 .new-card-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: calc(var(--radius-md) - 3px) calc(var(--radius-md) - 3px) 0 0; }
 .new-card-body { padding: 16px; }
-.new-card-title { font-family: var(--font-display); font-size: 15px; font-weight: 800; color: var(--black); text-transform: uppercase; margin-bottom: 8px;}
+.new-card-title { 
+  font-family: var(--font-display); 
+  font-size: 14px; /* Giảm nhẹ 1px cho gọn */
+  font-weight: 800; 
+  color: var(--black); 
+  text-transform: uppercase; 
+  margin-bottom: 8px;
+  
+  /* 🔥 TUYỆT CHIÊU: Giới hạn tiêu đề tối đa 2 dòng, quá dài sẽ hiện dấu ... */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3;
+  height: 2.6em; /* Cố định chiều cao vùng chứa chữ để các card bằng đầu nhau */
+}
 
 /* Genre Filter */
 .genre-filter { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
