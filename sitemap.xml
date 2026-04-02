@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://circlelifeteam.top/</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://circlelifeteam.top/category.html?platform=Nintendo%20Switch</loc>
+    <loc>https://circlelifeteam.top/category.html?platform=PC</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://circlelifeteam.top/category.html?platform=PC</loc>
+    <loc>https://circlelifeteam.top/category.html?platform=Nintendo%20Switch</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
@@ -25,6 +25,33 @@
     <loc>https://circlelifeteam.top/category.html?platform=PS4</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=resident-evil-requiem-viet-hoa</loc>
+    <lastmod>2026-04-02</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/44422a2e062c8e23be127f7b13cc700a.png</image:loc>
+      <image:title>Resident Evil Requiem Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=monster-hunter-stories-3-twisted-reflection-viet-hoa</loc>
+    <lastmod>2026-04-02</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/8cf2127d0de30d72c63a9ea06b3fd479.png</image:loc>
+      <image:title>Monster Hunter Stories 3: Twisted Reflection Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=death-stranding-2-on-the-beach-viet-hoa</loc>
+    <lastmod>2026-04-02</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/a8f1d3b1cb35d3163c9cc2d0adff2d8f.jpg</image:loc>
+      <image:title>DEATH STRANDING 2: ON THE BEACH Việt Hóa</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=sands-of-aura-viet-hoa</loc>
