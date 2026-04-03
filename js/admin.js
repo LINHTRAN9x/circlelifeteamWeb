@@ -581,6 +581,18 @@ document.getElementById('form-title')?.addEventListener('input', function () {
 document.getElementById('form-slug')?.addEventListener('input', function () {
   this.dataset.auto = 'false';
 });
+// ── Tự động Format Giá Tiền (VNĐ) ──
+document.getElementById('form-price')?.addEventListener('input', function (e) {
+  // Bỏ hết các ký tự không phải là số (kể cả chữ 'đ' hay dấu '.')
+  let rawValue = this.value.replace(/\D/g, '');
+  
+  if (rawValue) {
+    // Tự động chấm phần ngàn và thêm chữ 'đ' ở đuôi
+    this.value = new Intl.NumberFormat('vi-VN').format(rawValue) + 'đ';
+  } else {
+    this.value = ''; // Xóa trắng nếu không có số nào
+  }
+});
 
 // ── Toast ──
 function showToast(message, type = 'success') {
