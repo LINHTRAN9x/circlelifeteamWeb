@@ -294,10 +294,22 @@ function initGameModal() {
   const closeBtn = document.getElementById('modal-close');
   const form = document.getElementById('game-form');
 
-  openBtn?.addEventListener('click', () => {
+  openBtn?.addEventListener('click', async () => {
     editingId = null;
     resetGameForm();
     document.getElementById('modal-title').textContent = 'Thêm Game Mới';
+    
+    // 🚀 LẤY LINK DISCORD TỪ CÀI ĐẶT VÀ KHÓA Ô NHẬP LẠI
+    const settings = await API.getSettings();
+    const dlInput = document.getElementById('form-downloadLink');
+    if (dlInput) {
+      dlInput.value = settings.discordLink || '';
+      dlInput.readOnly = true; // Khóa không cho gõ
+      dlInput.style.backgroundColor = 'var(--bg-dark)'; // Bôi xám nền
+      dlInput.style.cursor = 'not-allowed'; // Đổi trỏ chuột thành dấu cấm
+      dlInput.style.color = 'var(--text-dim)';
+    }
+
     modal?.classList.add('open');
   });
   closeBtn?.addEventListener('click', () => modal?.classList.remove('open'));
@@ -353,6 +365,11 @@ function resetGameForm() {
   const f = document.getElementById('game-form');
   if (f) f.reset();
   document.getElementById('form-id').value = '';
+
+  // 🚀 BỔ SUNG: Dọn sạch nội dung trong khung soạn thảo Quill Editor
+  if (typeof quillEditor !== 'undefined') {
+    quillEditor.root.innerHTML = '';
+  }
 }
 
 async function editGame(id) {
@@ -362,18 +379,30 @@ async function editGame(id) {
 
   editingId = id;
   document.getElementById('modal-title').textContent = 'Chỉnh Sửa Game';
-  fillGameForm(game);
+  await fillGameForm(game); // Thêm chữ await vào dòng này
   document.getElementById('game-modal')?.classList.add('open');
 }
 
-function fillGameForm(game) {
+async function fillGameForm(game) {
   const fields = ['id', 'slug', 'title', 'titleVi', 'description',
-    'coverImage','bannerImage', 'youtubeId', 'downloadLink', 'genre', 'platform', 'releaseDate',
+    'coverImage','bannerImage', 'youtubeId', 'genre', 'platform', 'releaseDate',
     'version', 'translator', 'status', 'rating', 'price'];
   fields.forEach(f => {
     const el = document.getElementById(`form-${f}`);
     if (el) el.value = game[f] || '';
   });
+
+  // 🚀 LẤY LINK DISCORD TỪ CÀI ĐẶT & KHÓA LẠI KHI SỬA GAME
+  const settings = await API.getSettings();
+  const dlInput = document.getElementById('form-downloadLink');
+  if (dlInput) {
+    dlInput.value = settings.discordLink || ''; 
+    dlInput.readOnly = true;
+    dlInput.style.backgroundColor = 'var(--bg-dark)';
+    dlInput.style.cursor = 'not-allowed';
+    dlInput.style.color = 'var(--text-dim)';
+  }
+
   if (game.descriptionVi) {
     quillEditor.root.innerHTML = game.descriptionVi;
   } else {
@@ -831,3 +860,4 @@ async function fetchAdminViewCounts() {
     await new Promise(resolve => setTimeout(resolve, 300));
   }
 }
+
