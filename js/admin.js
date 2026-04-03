@@ -807,20 +807,27 @@ window.postToFBConfirm = postToFBConfirm; // Kích hoạt hàm ra toàn cục
 
 
 // ============================================================
-// TẢI NGẦM SỐ LƯỢT XEM TỪNG GAME CHO BẢNG ADMIN
+// TẢI NGẦM SỐ LƯỢT XEM TỪNG GAME CHO BẢNG ADMIN (Đã fix CORS + Chống kẹt mạng)
 // ============================================================
 async function fetchAdminViewCounts() {
   const badges = document.querySelectorAll('.admin-view-count');
   
-  // Chạy vòng lặp lấy data cho từng game đang hiển thị trên bảng
-  badges.forEach(async (badge) => {
+  // ⚠️ QUAN TRỌNG: Đổi sang vòng lặp for...of để tải lần lượt từng game một.
+  // Tránh việc "nã" 50 request cùng lúc làm cháy máy chủ Proxy.
+  for (const badge of badges) {
     const slug = badge.dataset.slug;
+    const targetUrl = `https://api.counterapi.dev/v1/clt_game_views/${slug}`;
+    const proxyUrl = `https://api.codetabs.com/v1/proxy?quest=${targetUrl}`;
+
     try {
-      const res = await fetch(`https://api.counterapi.dev/v1/clt_game_views/${slug}`);
+      const res = await fetch(proxyUrl);
       const data = await res.json();
       badge.querySelector('.num').textContent = (data.count || 0).toLocaleString('vi-VN');
     } catch (e) {
       badge.querySelector('.num').textContent = 'Lỗi';
     }
-  });
+    
+    // Nghỉ ngơi 300ms (0.3 giây) rồi mới tải số view của game tiếp theo
+    await new Promise(resolve => setTimeout(resolve, 300));
+  }
 }
