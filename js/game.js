@@ -96,6 +96,7 @@ async function loadGameDetail(slug) {
 
     // Đổi link trên thanh địa chỉ thành link share siêu ngắn, chuẩn SEO
     window.history.replaceState(null, '', `/share/${game.slug}`);
+    trackGameView(game.slug);
   } catch (e) {
     console.error('Game detail error:', e);
   }
@@ -878,4 +879,42 @@ async function performSearch(query) {
       <span style="color:var(--text-dim);font-size:12px"><i class="fa-solid fa-arrow-right-long"></i></span>
     </a>
   `).join('');
+}
+
+
+// ============================================================
+// HỆ THỐNG ĐẾM LƯỢT XEM TỪNG GAME (DÙNG COUNTER API)
+// ============================================================
+async function trackGameView(slug) {
+  // Dùng sessionStorage để khách F5 liên tục cũng chỉ tính 1 view cho 1 phiên truy cập
+  const viewKey = `clt_viewed_${slug}`;
+  const hasViewed = sessionStorage.getItem(viewKey);
+  
+  // Namespace riêng cho lượt xem game
+  let url = `https://api.counterapi.dev/v1/clt_game_views/${slug}`;
+  
+  if (!hasViewed) {
+    url += '/up'; // Nếu chưa xem trong phiên này thì +1
+    sessionStorage.setItem(viewKey, 'true');
+  }
+  
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    displayGameViews(data.count || 1);
+  } catch (e) {
+    console.error('Lỗi đếm lượt xem:', e);
+  }
+}
+
+function displayGameViews(count) {
+  const metaGrid = document.getElementById('game-meta-grid');
+  if (metaGrid && !document.getElementById('view-count-item')) {
+    metaGrid.insertAdjacentHTML('beforeend', `
+      <div class="game-meta-item" id="view-count-item">
+        <div class="game-meta-label">Lượt truy cập</div>
+        <div class="game-meta-value" style="color:var(--accent-blue)"><i class="fa-regular fa-eye"></i> ${count.toLocaleString('vi-VN')}</div>
+      </div>
+    `);
+  }
 }

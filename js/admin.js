@@ -233,7 +233,12 @@ async function loadGamesTable(searchQuery = '') {
               </span>
               ${g.isPostedToFB ? '<span class="badge" style="background:#1877F2;color:#fff;padding:2px 6px;font-size:9px;border:none;box-shadow:none"><i class="fa-solid fa-check"></i></span>' : ''}
             </div>
-            <div style="font-size:11px;color:var(--text-muted);font-style:italic">${g.titleVi || ''}</div>
+            <div style="font-size:11px;color:var(--text-muted);font-style:italic">
+              ${g.titleVi || ''}
+              <span class="admin-view-count" data-slug="${g.slug}" style="margin-left:8px; color:var(--blue-vivid); font-weight:800;">
+                <i class="fa-regular fa-eye"></i> <span class="num">...</span>
+              </span>
+            </div>
           </div>
         </div>
       </td>
@@ -256,6 +261,7 @@ async function loadGamesTable(searchQuery = '') {
       </td>
     </tr>
   `).join('');
+  fetchAdminViewCounts();
 }
 
 // ── Admin Nav ──
@@ -797,3 +803,24 @@ async function postToFBConfirm(id, title) {
   }
 }
 window.postToFBConfirm = postToFBConfirm; // Kích hoạt hàm ra toàn cục
+
+
+
+// ============================================================
+// TẢI NGẦM SỐ LƯỢT XEM TỪNG GAME CHO BẢNG ADMIN
+// ============================================================
+async function fetchAdminViewCounts() {
+  const badges = document.querySelectorAll('.admin-view-count');
+  
+  // Chạy vòng lặp lấy data cho từng game đang hiển thị trên bảng
+  badges.forEach(async (badge) => {
+    const slug = badge.dataset.slug;
+    try {
+      const res = await fetch(`https://api.counterapi.dev/v1/clt_game_views/${slug}`);
+      const data = await res.json();
+      badge.querySelector('.num').textContent = (data.count || 0).toLocaleString('vi-VN');
+    } catch (e) {
+      badge.querySelector('.num').textContent = 'Lỗi';
+    }
+  });
+}
