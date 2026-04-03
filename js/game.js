@@ -466,7 +466,7 @@ function renderGameDetail(game) {
   if (game.price && actionsContainer) {
     actionsContainer.insertAdjacentHTML('beforeend', `
       <div id="display-price-tag" class="game-price-tag" title="Giá việt hóa">
-        <i class="fa-solid fa-tag"></i> ${game.price}
+        <i class="fa-solid fa-dollar-sign"></i> ${game.price}
       </div>
     `);
   }
