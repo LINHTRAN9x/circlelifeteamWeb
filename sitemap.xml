@@ -2,19 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://circlelifeteam.top/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://circlelifeteam.top/category.html?platform=PC</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://circlelifeteam.top/category.html?platform=Nintendo%20Switch</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://circlelifeteam.top/category.html?platform=PS5</loc>
@@ -25,6 +15,106 @@
     <loc>https://circlelifeteam.top/category.html?platform=PS4</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/category.html?platform=Nintendo%20Switch</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/category.html?platform=PC</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=ruiner-viet-hoa</loc>
+    <lastmod>2026-04-04</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/4f3f74fdd9f5ecf9aadc63d3cea6ab96.png</image:loc>
+      <image:title>RUINER Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=the-diofield-chronicle-viet-hoa</loc>
+    <lastmod>2026-04-04</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/43275f6c995d4e7496467a5f1473c983.jpg</image:loc>
+      <image:title>The DioField Chronicle Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=the-oregon-trail-viet-hoa</loc>
+    <lastmod>2026-04-04</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/39de3bb647d23d5f191da4bd99f2ef92.jpg</image:loc>
+      <image:title>The Oregon Trail Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=desolatium-viet-hoa</loc>
+    <lastmod>2026-04-04</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co3vbv.webp</image:loc>
+      <image:title>Desolatium Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=enotria-the-last-song-viet-hoa</loc>
+    <lastmod>2026-04-04</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/7e5331e230a6d91af71879dd71b1cef2.jpg</image:loc>
+      <image:title>Enotria The Last Song Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=no-straight-roads-viet-hoa</loc>
+    <lastmod>2026-04-04</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/a4055131d8e1734d64344cd5907ae9fd.png</image:loc>
+      <image:title>No Straight Roads Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=monster-hunter-rise-viet-hoa</loc>
+    <lastmod>2026-04-03</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/a6bca7793c76d7c39f4cf4a4787524a8.png</image:loc>
+      <image:title>Monster Hunter Rise Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=crimson-desert-viet-hoa</loc>
+    <lastmod>2026-04-02</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/0eb58f65e7b9e29aa0eef5160f18072a.png</image:loc>
+      <image:title>Crimson Desert Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=opus-castle-viet-hoa</loc>
+    <lastmod>2026-04-03</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co5k03.webp</image:loc>
+      <image:title>Opus Castle Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=warm-snow-viet-hoa</loc>
+    <lastmod>2026-04-02</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/c82f8e8d537da400b81c4c39c40e4a88.jpg</image:loc>
+      <image:title>Warm Snow Việt Hóa</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=resident-evil-requiem-viet-hoa</loc>
@@ -82,7 +172,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=songs-of-conquest-viet-hoa</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/d0871febf6fde5048f87eeb69bea1ce2.jpg</image:loc>
@@ -145,10 +235,10 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=easy-delivery-co-viet-hoa</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://cdn2.steamgriddb.com/thumb/16f7b3862150f975225bcf3191409a04.jpg</image:loc>
+      <image:loc>https://cdn2.steamgriddb.com/grid/364367de643fbad63d1c249ad343a6d3.jpg</image:loc>
       <image:title>Easy Delivery Co. Việt Hóa</image:title>
     </image:image>
   </url>
@@ -226,10 +316,10 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=bravely-default-ii-viet-hoa</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-02</lastmod>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/cob8gd.webp</image:loc>
+      <image:loc>https://cdn2.steamgriddb.com/grid/363e7e7bf3f7206a5d19788c36e1ccc0.jpg</image:loc>
       <image:title>Bravely Default II Việt Hóa</image:title>
     </image:image>
   </url>
@@ -307,7 +397,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=octopath-traveler-0-viet-hoa</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/coa7is.webp</image:loc>
@@ -316,10 +406,10 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=dragon-quest-vii-reimagined-viet-hoa</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-02</lastmod>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/cob1tp.webp</image:loc>
+      <image:loc>https://cdn2.steamgriddb.com/grid/a7460a22eb1d22136f4e704dcaa95d7c.png</image:loc>
       <image:title>DRAGON QUEST VII Reimagined Việt Hóa</image:title>
     </image:image>
   </url>
