@@ -931,9 +931,47 @@ body.dark-mode .filter-select:hover {
   z-index: 10;
 }
 
+/* ── Tên game hiện ở góc phải banner ── */
+.p-banner-title {
+  position: absolute;
+  top: 8px;      /* Cách mép trên banner */
+  right: 18px;    /* Cách mép phải banner - đúng chỗ bác khoanh */
+  z-index: 10;    /* Nằm trên lớp ảnh */
+  font-family: var(--font-display);
+  /* font-size: clamp(20px, 3vw, 36px); */
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 1px 1px 0 #000000; /* Đổ bóng thô mộc chuẩn Neo-Brutalist */
+  text-transform: uppercase;
+  text-align: right;
+  max-width: 70%;
+  pointer-events: none; /* Cho phép người dùng click xuyên qua để bấm slide */
+}
+
+@media (max-width: 768px) {
+  .p-banner-title {
+    top: 15px;
+    right: 15px;
+    font-size: 18px;
+    text-shadow: 2px 2px 0 #000;
+  }
+}
+
+
+
+/* Tối ưu cho Mobile để không bị quá to che mất ảnh */
+@media (max-width: 768px) {
+  .p-banner-title {
+    top: 15px;
+    right: 15px;
+    font-size: 18px;
+    text-shadow: 2px 2px 0 #000;
+  }
+}
+
 @media (min-width: 992px) {
   .hero-grid-layout {
-    grid-template-columns: 1.1fr 0.9fr; /* Cột trái to hơn cột phải một chút */
+    grid-template-columns: 0.7fr 1.3fr;/* Cột trái to hơn cột phải một chút */
     text-align: left; /* Đẩy chữ sang trái */
   }
   
@@ -960,7 +998,7 @@ body.dark-mode .filter-select:hover {
 .premium-showcase {
   position: relative;
   width: 100%;
-  aspect-ratio: 18 / 10; /* Mở rộng tỷ lệ một chút cho đỡ vuông */
+  aspect-ratio: 14 / 8; /* Mở rộng tỷ lệ một chút cho đỡ vuông */
   border: 4px solid var(--black);
   border-radius: var(--radius-lg);
   box-shadow: 10px 10px 0 var(--black);
@@ -1008,7 +1046,7 @@ body.dark-mode .filter-select:hover {
 /* ĐẨY TOÀN BỘ CHỮ XUỐNG GÓC DƯỚI BÊN TRÁI */
 .p-slide-info {
   position: absolute;
-  bottom: 109px; /* Nhường chỗ cho dải thumbnail bên dưới */
+  bottom: 125px; /* Nhường chỗ cho dải thumbnail bên dưới */
   left: 24px;
   right: 24px;
   z-index: 4;
@@ -1053,14 +1091,14 @@ body.dark-mode .filter-select:hover {
   z-index: 5;
   display: flex;
   justify-content: flex-start;
-  gap: 12px;
+  gap: 16px;
   padding: 0;
 }
 
 .thumb-item {
-  width: 64px;
-  height: 77px; /* Đổi sang tỷ lệ nằm ngang như màn hình game */
-  border: 2px solid rgba(255,255,255,0.4);
+  width: 72px;
+  height: 86px; /* Đổi sang tỷ lệ nằm ngang như màn hình game */
+  border: 3px solid rgba(255,255,255,0.4);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -1098,7 +1136,7 @@ body.dark-mode .premium-showcase {
 /* 1. Thay đổi tỷ lệ lưới: Trái nhỏ đi (0.8fr), Phải to ra (1.2fr) */
 @media (min-width: 992px) {
   .hero-grid-layout {
-    grid-template-columns: 0.8fr 1.2fr; 
+    grid-template-columns: 0.7fr 1.3fr;
     gap: 30px; /* Thêm khoảng thở giữa 2 cột cho thoáng mắt */
   }
 }
@@ -1992,5 +2030,66 @@ body.dark-mode .game-price-tag {
     margin-left: 0;
     width: 100%;
     justify-content: center;
+  }
+}
+
+
+/* 🚀 ÉP HERO BUNG TOÀN MÀN HÌNH */
+.hero .container {
+  max-width: 100% !important; /* Phá bỏ giới hạn 1280px */
+  padding: 0 60px; /* Chừa lại một chút lề nhỏ cho sang, không bị dính sát mép màn hình */
+}
+
+/* Đảm bảo lưới Hero tận dụng hết 100% chiều rộng mới */
+.hero-grid-layout {
+  width: 100%;
+  max-width: 100%;
+}
+
+
+/* 📱 TỐI ƯU GIAO DIỆN HERO CHO MOBILE */
+@media (max-width: 768px) {
+  .hero .container {
+    /* Thu nhỏ lề từ 60px xuống 15px để nội dung không bị ép */
+    padding: 0 15px !important; 
+  }
+
+  .hero-grid-layout {
+    /* Ép về 1 cột duy nhất (Chữ trên, Showcase dưới) */
+    grid-template-columns: 1fr !important; 
+    gap: 30px;
+    text-align: center;
+  }
+
+  .hero-left-col {
+    order: 1; /* Chữ hiện trước */
+  }
+
+  .hero-right-col {
+    order: 2; /* Showcase hiện sau */
+    width: 100%;
+  }
+
+  .premium-showcase {
+    /* Trên mobile không nên để quá dẹt, tỷ lệ 16/10 là đẹp nhất */
+    aspect-ratio: 14 / 8 !important; 
+    box-shadow: 6px 6px 0 var(--black) !important; /* Giảm bóng đổ cho thanh thoát */
+  }
+
+  /* Căn chỉnh lại vị trí chữ và ảnh nhỏ bên trong Showcase Mobile */
+  .p-slide-info {
+    bottom: 85px !important; 
+    left: 15px !important;
+  }
+
+  .showcase-thumbnails {
+    bottom: 12px !important;
+    left: 15px !important;
+    gap: 8px !important;
+  }
+
+  .thumb-item {
+    width: 45px !important; /* Thu nhỏ ảnh thumb để không tràn màn hình */
+    height: 55px !important;
   }
 }

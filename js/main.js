@@ -650,7 +650,7 @@ function renderPremiumShowcase(games) {
     return `
       <div class="p-slide ${i === 0 ? 'active' : ''}" data-index="${i}">
         <img src="${mainImg}" alt="Cover ${g.title}" ${priorityAttr}>
-        
+        <div class="p-banner-title">${g.title} VIỆT HÓA |</div>
         <div class="p-slide-info">
           <h3>${g.title}</h3>
           <a href="game.html?id=${g.slug}" class="p-btn-view">XEM THÊM</a>
