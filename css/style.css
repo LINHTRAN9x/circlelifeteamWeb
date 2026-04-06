@@ -950,10 +950,10 @@ body.dark-mode .filter-select:hover {
 
 @media (max-width: 768px) {
   .p-banner-title {
-    top: 15px;
-    right: 15px;
-    font-size: 18px;
-    text-shadow: 2px 2px 0 #000;
+    top: 3px;
+    right: 6px;
+    font-size: 12px;
+    text-shadow: 1px 1px 0 #000;
   }
 }
 
