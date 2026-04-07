@@ -336,7 +336,7 @@ function renderGameDetail(game) {
   const metaEl = document.getElementById('game-meta-grid');
   if (metaEl) {
     const items = [
-      { label: 'Platform', value: game.platform || 'PS5' },
+      { label: 'Nền tảng việt hóa', value: game.platform || 'PS5' },
       { label: 'Thể loại', value: game.genre || '—' },
       { label: 'Phiên bản', value: game.version || '—' },
       { label: 'Người dịch', value: game.translator || 'CircleLifeTeam' },
