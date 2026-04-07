@@ -90,7 +90,7 @@ async function login(pass) {
   let role = null;
 
   if (hash === CONFIG.ADMIN_PASS_HASH) {
-    email = "tranvanlinh99xx@gmail.com"; // tài khoản bạn tạo trong Firebase Auth
+    email = "tranvanlinh99xx@gmail.com";
     role = 'superadmin';
   } else if (hash === CONFIG.EDITOR_PASS_HASH) {
     email = "phuocle@gmail.com";
@@ -194,7 +194,6 @@ async function loadDashboardStats() {
 }
 
 // ── Games Table ──
-// ── Games Table ──
 // Thêm tham số searchQuery vào hàm
 async function loadGamesTable(searchQuery = '') {
   const tbody = document.getElementById('games-tbody');
@@ -252,11 +251,18 @@ async function loadGamesTable(searchQuery = '') {
       <td>
         ${g.isNew ? '<span class="badge badge-new">Mới</span>' : ''}
         ${g.isFeatured ? '<span class="badge badge-platform" style="margin-left:4px">Nổi bật</span>' : ''}
+        ${g.isLocked ? '<span class="badge" style="background:var(--accent-red);color:#fff;margin-left:4px" title="Đã bị khóa"><i class="fa-solid fa-lock"></i></span>' : ''}
       </td>
       <td>
         <div class="admin-table-actions">
-          <button class="btn-action btn-edit" onclick="editGame('${g.id}')">✏️ Sửa</button>
-          <button class="btn-action btn-delete" onclick="deleteGameConfirm('${g.id}', '${g.title.replace(/'/g, "\\'")}')">🗑️ Xóa</button>
+          ${ 
+            // 🚀 LOGIC KHÓA NÚT: Nếu là Editor VÀ Game đang bị khóa -> Làm mờ & vô hiệu hóa nút
+            (sessionStorage.getItem('clt_admin_role') === 'editor' && g.isLocked) 
+            ? `<button class="btn-action btn-edit" disabled style="opacity:0.4; cursor:not-allowed;" title="Admin đã khóa game này">🔒 Sửa</button>
+               <button class="btn-action btn-delete" disabled style="opacity:0.4; cursor:not-allowed;" title="Admin đã khóa game này">🔒 Xóa</button>`
+            : `<button class="btn-action btn-edit" onclick="editGame('${g.id}')">✏️ Sửa</button>
+               <button class="btn-action btn-delete" onclick="deleteGameConfirm('${g.id}', '${g.title.replace(/'/g, "\\'")}')">🗑️ Xóa</button>`
+          }
         </div>
       </td>
     </tr>
@@ -377,6 +383,11 @@ async function editGame(id) {
   const game = games.find(g => g.id === id);
   if (!game) return;
 
+  if (game.isLocked && sessionStorage.getItem('clt_admin_role') === 'editor') {
+    showToast('❌ Game này đã được Admin khóa, bạn không thể sửa!', 'error');
+    return;
+  }
+
   editingId = id;
   document.getElementById('modal-title').textContent = 'Chỉnh Sửa Game';
   await fillGameForm(game); // Thêm chữ await vào dòng này
@@ -410,6 +421,13 @@ async function fillGameForm(game) {
   }
   document.getElementById('form-isNew').checked = !!game.isNew;
   document.getElementById('form-isFeatured').checked = !!game.isFeatured;
+
+  document.getElementById('form-isLocked').checked = !!game.isLocked;
+  const role = sessionStorage.getItem('clt_admin_role');
+  const lockWrapper = document.getElementById('wrapper-isLocked');
+  if (lockWrapper) {
+    lockWrapper.style.display = role === 'superadmin' ? 'flex' : 'none';
+  }
   document.getElementById('form-images').value = (game.images || []).join('\n');
   // Bỏ tick tất cả trước khi hiển thị
   document.querySelectorAll('input[name="platform"]').forEach(cb => cb.checked = false);
@@ -463,6 +481,7 @@ async function saveGameFromForm() {
     price: document.getElementById('form-price')?.value.trim() || '',
     isNew: document.getElementById('form-isNew').checked,
     isFeatured: document.getElementById('form-isFeatured').checked,
+    isLocked: document.getElementById('form-isLocked').checked,
     tags: Array.from(document.querySelectorAll('input[name="game_tags"]:checked')).map(cb => cb.value),
     updatedAt: Date.now(),
     isPostedToFB: document.getElementById('form-isPostedToFB')?.value === 'true',
