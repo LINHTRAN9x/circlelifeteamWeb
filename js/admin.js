@@ -319,7 +319,7 @@ function initGameModal() {
     modal?.classList.add('open');
   });
   closeBtn?.addEventListener('click', () => modal?.classList.remove('open'));
-  modal?.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+  //modal?.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
 
   form?.addEventListener('submit', async e => {
     e.preventDefault();
