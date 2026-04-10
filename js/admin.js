@@ -937,7 +937,7 @@ async function sendDiscordNotification(game) {
         { name: "THỂ LOẠI", value: (game.tags && game.tags.length > 0) ? game.tags.join(', ') : "Chưa rõ", inline: true },
         { name: "TIẾN ĐỘ", value: game.status || "Hoàn thành 100%", inline: true }
       ],
-      footer: { text: "CircleLifeTeam - Đam mê Việt hóa" },
+      footer: { text: "CircleLifeTeam" },
       timestamp: new Date().toISOString()
     }]
   };
