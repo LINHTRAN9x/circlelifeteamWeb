@@ -932,7 +932,7 @@ async function sendDiscordNotification(game) {
         url: game.bannerImage || game.coverImage || "https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png" 
       },
       fields: [
-        { name: "NỀN TẢNG", value: game.platform || "PC", inline: true },
+        { name: "NỀN TẢNG VH", value: game.platform || "PC", inline: true },
         // Tiện tay fix luôn hiển thị thể loại cho nó đẹp, không bị lỗi mảng
         { name: "THỂ LOẠI", value: (game.tags && game.tags.length > 0) ? game.tags.join(', ') : "Chưa rõ", inline: true },
         { name: "TIẾN ĐỘ", value: game.status || "Hoàn thành 100%", inline: true }
