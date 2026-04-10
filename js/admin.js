@@ -922,9 +922,9 @@ async function sendDiscordNotification(game) {
 
   // Thiết kế nội dung tin nhắn (Embed)
   const payload = {
-    content: "🎉 **CÓ VIỆT HÓA MỚI NÈ ANH EM ƠI!**",
+    content: "",
     embeds: [{
-      title: `🎮 ${game.title || game.titleVi} Việt Hóa`,
+      title: `${game.title || game.titleVi} Việt Hóa`,
       url: `${typeof CONFIG !== 'undefined' ? CONFIG.SITE_URL : 'https://circlelifeteam.top'}/game.html?id=${game.slug}`,
       description: cleanDesc, // 🚀 Bơm mô tả đã được làm sạch vào đây
       color: 16761600, // Mã màu Vàng đặc trưng của web bác (#FFC312)
