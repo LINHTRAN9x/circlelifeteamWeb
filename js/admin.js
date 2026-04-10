@@ -497,6 +497,13 @@ async function saveGameFromForm() {
   if (ok) {
     localStorage.removeItem('clt_cache_data');
     showToast(`Đã ${editingId ? 'cập nhật' : 'thêm'} game: ${game.title}`, 'success');
+
+    // 🚀 BƯỚC 4: BẮN THÔNG BÁO DISCORD NẾU LÀ GAME MỚI
+    // Biến editingId bị null nghĩa là bác đang Thêm Mới (chứ không phải Sửa)
+    if (!editingId) {
+      sendDiscordNotification(game);
+    }
+
     document.getElementById('game-modal')?.classList.remove('open');
     await loadGamesTable();
     await loadDashboardStats();
@@ -612,6 +619,8 @@ document.getElementById('form-price')?.addEventListener('input', function (e) {
     this.value = ''; // Xóa trắng nếu không có số nào
   }
 });
+
+
 
 // ── Toast ──
 function showToast(message, type = 'success') {
@@ -889,6 +898,59 @@ async function fetchAdminViewCounts() {
     
     // Nghỉ ngơi 300ms (0.3 giây) rồi mới tải số view của game tiếp theo
     await new Promise(resolve => setTimeout(resolve, 300));
+  }
+}
+
+
+
+// ============================================================
+// HỆ THỐNG THÔNG BÁO DISCORD TỰ ĐỘNG
+// ============================================================
+async function sendDiscordNotification(game) {
+  const webhookUrl = typeof CONFIG !== 'undefined' ? CONFIG.DISCORD_WEBHOOK_URL : null;
+  if (!webhookUrl || webhookUrl.trim() === "") return; // Bỏ qua nếu chưa cài Webhook
+
+  // 🚀 BƯỚC DỌN RÁC HTML CHO DISCORD
+  let rawDesc = game.descriptionVi || game.description || "Đang cập nhật mô tả...";
+  // Lệnh Regex này sẽ gọt sạch sành sanh các thẻ <p>, <br>, <strong>... để lấy chữ thuần
+  let cleanDesc = rawDesc.replace(/<[^>]*>?/gm, '').trim(); 
+  
+  // Nếu mô tả dài quá thì cắt bớt cho đẹp khung Discord (khoảng 200 ký tự)
+  if (cleanDesc.length > 300) {
+    cleanDesc = cleanDesc.substring(0, 300) + "...";
+  }
+
+  // Thiết kế nội dung tin nhắn (Embed)
+  const payload = {
+    content: "🎉 **CÓ VIỆT HÓA MỚI NÈ ANH EM ƠI!**",
+    embeds: [{
+      title: `🎮 ${game.title || game.titleVi} Việt Hóa`,
+      url: `${typeof CONFIG !== 'undefined' ? CONFIG.SITE_URL : 'https://circlelifeteam.top'}/game.html?id=${game.slug}`,
+      description: cleanDesc, // 🚀 Bơm mô tả đã được làm sạch vào đây
+      color: 16761600, // Mã màu Vàng đặc trưng của web bác (#FFC312)
+      image: { 
+        url: game.bannerImage || game.coverImage || "https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png" 
+      },
+      fields: [
+        { name: "💻 Nền Tảng", value: game.platform || "PC", inline: true },
+        // Tiện tay fix luôn hiển thị thể loại cho nó đẹp, không bị lỗi mảng
+        { name: "🏷️ Thể Loại", value: (game.tags && game.tags.length > 0) ? game.tags.join(', ') : "Chưa rõ", inline: true },
+        { name: "🔥 Tiến Độ", value: game.status || "Hoàn thành 100%", inline: true }
+      ],
+      footer: { text: "CircleLifeTeam - Đam mê Việt hóa" },
+      timestamp: new Date().toISOString()
+    }]
+  };
+
+  try {
+    await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    console.log("Đã bắn thông báo lên Discord!");
+  } catch (error) {
+    console.error("Lỗi gửi Discord Webhook:", error);
   }
 }
 
