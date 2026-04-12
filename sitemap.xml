@@ -2,9 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://circlelifeteam.top/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/category.html?platform=PS4</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://circlelifeteam.top/category.html?platform=PC</loc>
@@ -22,9 +27,85 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://circlelifeteam.top/category.html?platform=PS4</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
+    <loc>https://circlelifeteam.top/game.html?id=soul-calibur-6-viet-hoa</loc>
+    <lastmod>2026-04-12</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/73d0139c529fdcdc6700c38cb5d49f6e.png</image:loc>
+      <image:title>Soul Calibur 6 Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=hello-neighbor-2-viet-hoa</loc>
+    <lastmod>2026-04-12</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/241bfd8e20cf1d41ffb4da32ce64883c.png</image:loc>
+      <image:title>Hello Neighbor 2 Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=shadow-warrior-3-viet-hoa</loc>
+    <lastmod>2026-04-12</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/c5c9e26cc071cf9d5a0e9f96bd01ac19.png</image:loc>
+      <image:title>Shadow Warrior 3 Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=looney-tunes-wacky-world-of-sports-viet-hoa</loc>
+    <lastmod>2026-04-12</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/4e39ddfd891d1e81644b5d7f457919eb.jpg</image:loc>
+      <image:title>Looney Tunes Wacky World of Sports Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=clair-obscur-expedition-33-viet-hoa</loc>
+    <lastmod>2026-04-12</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/aca29c17ffa3eb4763629f5d1ab2b4b9.webp</image:loc>
+      <image:title>Clair Obscur Expedition 33 Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=metal-gear-solid-snake-eater-viet-hoa</loc>
+    <lastmod>2026-04-12</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/25d91ad7104565c52ceb2f4931e1ab41.png</image:loc>
+      <image:title>Metal Gear Solid Δ Snake Eater Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=cronos-the-new-dawn-viet-hoa</loc>
+    <lastmod>2026-04-12</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/0e930e049ad09d5fcf473cba3f7b2574.png</image:loc>
+      <image:title>Cronos The New Dawn Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=grind-survivors</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/58d6b27f1ccfdd8e54e4d4b0df26ac89.png</image:loc>
+      <image:title>Grind Survivors Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=elden-ring-nightreign-viet-hoa</loc>
+    <lastmod>2026-04-12</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/6fec1e7676b127012f568255bbce3093.png</image:loc>
+      <image:title>Elden Ring: Nightreign Việt Hóa</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=travellers-rest-viet-hoa</loc>
