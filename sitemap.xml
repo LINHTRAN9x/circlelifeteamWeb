@@ -2,17 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://circlelifeteam.top/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://circlelifeteam.top/category.html?platform=PS4</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://circlelifeteam.top/category.html?platform=PC</loc>
+    <loc>https://circlelifeteam.top/category.html?platform=Nintendo%20Switch</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
@@ -22,16 +17,57 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://circlelifeteam.top/category.html?platform=Nintendo%20Switch</loc>
+    <loc>https://circlelifeteam.top/category.html?platform=PC</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/category.html?platform=PS4</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=tomodachi-life-living-the-dream-viet-hoa</loc>
+    <lastmod>2026-04-15</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://i.ibb.co/Dfh04jTp/e4efc746696d9f37472de81cbad04179.png</image:loc>
+      <image:title>Tomodachi Life: Living the Dream Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=vampire-the-masquerade-bloodlines-2-viet-hoa</loc>
+    <lastmod>2026-04-13</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/366a99960819ac8da32911c6633aafa6.jpg</image:loc>
+      <image:title>Vampire The Masquerade® Bloodlines™ 2 Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=double-dragon-revive-viet-hoa</loc>
+    <lastmod>2026-04-13</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/2d14105a756adcd89d1449ce9f71383f.png</image:loc>
+      <image:title>Double Dragon Revive Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=wuchang-fallen-feathers-viet-hoa</loc>
+    <lastmod>2026-04-12</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/70f10e8274441891919f7bb13e548963.jpg</image:loc>
+      <image:title>Wuchang  Fallen Feathers Việt Hóa</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=soul-calibur-6-viet-hoa</loc>
     <lastmod>2026-04-12</lastmod>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://cdn2.steamgriddb.com/grid/73d0139c529fdcdc6700c38cb5d49f6e.png</image:loc>
+      <image:loc>https://cdn2.steamgriddb.com/grid/6a78ef385b8c46cda0f3fe855c53e4f0.png</image:loc>
       <image:title>Soul Calibur 6 Việt Hóa</image:title>
     </image:image>
   </url>
@@ -67,7 +103,7 @@
     <lastmod>2026-04-12</lastmod>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://cdn2.steamgriddb.com/grid/aca29c17ffa3eb4763629f5d1ab2b4b9.webp</image:loc>
+      <image:loc>https://cdn2.steamgriddb.com/grid/10a719aaf3086bd22f17c6a1bb876ddb.png</image:loc>
       <image:title>Clair Obscur Expedition 33 Việt Hóa</image:title>
     </image:image>
   </url>
@@ -96,15 +132,6 @@
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/58d6b27f1ccfdd8e54e4d4b0df26ac89.png</image:loc>
       <image:title>Grind Survivors Việt Hóa</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://circlelifeteam.top/game.html?id=elden-ring-nightreign-viet-hoa</loc>
-    <lastmod>2026-04-12</lastmod>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://cdn2.steamgriddb.com/grid/6fec1e7676b127012f568255bbce3093.png</image:loc>
-      <image:title>Elden Ring: Nightreign Việt Hóa</image:title>
     </image:image>
   </url>
   <url>
@@ -154,7 +181,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=monster-hunter-wilds-viet-hoa</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-14</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/6f3171a0d40d400b4543cdd06ca0de3c.jpg</image:loc>
@@ -307,7 +334,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=pillars-of-eternity-viet-hoa</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-14</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/9ddf65bc4ec63ac561b33305e631a414.jpg</image:loc>
@@ -451,7 +478,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=resident-evil-requiem-viet-hoa</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-14</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/44422a2e062c8e23be127f7b13cc700a.png</image:loc>
@@ -469,7 +496,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=death-stranding-2-on-the-beach-viet-hoa</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-14</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/a8f1d3b1cb35d3163c9cc2d0adff2d8f.jpg</image:loc>
@@ -609,15 +636,6 @@
     <image:image>
       <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co7sv4.webp</image:loc>
       <image:title>Shin Megami Tensei V Vengeance Việt Hóa</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://circlelifeteam.top/game.html?id=until-dawn-viet-hoa</loc>
-    <lastmod>2026-04-01</lastmod>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co9qxt.webp</image:loc>
-      <image:title>Until Dawn Việt Hóa</image:title>
     </image:image>
   </url>
   <url>
@@ -762,15 +780,6 @@
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/thumb/fb5b3b5d234aa718062e3b4f6c826e23.jpg</image:loc>
       <image:title>RESIDENT EVIL 2 REMAKE Việt Hóa</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://circlelifeteam.top/game.html?id=dragons-dogma-ii-viet-hoa</loc>
-    <lastmod>2026-03-30</lastmod>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://cdn2.steamgriddb.com/thumb/9486785728bc8131e46cd6d32af04862.jpg</image:loc>
-      <image:title>Dragon's Dogma II Việt Hóa</image:title>
     </image:image>
   </url>
 </urlset>
