@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Biến toàn cục để lưu trữ dữ liệu phân trang
 let catFilteredGames = [];
 let catCurrentPage = 1;
-const CAT_ITEMS_PER_PAGE = 12; // Số game trên 1 trang (Bác có thể sửa tùy ý)
+const CAT_ITEMS_PER_PAGE = 20; // Số game trên 1 trang (Bác có thể sửa tùy ý)
 
 async function loadCategoryData(platform, genre, tag, initialPage = 1) { 
   try {

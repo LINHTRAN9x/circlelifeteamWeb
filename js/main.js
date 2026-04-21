@@ -162,22 +162,19 @@ function renderFeaturedGames(games) {
   const container = document.getElementById('featured-games');
   if (!container) return;
   
-  // Sắp xếp game theo updatedAt (ưu tiên mới nhất lên đầu)
-  // Nếu game cũ chưa từng được update (không có updatedAt) thì dùng ngày phát hành (releaseDate)
   const recentlyUpdated = [...games].sort((a, b) => {
     const timeA = a.updatedAt || new Date(a.releaseDate || 0).getTime();
     const timeB = b.updatedAt || new Date(b.releaseDate || 0).getTime();
     return timeB - timeA;
-  }).slice(0, 4); // Chỉ lấy 4 game trên cùng
+  }).slice(0, 12); // 🚀 Tăng lên 12 game để cuộn ngang cho đã
 
   if (!recentlyUpdated.length) {
     container.closest('.section').style.display = 'none';
     return;
   }
   
-  container.innerHTML = recentlyUpdated.map((g, i) =>
-    gameCardHTML(g, i === 0 ? 'game-card-featured' : '')
-  ).join('');
+  // 🚀 Xóa cái extraClass 'game-card-featured' để tất cả các card đều bằng nhau
+  container.innerHTML = recentlyUpdated.map(g => gameCardHTML(g)).join('');
   
   bindGameCards(container);
 }
@@ -185,7 +182,7 @@ function renderFeaturedGames(games) {
 // ── All Games ──
 // ── All Games & Load More & Filters ──
 let allGamesCache = [];
-let displayLimit = 12;
+let displayLimit = 20;
 
 function renderAllGames(games) {
   allGamesCache = games;

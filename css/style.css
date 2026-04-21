@@ -418,7 +418,7 @@ input, textarea, select { font-family: var(--font-body); outline: none; }
 }
 .admin-sidebar { 
   background: var(--white); border-right: var(--border-solid); 
-  padding: 24px 16px; position: sticky; top: var(--nav-h); height: calc(100vh - var(--nav-h)); overflow-y: auto; 
+  padding: 24px 16px; position: sticky; top: var(--nav-h);  overflow-y: auto; 
 }
 .admin-sidebar-title { font-size: 11px; font-weight: 900; color: var(--black); text-transform: uppercase; padding: 0 12px; margin-bottom: 16px; }
 .admin-nav-item { 
@@ -2096,3 +2096,53 @@ body.dark-mode .game-price-tag {
 
 
 
+/* 🚀 ÉP THU NHỎ TOÀN BỘ WEBSITE (GIỐNG ZOOM OUT TRÌNH DUYỆT) */
+@media (min-width: 1200px) {
+  body {
+    zoom: 0.86; 
+  }
+}
+
+/* 🚀 PHÁ BỎ GIỚI HẠN KHUNG CHO TOÀN BỘ WEBSITE */
+.container {
+  max-width: 100% !important; /* Ép bung ra 100% màn hình */
+  padding: 0 120px; /* Chừa lề 60px 2 bên cho đồng bộ với Hero và không bị sát viền */
+}
+
+/* Tối ưu lề cho giao diện Mobile (không bị lề quá to) */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px !important;
+  }
+}
+
+/* 🚀 THANH CUỘN NGANG CHO MỤC MỚI UPDATE */
+.featured-scroll {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding: 10px 10px 32px 10px; /* Chừa lề dưới để thanh cuộn không đè lên card */
+  scroll-snap-type: x mandatory; /* Hiệu ứng hít mượt mà */
+  scroll-behavior: smooth;
+}
+
+/* Tùy chỉnh thanh cuộn ngang cho đẹp */
+.featured-scroll::-webkit-scrollbar {
+  height: 10px; 
+}
+
+.featured-scroll .game-card {
+  width: 280px; /* Khóa cứng chiều rộng của mỗi card */
+  flex-shrink: 0; /* Cấm trình duyệt ép nhỏ card lại */
+  scroll-snap-align: start; /* Khớp vị trí vuốt */
+}
+
+/* 📱 Thu nhỏ card trên màn hình điện thoại */
+@media (max-width: 768px) {
+  .featured-scroll {
+    gap: 16px;
+  }
+  .featured-scroll .game-card {
+    width: 200px;
+  }
+}
