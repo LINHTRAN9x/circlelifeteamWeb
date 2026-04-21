@@ -2099,7 +2099,7 @@ body.dark-mode .game-price-tag {
 /* 🚀 ÉP THU NHỎ TOÀN BỘ WEBSITE (GIỐNG ZOOM OUT TRÌNH DUYỆT) */
 @media (min-width: 1200px) {
   body {
-    zoom: 0.86; 
+    zoom: 0.94; 
   }
 }
 
