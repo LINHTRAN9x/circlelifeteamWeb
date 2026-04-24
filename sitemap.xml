@@ -2,9 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://circlelifeteam.top/</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/category.html?platform=PC</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://circlelifeteam.top/category.html?platform=PS5</loc>
@@ -12,7 +17,7 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://circlelifeteam.top/category.html?platform=PC</loc>
+    <loc>https://circlelifeteam.top/category.html?platform=Nintendo%20Switch</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
@@ -22,9 +27,76 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://circlelifeteam.top/category.html?platform=Nintendo%20Switch</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
+    <loc>https://circlelifeteam.top/game.html?id=windrose-viet-hoa</loc>
+    <lastmod>2026-04-23</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_720p/ar5ql5.webp</image:loc>
+      <image:title>Windrose Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=dragon-quest-i-ii-hd-2d-remake-viet-hoa</loc>
+    <lastmod>2026-04-23</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/d8f16d96c62b04185145532aa6d17194.jpg</image:loc>
+      <image:title>Dragon Quest I &amp; II HD-2D Remake Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=splatoon-3-viet-hoa</loc>
+    <lastmod>2026-04-23</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/778b49fed6d5d2dc042bf0dca5e1fcf3.png</image:loc>
+      <image:title>Splatoon 3 Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=sid-meiers-civilization-vii-viet-hoa</loc>
+    <lastmod>2026-04-22</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/fe1b52dedacac0b79f7fc3048a6ba304.png</image:loc>
+      <image:title>Sid Meier's Civilization® VII Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=replaced-viet-hoa</loc>
+    <lastmod>2026-04-22</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/0fbc6cdee3724029bdc08fdd58b0434e.png</image:loc>
+      <image:title>REPLACED Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=rune-factory-guardians-of-azuma-viet-hoa</loc>
+    <lastmod>2026-04-21</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/62cf565fbd877177d4dae0283e7ad9e8.jpg</image:loc>
+      <image:title>Rune Factory: Guardians of Azuma Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=mouse-pi-for-hire-viet-hoa</loc>
+    <lastmod>2026-04-22</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/a5ef796335b21cd464ba7cd8e2005e32.jpg</image:loc>
+      <image:title>MOUSE: P.I. For Hire Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=the-forever-winter-viet-hoa</loc>
+    <lastmod>2026-04-21</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/8d3bb8667fd703a129d48887e2f6d229.png</image:loc>
+      <image:title>The Forever Winter Việt Hóa</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=borderlands-4</loc>
@@ -289,7 +361,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=marvels-midnight-suns-viet-hoa</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-21</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/00b0e1589ce338e26fbf1f0322aa870b.png</image:loc>
