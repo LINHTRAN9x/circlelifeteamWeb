@@ -2,12 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://circlelifeteam.top/</loc>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://circlelifeteam.top/category.html?platform=PC</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/category.html?platform=Nintendo%20Switch</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
@@ -22,16 +27,236 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://circlelifeteam.top/category.html?platform=Nintendo%20Switch</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
+    <loc>https://circlelifeteam.top/game.html?id=cinderia-viet-hoa</loc>
+    <lastmod>2026-05-11</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://i.ibb.co/C3zb62Pq/Cinderia-Cover.jpg</image:loc>
+      <image:title>Cinderia Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=ready-or-not-viet-hoa</loc>
+    <lastmod>2026-05-10</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/330f85a8e07e7c7e1a4cf0ad103fd743.png</image:loc>
+      <image:title>Ready or Not Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=everwind-viet-hoa</loc>
+    <lastmod>2026-05-10</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/f82178acedb5651bd7905c4e68000488.png</image:loc>
+      <image:title>Everwind Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=chinese-parents-viet-hoa</loc>
+    <lastmod>2026-05-10</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://i.ibb.co/j98RjVVj/Screenshot-2026-05-10-100201.png</image:loc>
+      <image:title>Chinese Parents Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=motorslice-viet-hoa</loc>
+    <lastmod>2026-05-10</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/e8538396261f95076d535290aa3ddc1d.jpg</image:loc>
+      <image:title>MOTORSLICE Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=opus-prism-peak-viet-hoa</loc>
+    <lastmod>2026-05-09</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/aa9f0d48f093e49f87581dddf1c83ca3.jpg</image:loc>
+      <image:title>OPUS: Prism Peak Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=crisis-core-final-fantasy-vii-reunion-viet-hoa</loc>
+    <lastmod>2026-05-09</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/dce17cbbc6a710c65165abdd3b98d150.png</image:loc>
+      <image:title>Crisis Core: Final Fantasy VII – Reunion Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=final-fantasy-vii-remake-intergrade-viet-hoa</loc>
+    <lastmod>2026-05-09</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/a88b5a4e66f02d062ab7a48b7cd8c7df.png</image:loc>
+      <image:title>FINAL FANTASY VII REMAKE INTERGRADE Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=bravely-default-flying-fairy-hd-remaster-viet-hoa</loc>
+    <lastmod>2026-05-09</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://i.ibb.co/qMqcmWWp/07b620e6-6b60-4e3f-8249-f78c07621643.jpg</image:loc>
+      <image:title>BRAVELY DEFAULT FLYING FAIRY HD Remaster Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=tavern-keeper-viet-hoa</loc>
+    <lastmod>2026-05-08</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://i.ibb.co/C5QpDB9y/Screenshot-2026-05-09-060410.png</image:loc>
+      <image:title>Tavern Keeper Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=mixtape-viet-hoa</loc>
+    <lastmod>2026-05-08</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/b1d62901efa0f187fa28445f1641c303.jpg</image:loc>
+      <image:title>Mixtape Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=territory-farming-and-warfare-viet-hoa</loc>
+    <lastmod>2026-05-08</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co5zo9.webp</image:loc>
+      <image:title>Territory: Farming and Warfare Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=die-in-the-dungeon-viet-hoa</loc>
+    <lastmod>2026-05-08</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/4e23eb7bc85fb442f109e1825217925c.jpg</image:loc>
+      <image:title>Die in the Dungeon Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=sackboy-a-big-adventure-viet-hoa</loc>
+    <lastmod>2026-05-07</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/e8e6c9e6a9252bab7281d6858e8acb0d.png</image:loc>
+      <image:title>Sackboy™: A Big Adventure Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=the-last-gas-station-viet-hoa</loc>
+    <lastmod>2026-05-07</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/cobncx.webp</image:loc>
+      <image:title>The Last Gas Station Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=sand-land-viet-hoa</loc>
+    <lastmod>2026-05-07</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/a5c659656517f545fe135b6c23424e28.png</image:loc>
+      <image:title>SAND LAND Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=dinkum-viet-hoa</loc>
+    <lastmod>2026-05-07</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/8309959cdfdcfdccaf6df38d6c6a1b1e.jpg</image:loc>
+      <image:title>Dinkum Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=dead-as-disco-viet-hoa</loc>
+    <lastmod>2026-05-06</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/76a0b7e761e2ae83beda96485e8153b2.jpg</image:loc>
+      <image:title>Dead as Disco Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=life-is-strange-remastered-viet-hoa</loc>
+    <lastmod>2026-05-06</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/979629438b79b93da0b9679308e9a3cd.png</image:loc>
+      <image:title>Life is Strange Remastered Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=bum-simulator-viet-hoa</loc>
+    <lastmod>2026-05-06</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/c8a1ac52a87d7619672e45dff9991217.png</image:loc>
+      <image:title>Bum Simulator Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=moomintroll-winters-warmth-viet-hoa</loc>
+    <lastmod>2026-05-06</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_720p/ar5g3w.webp</image:loc>
+      <image:title>Moomintroll: Winter's Warmth Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=gambonanza-viet-hoa</loc>
+    <lastmod>2026-05-06</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/9beefd27c0c63f4e44ce20dcf213e39f.png</image:loc>
+      <image:title>Gambonanza Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=knights-of-honor-ii-sovereign-viet-hoa</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/c78a9100b8f24120a411c694d85d4ec2.png</image:loc>
+      <image:title>Knights of Honor II: Sovereign Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=goblin-vyke-the-thief-tycoon-viet-hoa</loc>
+    <lastmod>2026-05-04</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/cobwzw.webp</image:loc>
+      <image:title>Goblin Vyke: The Thief Tycoon Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/game.html?id=tides-of-tomorrow-viet-hoa</loc>
+    <lastmod>2026-05-04</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/31922a0d2a0026fdf126ed46f8e71196.png</image:loc>
+      <image:title>Tides of Tomorrow Việt Hóa</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=airborne-empire-viet-hoa</loc>
     <lastmod>2026-05-04</lastmod>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co6luq.webp</image:loc>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/cobxw2.webp</image:loc>
       <image:title>Airborne Empire Việt Hóa</image:title>
     </image:image>
   </url>
@@ -676,7 +901,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=nickelodeon-kart-racers-3-slime-speedway-viet-hoa</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-05-07</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/thumb/675c22710498e0a8998951edb7a1715c.jpg</image:loc>
@@ -685,7 +910,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=jujutsu-kaisen-cursed-clash-viet-hoa</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-05-07</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/thumb/a2b50017f34ba0039a82ee3d917d9bfe.jpg</image:loc>
@@ -703,7 +928,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=aew-fight-forever-viet-hoa</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-05-07</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co6ngj.webp</image:loc>
@@ -712,7 +937,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=grip-the-game-viet-hoa</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-05-07</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co1iwv.webp</image:loc>
@@ -721,7 +946,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=mindseye-viet-hoa</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-05-07</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co9lg5.webp</image:loc>
@@ -730,7 +955,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=the-exit-9-viet-hoa</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-05-07</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co7ocq.webp</image:loc>
@@ -775,7 +1000,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=desolatium-viet-hoa</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-05-07</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co3vbv.webp</image:loc>
@@ -784,7 +1009,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=enotria-the-last-song-viet-hoa</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-05-07</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/7e5331e230a6d91af71879dd71b1cef2.jpg</image:loc>
@@ -793,7 +1018,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=no-straight-roads-viet-hoa</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-05-07</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/a4055131d8e1734d64344cd5907ae9fd.png</image:loc>
@@ -811,7 +1036,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=crimson-desert-viet-hoa</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-05-07</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/0eb58f65e7b9e29aa0eef5160f18072a.png</image:loc>
@@ -820,7 +1045,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=opus-castle-viet-hoa</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-05-07</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co5k03.webp</image:loc>
@@ -847,7 +1072,7 @@
   </url>
   <url>
     <loc>https://circlelifeteam.top/game.html?id=monster-hunter-stories-3-twisted-reflection-viet-hoa</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-05-07</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/8cf2127d0de30d72c63a9ea06b3fd479.png</image:loc>
