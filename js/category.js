@@ -458,31 +458,45 @@ function renderPreviewContent(game) {
 
 function positionPreview(card) {
   const rect = card.getBoundingClientRect();
-  const previewWidth = 320;
-  const gap = 16; // Khoảng cách giữa Card và Bảng Preview
+  const gap = 12; // Khoảng cách khe hở
   
-  // Tính toán Tọa độ X (Trái/Phải)
-  let left = rect.right + gap;
+  // 🚀 Bộ lọc khử lỗi Zoom (Đề phòng giao diện đang bị thu nhỏ)
+  const zoom = parseFloat(getComputedStyle(document.body).zoom) || 1;
   
-  // Trí thông minh: Nếu bảng bị lòi ra ngoài mép phải màn hình -> Vứt sang bên trái
-  if (left + previewWidth > window.innerWidth) {
-    left = rect.left - previewWidth - gap;
-  }
-
-  // Tính toán Tọa độ Y (Trên/Dưới)
-  let top = rect.top;
-  
-  // Hiển thị ra để lấy chiều cao chuẩn
-  previewBox.style.left = `${left}px`;
-  previewBox.style.top = `${top}px`;
+  // Hiển thị bảng lên trước
   previewBox.classList.add('show');
 
-  // Trí thông minh: Nếu bị cắm xuống quá sâu đụng đáy màn hình -> Đẩy trồi lên
-  const previewHeight = previewBox.offsetHeight;
-  if (top + previewHeight > window.innerHeight) {
-    top = window.innerHeight - previewHeight - 16; // Cách đáy 16px
-    previewBox.style.top = `${top}px`; // Cập nhật lại
+  // Tính tọa độ thực tế để không bị sai lệch
+  const cardLeft = rect.left / zoom;
+  const cardRight = rect.right / zoom;
+  const screenWidth = window.innerWidth / zoom;
+  const screenHeight = window.innerHeight / zoom;
+
+  // ==========================================
+  // 1. XỬ LÝ TRÁI / PHẢI (TUYỆT CHIÊU CSS)
+  // ==========================================
+  // Giả định bảng rộng tầm 340px (tính cả gap). Nếu lòi ra mép phải:
+  if (cardRight + 340 > screenWidth) {
+    // Neo thẳng vào mép TRÁI của thẻ game...
+    previewBox.style.left = `${cardLeft - gap}px`;
+    // ...sau đó ép CSS tự động lùi bảng lại ĐÚNG 100% bề ngang thực tế của nó
+    previewBox.style.transform = 'translateX(-100%)';
+  } else {
+    // Đủ chỗ thì neo bên PHẢI như bình thường
+    previewBox.style.left = `${cardRight + gap}px`;
+    previewBox.style.transform = 'translateX(0)';
   }
+
+  // ==========================================
+  // 2. XỬ LÝ TRÊN / DƯỚI (Tránh lòi đáy màn hình)
+  // ==========================================
+  let top = rect.top / zoom;
+  const actualHeight = previewBox.offsetHeight;
+  
+  if (top + actualHeight > screenHeight) {
+    top = screenHeight - actualHeight - 16; // Cách đáy 16px
+  }
+  previewBox.style.top = `${top}px`;
 }
 
 function hidePreview() {
