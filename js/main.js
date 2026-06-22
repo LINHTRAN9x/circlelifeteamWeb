@@ -778,7 +778,7 @@ function renderPreviewContent(game) {
   previewBox.innerHTML = `
     <img src="${imgUrl}" class="steam-preview-banner" alt="Banner">
     <div class="steam-preview-body">
-      <div class="steam-preview-title">${game.titleVi || game.title}</div>
+      <div class="steam-preview-title">${game.titleVi || game.title} Việt Hóa</div>
       <div class="steam-preview-meta">
         <div><strong>Dịch giả:</strong> ${game.translator || 'CircleLifeTeam'}</div>
         <div><strong>Nền tảng việt hóa:</strong> <span style="color:var(--primary-color)">${game.platform || 'PC'}</span></div>
