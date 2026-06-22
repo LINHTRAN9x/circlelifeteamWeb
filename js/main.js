@@ -693,3 +693,133 @@ function resetPremiumTimer(totalSlides, switchFn) {
     switchFn(currentPremiumIndex);
   }, 8000); 
 }
+
+
+
+// ============================================================
+// ── HIỆU ỨNG STEAM HOVER PREVIEW ──
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  initSteamHoverPreview();
+});
+
+let previewBox;
+let previewTimeout;
+
+function initSteamHoverPreview() {
+  if (!document.getElementById('steam-preview-box')) {
+    previewBox = document.createElement('div');
+    previewBox.id = 'steam-preview-box';
+    previewBox.className = 'steam-preview-box';
+    document.body.appendChild(previewBox);
+  }
+
+  document.body.addEventListener('mouseover', (e) => {
+    if (window.innerWidth <= 1024) return;
+
+    // 🚀 SỬA CHỖ NÀY: Bắt cả class .game-card VÀ .new-card
+    const card = e.target.closest('.game-card, .new-card');
+    if (!card) {
+      hidePreview();
+      return;
+    }
+
+    const slug = card.dataset.slug;
+    if (!slug) return;
+
+    let game = null;
+    if (typeof allGamesCache !== 'undefined' && allGamesCache.length) {
+      game = allGamesCache.find(g => g.slug === slug);
+    } else if (typeof catFilteredGames !== 'undefined' && catFilteredGames.length) {
+      game = catFilteredGames.find(g => g.slug === slug);
+    }
+    
+    if (!game) return;
+
+    clearTimeout(previewTimeout);
+    previewTimeout = setTimeout(() => {
+      renderPreviewContent(game);
+      positionPreview(card);
+    }, 200); 
+  });
+
+  document.body.addEventListener('mouseout', (e) => {
+    // 🚀 SỬA CHỖ NÀY: Bắt cả class .new-card
+    if (e.target.closest('.game-card, .new-card')) {
+      clearTimeout(previewTimeout);
+      hidePreview();
+    }
+  });
+}
+
+function hidePreview() {
+  if (previewBox) {
+    previewBox.classList.remove('show');
+    // 🚀 BỔ SUNG QUAN TRỌNG: Xóa ruột HTML đi để video Youtube ngừng chạy ngầm gây lag máy
+    setTimeout(() => { 
+      if (!previewBox.classList.contains('show')) previewBox.innerHTML = ''; 
+    }, 200);
+  }
+}
+
+function renderPreviewContent(game) {
+  // Ưu tiên dùng ảnh ngang Banner, nếu không có thì dùng ảnh dọc Cover
+  const imgUrl = game.bannerImage || game.coverImage || "https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png";
+  
+  // Xử lý đống thẻ Thể loại (Tags)
+  let tagsHtml = '';
+  if (game.tags && Array.isArray(game.tags)) {
+    tagsHtml = game.tags.slice(0, 6).map(t => `<span>${t}</span>`).join(''); // Lấy 6 tag đầu
+  } else if (game.genre) {
+    tagsHtml = `<span>${game.genre}</span>`;
+  }
+
+  // Đổ data vào HTML
+  previewBox.innerHTML = `
+    <img src="${imgUrl}" class="steam-preview-banner" alt="Banner">
+    <div class="steam-preview-body">
+      <div class="steam-preview-title">${game.titleVi || game.title}</div>
+      <div class="steam-preview-meta">
+        <div><strong>Dịch giả:</strong> ${game.translator || 'CircleLifeTeam'}</div>
+        <div><strong>Nền tảng việt hóa:</strong> <span style="color:var(--primary-color)">${game.platform || 'PC'}</span></div>
+        <div><strong>Trạng thái:</strong> ${game.status || 'Hoàn thành'}</div>
+      </div>
+      <div class="steam-preview-tags">
+        ${tagsHtml}
+      </div>
+    </div>
+  `;
+}
+
+function positionPreview(card) {
+  const rect = card.getBoundingClientRect();
+  const previewWidth = 320;
+  const gap = 16; // Khoảng cách giữa Card và Bảng Preview
+  
+  // Tính toán Tọa độ X (Trái/Phải)
+  let left = rect.right + gap;
+  
+  // Trí thông minh: Nếu bảng bị lòi ra ngoài mép phải màn hình -> Vứt sang bên trái
+  if (left + previewWidth > window.innerWidth) {
+    left = rect.left - previewWidth - gap;
+  }
+
+  // Tính toán Tọa độ Y (Trên/Dưới)
+  let top = rect.top;
+  
+  // Hiển thị ra để lấy chiều cao chuẩn
+  previewBox.style.left = `${left}px`;
+  previewBox.style.top = `${top}px`;
+  previewBox.classList.add('show');
+
+  // Trí thông minh: Nếu bị cắm xuống quá sâu đụng đáy màn hình -> Đẩy trồi lên
+  const previewHeight = previewBox.offsetHeight;
+  if (top + previewHeight > window.innerHeight) {
+    top = window.innerHeight - previewHeight - 16; // Cách đáy 16px
+    previewBox.style.top = `${top}px`; // Cập nhật lại
+  }
+}
+
+function hidePreview() {
+  if (previewBox) previewBox.classList.remove('show');
+}
