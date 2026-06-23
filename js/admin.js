@@ -771,7 +771,7 @@ function initImageDropzones() {
 
 // Gọi API ImgBB
 async function handleFilesUpload(files, dropzone, targetInput) {
-  // Lấy API Key từ config (Hoặc hardcode thẳng vào đây nếu bạn chưa làm file config)
+  // Lấy API Key từ config
   const apiKey = typeof CONFIG !== 'undefined' ? CONFIG.IMGBB_API_KEY : ''; 
   if (!apiKey) {
     showToast('Thiếu ImgBB API Key trong config.js', 'error');
@@ -780,16 +780,22 @@ async function handleFilesUpload(files, dropzone, targetInput) {
 
   const originalText = dropzone.innerHTML;
   dropzone.classList.add('is-uploading');
-  dropzone.innerHTML = '⏳ Đang tải lên...';
+  dropzone.innerHTML = '⏳ Đang ép WEBP & tải lên...'; // Đổi câu thông báo cho ngầu
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     if (!file.type.startsWith('image/')) continue; // Bỏ qua nếu không phải ảnh
 
-    const formData = new FormData();
-    formData.append('image', file);
-
     try {
+      // 🚀 BƯỚC ĐỘT PHÁ: Đưa file gốc qua cỗ máy ép lấy file WebP siêu nhẹ
+      console.log(`Đang ép ảnh: ${file.name} (Gốc: ${(file.size/1024/1024).toFixed(2)} MB)...`);
+      const webpFile = await compressImageToWebP(file, 1280, 0.8);
+      console.log(`Ép xong: ${webpFile.name} (Mới: ${(webpFile.size/1024/1024).toFixed(2)} MB)`);
+
+      // Gói file WebP (chứ không phải file gốc) gửi lên ImgBB
+      const formData = new FormData();
+      formData.append('image', webpFile); 
+
       const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
         method: 'POST',
         body: formData
@@ -806,7 +812,7 @@ async function handleFilesUpload(files, dropzone, targetInput) {
           // Nếu là input URL (Ảnh bìa/Banner), ghi đè URL
           targetInput.value = imgUrl;
         }
-        showToast(`Đã tải lên: ${file.name}`, 'success');
+        showToast(`Đã tải lên: ${webpFile.name}`, 'success');
       } else {
         throw new Error(result.error.message);
       }
@@ -952,5 +958,56 @@ async function sendDiscordNotification(game) {
   } catch (error) {
     console.error("Lỗi gửi Discord Webhook:", error);
   }
+}
+
+
+// ============================================================
+// 🚀 CỖ MÁY ÉP ẢNH SANG WEBP (SIÊU NHẸ) TRƯỚC KHI UP IMGBB
+// ============================================================
+function compressImageToWebP(file, maxWidth = 1280, quality = 0.8) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        // Khởi tạo khung vẽ Canvas ảo
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        // Giữ nguyên tỷ lệ, thu nhỏ nếu ảnh lớn hơn maxWidth (VD: 1280px)
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        
+        // Vẽ ảnh lên khung
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Ép sang định dạng WebP với mức chất lượng (quality)
+        canvas.toBlob((blob) => {
+          if (blob) {
+            // Đổi đuôi tên file thành .webp
+            const newFileName = file.name.replace(/\.[^/.]+$/, "") + ".webp";
+            const newFile = new File([blob], newFileName, {
+              type: "image/webp",
+              lastModified: Date.now()
+            });
+            resolve(newFile);
+          } else {
+            reject(new Error("Lỗi không thể ép ảnh sang WebP"));
+          }
+        }, 'image/webp', quality);
+      };
+      img.onerror = (e) => reject(e);
+    };
+    reader.onerror = (e) => reject(e);
+  });
 }
 
