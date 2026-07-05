@@ -127,7 +127,7 @@ function updateHeroStats(games) {
 function renderNewReleases(games) {
   const container = document.getElementById('new-releases-scroll');
   if (!container) return;
-  const newGames = games.filter(g => g.isNew).slice(0, 10);
+  const newGames = games.filter(g => g.isNew).slice(0, 30);
   if (!newGames.length) {
     container.innerHTML = '<p style="color:var(--text-dim);font-size:13px;padding:12px">Chưa có game mới.</p>';
     return;
