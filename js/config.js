@@ -24,7 +24,11 @@ const CONFIG = {
 
   ADMIN_PASS_HASH: "60f601c6ba77ed1cfabbdb9c1d79fd50",
   EDITOR_PASS_HASH: "0d9bfb393d6aa97a2736a1876739d6c4",
-  IMGBB_API_KEY: '39526b5bb4c2ef78855bd65a04ce9c3c',
+  IMGBB_API_KEYS: [
+    "39526b5bb4c2ef78855bd65a04ce9c3c", 
+    "b314d1503db396258e75c6d38f5b99ce",
+    "2af8f2d62aceeceac34d2296947a9556"
+  ],
   DISCORD_WEBHOOK_URL: "https://discord.com/api/webhooks/1492075366095781889/TovoiklDqE2jTxGqxq-op0FZ3xaf4Ipg0n1hQuMKk6f-KPhyGZpNUKLZpz3KB3iJtZNR",
 };
 

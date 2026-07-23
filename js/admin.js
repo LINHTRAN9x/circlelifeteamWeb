@@ -769,16 +769,54 @@ function initImageDropzones() {
   });
 }
 
-// Gọi API ImgBB
-// Gọi API ImgBB
-// Gọi API ImgBB (BẢN CHỐNG SPAM RATE LIMIT)
-async function handleFilesUpload(files, dropzone, targetInput) {
-  const apiKey = typeof CONFIG !== 'undefined' ? CONFIG.IMGBB_API_KEY : ''; 
-  if (!apiKey) {
-    showToast('Thiếu ImgBB API Key trong config.js', 'error');
-    return;
-  }
+// ============================================================
+// 🚀 BỘ NÃO XOAY VÒNG KEY IMGBB TỰ ĐỘNG
+// ============================================================
+// Biến toàn cục ghi nhớ Key nào đang dùng tốt để lần sau dùng tiếp, không phải thử lại từ đầu
+let currentImgbbKeyIndex = 0;
 
+async function uploadToImgBBWithRetry(base64Data, fileName) {
+  // Lấy mảng Key từ config (có fallback hỗ trợ cả phiên bản config cũ 1 key)
+  const apiKeys = typeof CONFIG !== 'undefined' ? (CONFIG.IMGBB_API_KEYS || [CONFIG.IMGBB_API_KEY]) : [];
+  if (!apiKeys || apiKeys.length === 0 || !apiKeys[0]) throw new Error("Thiếu cấu hình API Key");
+
+  const formData = new FormData();
+  formData.append('image', base64Data);
+  if (fileName) formData.append('name', fileName);
+
+  let attempts = 0;
+  let lastError = '';
+
+  // Vòng lặp: Thử lần lượt các Key cho đến khi thành công hoặc hết Key
+  while (attempts < apiKeys.length) {
+    const apiKey = apiKeys[currentImgbbKeyIndex];
+    try {
+      const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.json();
+      
+      if (result.success) {
+        return result.data.url; // Thành công thì trả về Link ảnh ngay
+      } else {
+        throw new Error(result.error.message || "Lỗi không xác định");
+      }
+    } catch (e) {
+      lastError = e.message;
+      console.warn(`⚠️ Key số ${currentImgbbKeyIndex + 1} bị lỗi: ${e.message}. Đang sang số chuyển Key...`);
+      // Nhảy sang Key tiếp theo (Nếu hết mảng thì quay lại Key đầu)
+      currentImgbbKeyIndex = (currentImgbbKeyIndex + 1) % apiKeys.length;
+      attempts++;
+    }
+  }
+  
+  throw new Error(`Đã thử hết ${apiKeys.length} Key dự phòng nhưng vẫn văng lỗi: ${lastError}`);
+}
+
+// Gọi API ImgBB (BẢN CHỐNG SPAM RATE LIMIT)
+// Gọi API ImgBB (BẢN CHỐNG SPAM + XOAY VÒNG KEY)
+async function handleFilesUpload(files, dropzone, targetInput) {
   const originalText = dropzone.innerHTML;
   dropzone.classList.add('is-uploading');
   dropzone.innerHTML = '⏳ Đang ép WEBP & tải lên...';
@@ -789,38 +827,25 @@ async function handleFilesUpload(files, dropzone, targetInput) {
 
     try {
       console.log(`Đang xử lý ảnh: ${file.name}...`);
-      
       const webpData = await compressImageToWebP(file, 1280, 0.8);
       
-      const formData = new FormData();
-      formData.append('image', webpData.base64);
-      formData.append('name', webpData.name); 
+      // 🚀 Chuyền data vào Bộ Não Xoay Vòng để lấy link
+      const imgUrl = await uploadToImgBBWithRetry(webpData.base64, webpData.name);
 
-      const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
-        method: 'POST',
-        body: formData
-      });
-      const result = await response.json();
-      
-      if (result.success) {
-        const imgUrl = result.data.url;
-        if (targetInput.tagName.toLowerCase() === 'textarea') {
-          targetInput.value += (targetInput.value ? '\n' : '') + imgUrl;
-        } else {
-          targetInput.value = imgUrl;
-        }
-        showToast(`Đã tải lên: ${webpData.name}`, 'success');
+      if (targetInput.tagName.toLowerCase() === 'textarea') {
+        targetInput.value += (targetInput.value ? '\n' : '') + imgUrl;
       } else {
-        throw new Error(result.error.message);
+        targetInput.value = imgUrl;
       }
+      showToast(`Đã tải lên: ${webpData.name}`, 'success');
+
     } catch (err) {
       console.error(err);
       showToast(`Lỗi tải lên ${file.name}: ${err.message}`, 'error');
     }
 
-    // 🚀 BƯỚC ĐỘT PHÁ CHỐNG RATE LIMIT: Nếu chưa phải là tấm ảnh cuối cùng, thì nghỉ 2 giây rồi mới up tiếp
+    // Vẫn giữ lại thắng tay 2 giây chống spam
     if (i < files.length - 1) {
-      console.log("⏳ Nghỉ 2 giây để tránh bị ImgBB đánh dấu spam...");
       await new Promise(resolve => setTimeout(resolve, 2000));
     }
   }
