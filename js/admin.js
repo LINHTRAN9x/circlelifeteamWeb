@@ -771,6 +771,7 @@ function initImageDropzones() {
 
 // Gọi API ImgBB
 // Gọi API ImgBB
+// Gọi API ImgBB (BẢN CHỐNG SPAM RATE LIMIT)
 async function handleFilesUpload(files, dropzone, targetInput) {
   const apiKey = typeof CONFIG !== 'undefined' ? CONFIG.IMGBB_API_KEY : ''; 
   if (!apiKey) {
@@ -789,11 +790,9 @@ async function handleFilesUpload(files, dropzone, targetInput) {
     try {
       console.log(`Đang xử lý ảnh: ${file.name}...`);
       
-      // Chạy qua cỗ máy ép lấy Base64
       const webpData = await compressImageToWebP(file, 1280, 0.8);
       
       const formData = new FormData();
-      // 🚀 Bơm chuỗi Base64 vào thẳng form, ImgBB sẽ tự động đọc hiểu
       formData.append('image', webpData.base64);
       formData.append('name', webpData.name); 
 
@@ -817,6 +816,12 @@ async function handleFilesUpload(files, dropzone, targetInput) {
     } catch (err) {
       console.error(err);
       showToast(`Lỗi tải lên ${file.name}: ${err.message}`, 'error');
+    }
+
+    // 🚀 BƯỚC ĐỘT PHÁ CHỐNG RATE LIMIT: Nếu chưa phải là tấm ảnh cuối cùng, thì nghỉ 2 giây rồi mới up tiếp
+    if (i < files.length - 1) {
+      console.log("⏳ Nghỉ 2 giây để tránh bị ImgBB đánh dấu spam...");
+      await new Promise(resolve => setTimeout(resolve, 2000));
     }
   }
 
