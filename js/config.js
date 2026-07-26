@@ -37,16 +37,21 @@ const CONFIG = {
 firebase.initializeApp(CONFIG.FIREBASE_CONFIG);
 
 try {
-  const appCheck = firebase.appCheck();
-  
-  appCheck.activate(
-    new firebase.appCheck.ReCaptchaEnterpriseProvider(CONFIG.RECAPTCHA_SITE_KEY),
-    true 
-  );
-  
-  console.log("🛡️ Hệ thống phòng thủ reCAPTCHA Tàng hình đã kích hoạt!");
+  // 🛡️ LỚP GIÁP KIỂM TRA: Phải có thư viện mới cho chạy
+  if (typeof firebase.appCheck === 'function') {
+    const appCheck = firebase.appCheck();
+    
+    appCheck.activate(
+      new firebase.appCheck.ReCaptchaEnterpriseProvider(CONFIG.RECAPTCHA_SITE_KEY),
+      true // true để tự động làm mới mã tàng hình liên tục cho khách
+    );
+    
+    console.log("🛡️ Hệ thống phòng thủ reCAPTCHA Tàng hình đã kích hoạt!");
+  } else {
+    console.warn("⚠️ Bỏ qua App Check: Không tìm thấy thư viện. Hãy kiểm tra lại thẻ <script> firebase-app-check-compat.js trong file HTML.");
+  }
 } catch (error) {
-  console.error("Lỗi kích hoạt App Check:", error);
+  console.error("❌ Lỗi kích hoạt App Check:", error);
 }
 
 // Dữ liệu mẫu (fallback khi chưa có JSONBin)
