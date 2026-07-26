@@ -1,5 +1,4 @@
 // api/notify-discord.js
-// Proxy an toàn cho Discord Webhook — URL nằm trên server, client không bao giờ thấy
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
