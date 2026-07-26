@@ -38,10 +38,12 @@ firebase.initializeApp(CONFIG.FIREBASE_CONFIG);
 
 try {
   const appCheck = firebase.appCheck();
+  
   appCheck.activate(
-    CONFIG.RECAPTCHA_SITE_KEY,
-    true
+    new firebase.appCheck.ReCaptchaEnterpriseProvider(CONFIG.RECAPTCHA_SITE_KEY),
+    true 
   );
+  
   console.log("🛡️ Hệ thống phòng thủ reCAPTCHA Tàng hình đã kích hoạt!");
 } catch (error) {
   console.error("Lỗi kích hoạt App Check:", error);
