@@ -21,8 +21,8 @@ const CONFIG = {
   // Tên website
   SITE_NAME: "CircleLifeTeam",
   SITE_URL: "https://circlelifeteam.top",
-  SITE_DESCRIPTION: "Website việt hóa game PS5 hàng đầu Việt Nam – bản dịch chất lượng cao từ đội ngũ CircleLifeTeam",
-  SITE_KEYWORDS: "game ps5 việt hóa, việt hóa ps5, bản dịch ps5, patch việt hóa, circlelifeteam, game ps5 tiếng việt, chép game việt hóa ps4 ps5, tải game việt hóa ps4",
+  SITE_DESCRIPTION: "Website việt hóa game – bản dịch chất lượng cao từ đội ngũ CircleLifeTeam",
+  SITE_KEYWORDS: "game việt hóa, việt hóa, bản dịch, patch việt hóa, circlelifeteam, game tiếng việt, chép game việt hóa, tải game việt hóa",
 
   ADMIN_PASS_HASH: "60f601c6ba77ed1cfabbdb9c1d79fd50",
   EDITOR_PASS_HASH: "0d9bfb393d6aa97a2736a1876739d6c4",
