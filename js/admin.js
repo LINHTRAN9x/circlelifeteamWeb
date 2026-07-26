@@ -255,6 +255,12 @@ async function loadGamesTable(searchQuery = '') {
       </td>
       <td>
         <div class="admin-table-actions">
+        ${ 
+            // 🚀 Thêm nút Discord thủ công vào đây
+            `<button class="btn-action" style="background:#5865F2; color:#fff;" onclick="postToDiscordManual('${g.id}', '${g.title.replace(/'/g, "\\\\'")}')" title="Đăng thủ công lên Discord">
+               <i class="fa-brands fa-discord"></i> Discord
+             </button>`
+          }
           ${ 
             // 🚀 LOGIC KHÓA NÚT: Nếu là Editor VÀ Game đang bị khóa -> Làm mờ & vô hiệu hóa nút
             (sessionStorage.getItem('clt_admin_role') === 'editor' && g.isLocked) 
@@ -498,11 +504,7 @@ async function saveGameFromForm() {
     localStorage.removeItem('clt_cache_data');
     showToast(`Đã ${editingId ? 'cập nhật' : 'thêm'} game: ${game.title}`, 'success');
 
-    // 🚀 BƯỚC 4: BẮN THÔNG BÁO DISCORD NẾU LÀ GAME MỚI
-    // Biến editingId bị null nghĩa là bác đang Thêm Mới (chứ không phải Sửa)
-    if (!editingId) {
-      sendDiscordNotification(game);
-    }
+    
 
     document.getElementById('game-modal')?.classList.remove('open');
     await loadGamesTable();
@@ -1029,4 +1031,66 @@ function compressImageToWebP(file, maxWidth = 1280, quality = 0.8) {
     reader.onerror = (e) => reject(e);
   });
 }
+
+
+async function postToDiscordManual(id, title) {
+  if (sessionStorage.getItem('clt_admin_role') === 'editor') {
+    showToast('Bạn không có quyền đăng bài lên Discord!', 'error');
+    return;
+  }
+
+  const games = await API.getGames();
+  const game = games.find(g => g.id === id);
+  if (!game) return;
+
+  if (!confirm(`Bạn có chắc muốn đẩy game "${title}" lên kênh Discord ngay bây giờ?`)) return;
+
+  const webhookUrl = typeof CONFIG !== 'undefined' ? CONFIG.DISCORD_WEBHOOK_URL : null;
+  if (!webhookUrl || webhookUrl.trim() === "") {
+    showToast('❌ Chưa cấu hình Discord Webhook trong config.js', 'error');
+    return;
+  }
+
+  try {
+    showToast('🚀 Đang gửi thông báo lên Discord...', 'info');
+
+    let rawDesc = game.descriptionVi || game.description || "Đang cập nhật mô tả...";
+    let cleanDesc = rawDesc.replace(/<[^>]*>?/gm, '').trim(); 
+    if (cleanDesc.length > 300) {
+      cleanDesc = cleanDesc.substring(0, 300) + "...";
+    }
+
+    const payload = {
+      content: "",
+      embeds: [{
+        title: `${game.title || game.titleVi} Việt Hóa`,
+        url: `${typeof CONFIG !== 'undefined' ? CONFIG.SITE_URL : 'https://circlelifeteam.top'}/game.html?id=${game.slug}`,
+        description: cleanDesc,
+        color: 16761600, // Màu Vàng đặc trưng (#FFC312)
+        image: { 
+          url: game.bannerImage || game.coverImage || "https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png" 
+        },
+        fields: [
+          { name: "NỀN TẢNG VH", value: game.platform || "PC", inline: true },
+          { name: "THỂ LOẠI", value: (game.tags && game.tags.length > 0) ? game.tags.join(', ') : "Chưa rõ", inline: true },
+          { name: "TIẾN ĐỘ", value: game.status || "Hoàn thành 100%", inline: true }
+        ],
+        footer: { text: "CircleLifeTeam" },
+        timestamp: new Date().toISOString()
+      }]
+    };
+
+    await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    showToast(`✅ Đã đăng "${title}" lên Discord thành công!`, 'success');
+  } catch (error) {
+    console.error("Lỗi gửi Discord:", error);
+    showToast('❌ Lỗi kết nối đến Discord Webhook', 'error');
+  }
+}
+window.postToDiscordManual = postToDiscordManual;
 
