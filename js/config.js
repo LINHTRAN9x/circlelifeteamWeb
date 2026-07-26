@@ -16,6 +16,8 @@ const CONFIG = {
     measurementId: "G-7WJGDBEQG1"
   },
 
+  RECAPTCHA_SITE_KEY: "6LcnzmUtAAAAANl0S3eMp0QDV-b1EZthkc7rtjJT",
+
   // Tên website
   SITE_NAME: "CircleLifeTeam",
   SITE_URL: "https://circlelifeteam.top",
@@ -33,6 +35,17 @@ const CONFIG = {
 };
 
 firebase.initializeApp(CONFIG.FIREBASE_CONFIG);
+
+try {
+  const appCheck = firebase.appCheck();
+  appCheck.activate(
+    CONFIG.RECAPTCHA_SITE_KEY,
+    true
+  );
+  console.log("🛡️ Hệ thống phòng thủ reCAPTCHA Tàng hình đã kích hoạt!");
+} catch (error) {
+  console.error("Lỗi kích hoạt App Check:", error);
+}
 
 // Dữ liệu mẫu (fallback khi chưa có JSONBin)
 const SAMPLE_DATA = {
