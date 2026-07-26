@@ -6,6 +6,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // Kiểm tra token — chặn người ngoài spam endpoint
+  const token = req.headers['x-admin-token'];
+  if (!token || token !== process.env.ADMIN_SECRET_TOKEN) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
   const apiKeys = [
     process.env.IMGBB_KEY_1,
     process.env.IMGBB_KEY_2,

@@ -5,6 +5,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // Kiểm tra token — chặn người ngoài spam endpoint
+  const token = req.headers['x-admin-token'];
+  if (!token || token !== process.env.ADMIN_SECRET_TOKEN) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
   const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
   if (!webhookUrl) {
     return res.status(500).json({ error: 'Chưa cấu hình DISCORD_WEBHOOK_URL trong Vercel Environment Variables' });
