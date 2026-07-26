@@ -771,49 +771,16 @@ function initImageDropzones() {
   });
 }
 
-// ============================================================
-// 🚀 BỘ NÃO XOAY VÒNG KEY IMGBB TỰ ĐỘNG
-// ============================================================
-// Biến toàn cục ghi nhớ Key nào đang dùng tốt để lần sau dùng tiếp, không phải thử lại từ đầu
-let currentImgbbKeyIndex = 0;
-
+// ✅ THAY THẾ BẰNG ĐÂY
 async function uploadToImgBBWithRetry(base64Data, fileName) {
-  // Lấy mảng Key từ config (có fallback hỗ trợ cả phiên bản config cũ 1 key)
-  const apiKeys = typeof CONFIG !== 'undefined' ? (CONFIG.IMGBB_API_KEYS || [CONFIG.IMGBB_API_KEY]) : [];
-  if (!apiKeys || apiKeys.length === 0 || !apiKeys[0]) throw new Error("Thiếu cấu hình API Key");
-
-  const formData = new FormData();
-  formData.append('image', base64Data);
-  if (fileName) formData.append('name', fileName);
-
-  let attempts = 0;
-  let lastError = '';
-
-  // Vòng lặp: Thử lần lượt các Key cho đến khi thành công hoặc hết Key
-  while (attempts < apiKeys.length) {
-    const apiKey = apiKeys[currentImgbbKeyIndex];
-    try {
-      const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
-        method: 'POST',
-        body: formData
-      });
-      const result = await response.json();
-      
-      if (result.success) {
-        return result.data.url; // Thành công thì trả về Link ảnh ngay
-      } else {
-        throw new Error(result.error.message || "Lỗi không xác định");
-      }
-    } catch (e) {
-      lastError = e.message;
-      console.warn(`⚠️ Key số ${currentImgbbKeyIndex + 1} bị lỗi: ${e.message}. Đang sang số chuyển Key...`);
-      // Nhảy sang Key tiếp theo (Nếu hết mảng thì quay lại Key đầu)
-      currentImgbbKeyIndex = (currentImgbbKeyIndex + 1) % apiKeys.length;
-      attempts++;
-    }
-  }
-  
-  throw new Error(`Đã thử hết ${apiKeys.length} Key dự phòng nhưng vẫn văng lỗi: ${lastError}`);
+  const response = await fetch('/api/upload-image', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ base64: base64Data, name: fileName })
+  });
+  const result = await response.json();
+  if (!response.ok) throw new Error(result.error || 'Lỗi upload ảnh');
+  return result.url;
 }
 
 // Gọi API ImgBB (BẢN CHỐNG SPAM RATE LIMIT)
@@ -943,8 +910,6 @@ async function fetchAdminViewCounts() {
 // HỆ THỐNG THÔNG BÁO DISCORD TỰ ĐỘNG
 // ============================================================
 async function sendDiscordNotification(game) {
-  const webhookUrl = typeof CONFIG !== 'undefined' ? CONFIG.DISCORD_WEBHOOK_URL : null;
-  if (!webhookUrl || webhookUrl.trim() === "") return; // Bỏ qua nếu chưa cài Webhook
 
   // 🚀 BƯỚC DỌN RÁC HTML CHO DISCORD
   let rawDesc = game.descriptionVi || game.description || "Đang cập nhật mô tả...";
@@ -979,7 +944,7 @@ async function sendDiscordNotification(game) {
   };
 
   try {
-    await fetch(webhookUrl, {
+    await fetch('/api/notify-discord', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -1045,11 +1010,6 @@ async function postToDiscordManual(id, title) {
 
   if (!confirm(`Bạn có chắc muốn đẩy game "${title}" lên kênh Discord ngay bây giờ?`)) return;
 
-  const webhookUrl = typeof CONFIG !== 'undefined' ? CONFIG.DISCORD_WEBHOOK_URL : null;
-  if (!webhookUrl || webhookUrl.trim() === "") {
-    showToast('❌ Chưa cấu hình Discord Webhook trong config.js', 'error');
-    return;
-  }
 
   try {
     showToast('🚀 Đang gửi thông báo lên Discord...', 'info');
@@ -1080,7 +1040,7 @@ async function postToDiscordManual(id, title) {
       }]
     };
 
-    await fetch(webhookUrl, {
+    await fetch('/api/notify-discord', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
