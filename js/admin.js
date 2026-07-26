@@ -775,7 +775,7 @@ function initImageDropzones() {
 async function uploadToImgBBWithRetry(base64Data, fileName) {
   const response = await fetch('/api/upload-image', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-admin-token': 'CLT_SECRET_2024' },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ base64: base64Data, name: fileName })
   });
   const result = await response.json();
@@ -894,7 +894,7 @@ async function sendDiscordNotification(game) {
   try {
     await fetch('/api/notify-discord', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-admin-token': 'CLT_SECRET_2024' },
+      headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
     });
     console.log("Đã bắn thông báo lên Discord!");
@@ -990,7 +990,7 @@ async function postToDiscordManual(id, title) {
 
     await fetch('/api/notify-discord', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-admin-token': 'CLT_SECRET_2024' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
 
