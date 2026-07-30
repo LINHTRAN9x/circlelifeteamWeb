@@ -1,8 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url><loc>https://circlelifeteam.top/</loc><lastmod>2026-07-24</lastmod><priority>1.0</priority><changefreq>daily</changefreq></url>
-  <url><loc>https://circlelifeteam.top/category.html</loc><lastmod>2026-07-24</lastmod><priority>0.9</priority><changefreq>daily</changefreq></url>
+  <url><loc>https://circlelifeteam.top/</loc><lastmod>2026-07-30</lastmod><priority>1.0</priority><changefreq>daily</changefreq></url>
+  <url><loc>https://circlelifeteam.top/category.html</loc><lastmod>2026-07-30</lastmod><priority>0.9</priority><changefreq>daily</changefreq></url>
+  <url>
+    <loc>https://circlelifeteam.top/share/archon-soul-viet-hoa</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/SD0D2Ycs/Screenshot-2026-07-30-231815-webp.webp</image:loc>
+      <image:title>Archon Soul Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/mistfall-hunter-viet-hoa</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/N6DRZsRr/1ee80bda-370e-4a0c-aeea-565711189e7e-webp.webp</image:loc>
+      <image:title>Mistfall Hunter Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/lunarium-viet-hoa</loc>
+    <lastmod>2026-07-29</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://s.pacn.ws/1/p/1g9/lunarium-940833.1.jpg?v=ti5q71</image:loc>
+      <image:title>Lunarium Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/bonehold-viet-hoa</loc>
+    <lastmod>2026-07-29</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/jvVjyy2W/Screenshot-2026-07-29-145420-webp.webp</image:loc>
+      <image:title>Bonehold Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/shards-of-order-viet-hoa</loc>
+    <lastmod>2026-07-29</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/tMM2b1wf/730fd27b-3b20-428d-ad51-e09f9219d3dd-webp.webp</image:loc>
+      <image:title>Shards of Order Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/fallen-aces-viet-hoa</loc>
+    <lastmod>2026-07-29</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/60131649fe1bb7a2b4530d1d2effe1bd.png</image:loc>
+      <image:title>Fallen Aces Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/prelude-dark-pain-viet-hoa</loc>
+    <lastmod>2026-07-28</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/ycnJs54g/Screenshot-2026-07-28-221441-webp.webp</image:loc>
+      <image:title>Prelude Dark Pain Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/inner-scales-1-choice-viet-hoa</loc>
+    <lastmod>2026-07-28</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/ns7CZg96/Screenshot-2026-07-28-201759-webp.webp</image:loc>
+      <image:title>Inner Scales 1 Choice Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/mahou-arms-viet-hoa</loc>
+    <lastmod>2026-07-28</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/783120cff272a04b0ad0a1f3849a27c9.jpg</image:loc>
+      <image:title>Mahou Arms Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/forsaken-realms-vahrins-call-viet-hoa</loc>
+    <lastmod>2026-07-28</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://s.pacn.ws/1/p/1ei/forsaken-realms-vahrins-call-909037.1.jpg?v=t8laah</image:loc>
+      <image:title>Forsaken Realms: Vahrins Call Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/wonderia-viet-hoa</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/Hf7vvS2X/Screenshot-2026-07-27-205444-webp.webp</image:loc>
+      <image:title>Wonderia Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/tale-of-seikyu-viet-hoa</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/k6xZbVyT/Screenshot-2026-07-26-235834-webp.webp</image:loc>
+      <image:title>Tale of Seikyu Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/the-last-flame-viet-hoa</loc>
+    <lastmod>2026-07-26</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/hFXhSG31/d-u983fhwoehpowehf9333-webp.webp</image:loc>
+      <image:title>The Last Flame Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/perennial-order-viet-hoa</loc>
+    <lastmod>2026-07-26</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/6RBwGC9W/perennial-order-1bpag-webp.webp</image:loc>
+      <image:title>Perennial Order Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/the-devil-within-satgat-viet-hoa</loc>
+    <lastmod>2026-07-25</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/c16ff46470b66dea1996cc227127012f.jpg</image:loc>
+      <image:title>The Devil Within: Satgat Việt Hóa</image:title>
+    </image:image>
+  </url>
   <url>
     <loc>https://circlelifeteam.top/share/halo-campaign-evolved-viet-hoa</loc>
     <lastmod>2026-07-25</lastmod>
@@ -2064,16 +2214,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://circlelifeteam.top/share/ghost-of-yotei-viet-hoa</loc>
-    <lastmod>2026-06-05</lastmod>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-    <image:image>
-      <image:loc>https://cdn2.steamgriddb.com/grid/4b72d38f9245a973e84a625798521a67.png</image:loc>
-      <image:title>Ghost of Yōtei Việt Hóa</image:title>
-    </image:image>
-  </url>
-  <url>
     <loc>https://circlelifeteam.top/share/undermine-2-viet-hoa</loc>
     <lastmod>2026-06-05</lastmod>
     <priority>0.8</priority>
@@ -2151,16 +2291,6 @@
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/f28c89145bc5c930ba927088d63b196d.png</image:loc>
       <image:title>Until Dawn Việt Hóa</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://circlelifeteam.top/share/ghost-of-tsushima-directors-cut-viet-hoa</loc>
-    <lastmod>2026-06-01</lastmod>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-    <image:image>
-      <image:loc>https://cdn2.steamgriddb.com/grid/ac7b7f50fe1aa87181f77823ab09b8e6.png</image:loc>
-      <image:title>Ghost of Tsushima: Director&#39;s Cut Việt Hóa</image:title>
     </image:image>
   </url>
   <url>
