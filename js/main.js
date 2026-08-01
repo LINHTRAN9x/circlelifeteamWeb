@@ -349,7 +349,7 @@ function gameCardHTML(game, extraClass = '') {
     ? `<img src="${game.coverImage}" alt="${game.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'game-card-thumb-placeholder\\'><span>🎮</span><p>No Image</p></div>'">`
     : '<div class="game-card-thumb-placeholder"><span>🎮</span><p>No Image</p></div>';
 
-  const badgeNew = game.isNew ? '<span class="badge badge-new">🔥 Mới</span>' : '';
+  const badgeNew = game.isNew ? '<span class="badge badge-new">🔥 Hot</span>' : '';
   const platformArray = (game.platform || 'PS5').split(',').map(p => p.trim());
   const badgePlatform = platformArray.map(p => 
     `<span class="badge badge-platform ${p === 'Nintendo Switch' ? 'badge-switch' : (p === 'PC' ? 'badge-pc' : '')}">${p}</span>`

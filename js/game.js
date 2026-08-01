@@ -320,7 +320,7 @@ function renderGameDetail(game) {
       `<span class="badge badge-platform ${p === 'Nintendo Switch' ? 'badge-switch' : (p === 'PC' ? 'badge-pc' : '')}">${p}</span>`
     ).join(' ');
     
-    if (game.isNew) html += '<span class="badge badge-new">🔥 Mới</span>';
+    if (game.isNew) html += '<span class="badge badge-new">🔥 Hot</span>';
     if (game.status) html += `<span class="badge ${game.status.includes('100%') ? 'badge-done' : 'badge-wip'}">${game.status}</span>`;
     badgesEl.innerHTML = html;
   }
