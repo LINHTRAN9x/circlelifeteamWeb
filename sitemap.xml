@@ -1,8 +1,398 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url><loc>https://circlelifeteam.top/</loc><lastmod>2026-07-30</lastmod><priority>1.0</priority><changefreq>daily</changefreq></url>
-  <url><loc>https://circlelifeteam.top/category.html</loc><lastmod>2026-07-30</lastmod><priority>0.9</priority><changefreq>daily</changefreq></url>
+  <url><loc>https://circlelifeteam.top/</loc><lastmod>2026-08-09</lastmod><priority>1.0</priority><changefreq>daily</changefreq></url>
+  <url><loc>https://circlelifeteam.top/category.html</loc><lastmod>2026-08-09</lastmod><priority>0.9</priority><changefreq>daily</changefreq></url>
+  <url>
+    <loc>https://circlelifeteam.top/share/the-witcher-enhanced-edition-viet-hoa</loc>
+    <lastmod>2026-08-08</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/934eecbf0fdeb931fe26a46728e8d1a1.png</image:loc>
+      <image:title>The Witcher: Enhanced Edition Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/chop-chop-inc-viet-hoa</loc>
+    <lastmod>2026-08-08</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/cobyi3.webp</image:loc>
+      <image:title>Chop Chop Inc. Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/frozen-ship-viet-hoa</loc>
+    <lastmod>2026-08-07</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co9u9c.webp</image:loc>
+      <image:title>Frozen Ship Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/spiritstead-viet-hoa</loc>
+    <lastmod>2026-08-07</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/coafkc.webp</image:loc>
+      <image:title>Spiritstead Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/montabi-viet-hoa</loc>
+    <lastmod>2026-08-07</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://store-images.s-microsoft.com/image/apps.25988.14289738902544275.899eaaf1-2001-4e7b-9eeb-144ee6c775e6.a8861daf-6d63-4077-9503-20ea3e2f2789</image:loc>
+      <image:title>Montabi Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/jump-space-viet-hoa</loc>
+    <lastmod>2026-08-07</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/aea8027f16bed26ca9a54fc34ed3aee4.png</image:loc>
+      <image:title>Jump Space Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/mazey-village-viet-hoa</loc>
+    <lastmod>2026-08-07</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/cocig9.webp</image:loc>
+      <image:title>Mazey Village Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/restory-chill-electronics-repairs-viet-hoa</loc>
+    <lastmod>2026-08-07</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/181659421e27909cbe5651fc3654b2d1.jpg</image:loc>
+      <image:title>ReStory: Chill Electronics Repairs Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/iron-nest-heavy-turret-simulator-viet-hoa</loc>
+    <lastmod>2026-08-07</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBYMGTpkygnOLqzPdeos0YhWYLHVxJWvXThtqwG7oQ_7Go2ORYQ3hIrY0u&s=10</image:loc>
+      <image:title>IRON NEST: Heavy Turret Simulator Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/akatori-viet-hoa</loc>
+    <lastmod>2026-08-06</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/f30980c22a92e037d631c3b4f56acd98.jpg</image:loc>
+      <image:title>Akatori Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/doloc-town-viet-hoa</loc>
+    <lastmod>2026-08-06</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/5351f9dfcdae7a28dfe214833a9449eb.jpg</image:loc>
+      <image:title>Doloc Town Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/fields-of-mistria-viet-hoa</loc>
+    <lastmod>2026-08-06</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/cd326712c81c0a7c75e0af6c5d1b9798.png</image:loc>
+      <image:title>Fields of Mistria Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/moonlighter-viet-hoa</loc>
+    <lastmod>2026-08-06</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/8b2112b1064c167cfbccbdeb2b5841f2.jpg</image:loc>
+      <image:title>Moonlighter Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/kill-the-shadow-viet-hoa</loc>
+    <lastmod>2026-08-06</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co927f.webp</image:loc>
+      <image:title>Kill The Shadow Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/hellslave-ii-judgment-of-the-archon-viet-hoa</loc>
+    <lastmod>2026-08-05</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/6cYSnkPJ/hellslave-ii-judgment-of-the-archon-pkb5h-webp.webp</image:loc>
+      <image:title>HellSlave II: Judgment of the Archon Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/liquidation-viet-hoa</loc>
+    <lastmod>2026-08-05</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/co5iyd.webp</image:loc>
+      <image:title>Liquidation Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/miasma-chronicles-viet-hoa</loc>
+    <lastmod>2026-08-05</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/04ac874622749e3bf2691b32c2811f02.png</image:loc>
+      <image:title>Miasma Chronicles Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/enter-the-chronosphere-viet-hoa</loc>
+    <lastmod>2026-08-04</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://s.pacn.ws/1/p/1e0/enter-the-chronosphere-900187.1.jpg?v=t5v3e1</image:loc>
+      <image:title>Enter the Chronosphere Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/rotwood-viet-hoa</loc>
+    <lastmod>2026-08-04</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/2a93f70983d1b5da248d0187bd161417.png</image:loc>
+      <image:title>Rotwood Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/morbid-metal-viet-hoa</loc>
+    <lastmod>2026-08-04</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/9f3947c8c3ab4600935586f0398226de.png</image:loc>
+      <image:title>MORBID METAL Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/ostranauts-viet-hoa</loc>
+    <lastmod>2026-08-04</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/d5c6a8e5f2a86b5c71ad6375beb9b8f9.jpg</image:loc>
+      <image:title>Ostranauts Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/white-knuckle-viet-hoa</loc>
+    <lastmod>2026-08-03</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/b0e6c78243b328ad96ca528d6486ea9d.png</image:loc>
+      <image:title>White Knuckle Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/icarus-viet-hoa</loc>
+    <lastmod>2026-08-03</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/58dd1471fa2298e0ad181858df8d6f4b.png</image:loc>
+      <image:title>ICARUS Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/last-man-sitting-viet-hoa</loc>
+    <lastmod>2026-08-03</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/cobh1y.webp</image:loc>
+      <image:title>Last Man Sitting Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/witchfire-viet-hoa</loc>
+    <lastmod>2026-08-03</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/ec2500d62db240ce65dbe8b36d8fb6a3.png</image:loc>
+      <image:title>Witchfire Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/beast-of-reincarnation-viet-hoa</loc>
+    <lastmod>2026-08-02</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/b1f3099dbc42710895ab03cd265badac.jpg</image:loc>
+      <image:title>Beast of Reincarnation Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/tactical-breach-wizards-viet-hoa</loc>
+    <lastmod>2026-08-02</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/27d66728083df676c078efe46f156e91.jpg</image:loc>
+      <image:title>Tactical Breach Wizards Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/quasimorph-viet-hoa</loc>
+    <lastmod>2026-08-01</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/245938e5ec57ef5ee17c6f1c6be2d518.png</image:loc>
+      <image:title>Quasimorph Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/those-who-rule-viet-hoa</loc>
+    <lastmod>2026-08-01</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://thosewhorule.wiki.gg/images/Site-logo.png?6093e9</image:loc>
+      <image:title>Those Who Rule Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/corsair-cove-viet-hoa</loc>
+    <lastmod>2026-08-01</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/cobxwd.webp</image:loc>
+      <image:title>Corsair Cove Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/creation-of-the-gods-rebellion-at-five-passes-viet-hoa</loc>
+    <lastmod>2026-08-01</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/pj7SFzNm/eoufh308fhephgewfeeeeeeeefd-webp.webp</image:loc>
+      <image:title>CREATION OF THE GODS: Rebellion at Five Passes Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/shift-at-midnight-viet-hoa</loc>
+    <lastmod>2026-07-31</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/MxC5w38w/Screenshot-2026-07-31-210016-webp.webp</image:loc>
+      <image:title>Shift At Midnight Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/how-many-dudes-viet-hoa</loc>
+    <lastmod>2026-07-31</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn2.steamgriddb.com/grid/f637b0c33ed82d18cac4b1cef8fbab1e.png</image:loc>
+      <image:title>How Many Dudes Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/sephiria-viet-hoa</loc>
+    <lastmod>2026-07-31</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://s.pacn.ws/1/p/1bx/sephiria-862667.10.jpg?v=suhi1l</image:loc>
+      <image:title>Sephiria Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/house-of-legacy-viet-hoa</loc>
+    <lastmod>2026-07-31</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://cdn.loaded.com/media/catalog/product/h/o/house_of_legacy_cdkeys.png</image:loc>
+      <image:title>House of Legacy Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/bills-must-be-paid-viet-hoa</loc>
+    <lastmod>2026-07-31</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/cSBvPBST/fd87c4b8-77d9-4ef3-af11-7fff5a011bbd-webp.webp</image:loc>
+      <image:title>Bills Must Be Paid Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/kusan-city-of-wolves-viet-hoa</loc>
+    <lastmod>2026-07-31</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://store-images.s-microsoft.com/image/apps.30974.14353018187377559.8159ab22-1802-42ca-b387-30ed90c81e2b.11f43f13-3c5c-4e37-be94-224f6c1fa413</image:loc>
+      <image:title>Kusan : City of Wolves Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/leafy-corner-viet-hoa</loc>
+    <lastmod>2026-07-31</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/27tR6VPG/Screenshot-2026-07-31-104432-webp.webp</image:loc>
+      <image:title>Leafy Corner Việt Hóa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://circlelifeteam.top/share/fallen-tear-the-ascension-viet-hoa</loc>
+    <lastmod>2026-07-31</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <image:image>
+      <image:loc>https://i.ibb.co/3mDXRR9s/Screenshot-2026-07-31-093513-webp.webp</image:loc>
+      <image:title>Fallen Tear: The Ascension Việt Hóa</image:title>
+    </image:image>
+  </url>
   <url>
     <loc>https://circlelifeteam.top/share/archon-soul-viet-hoa</loc>
     <lastmod>2026-07-30</lastmod>
@@ -3661,16 +4051,6 @@
     <image:image>
       <image:loc>https://cdn2.steamgriddb.com/grid/adb8e67db9dec3c9d8e7e78e14671cf0.jpg</image:loc>
       <image:title>Travellers Rest Việt Hóa</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://circlelifeteam.top/share/morbid-metal</loc>
-    <lastmod>2026-04-10</lastmod>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-    <image:image>
-      <image:loc>https://images.igdb.com/igdb/image/upload/t_cover_big/cobvbb.webp</image:loc>
-      <image:title>MORBID METAL Việt Hóa</image:title>
     </image:image>
   </url>
   <url>
