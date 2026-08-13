@@ -705,6 +705,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let previewBox;
 let previewTimeout;
+// 🚀 THÊM 2 BIẾN NÀY ĐỂ KIỂM SOÁT VÒNG LẶP ẢNH
+let previewSwitchTimeout; 
+let previewImageInterval; 
 
 function initSteamHoverPreview() {
   if (!document.getElementById('steam-preview-box')) {
@@ -717,7 +720,6 @@ function initSteamHoverPreview() {
   document.body.addEventListener('mouseover', (e) => {
     if (window.innerWidth <= 1024) return;
 
-    // 🚀 SỬA CHỖ NÀY: Bắt cả class .game-card VÀ .new-card
     const card = e.target.closest('.game-card, .new-card');
     if (!card) {
       hidePreview();
@@ -744,7 +746,6 @@ function initSteamHoverPreview() {
   });
 
   document.body.addEventListener('mouseout', (e) => {
-    // 🚀 SỬA CHỖ NÀY: Bắt cả class .new-card
     if (e.target.closest('.game-card, .new-card')) {
       clearTimeout(previewTimeout);
       hidePreview();
@@ -755,7 +756,11 @@ function initSteamHoverPreview() {
 function hidePreview() {
   if (previewBox) {
     previewBox.classList.remove('show');
-    // 🚀 BỔ SUNG QUAN TRỌNG: Xóa ruột HTML đi để video Youtube ngừng chạy ngầm gây lag máy
+    
+    // 🚀 QUAN TRỌNG: Dọn sạch bộ đếm giờ chuyển ảnh khi chuột rời đi
+    clearTimeout(previewSwitchTimeout);
+    clearInterval(previewImageInterval);
+
     setTimeout(() => { 
       if (!previewBox.classList.contains('show')) previewBox.innerHTML = ''; 
     }, 200);
@@ -763,25 +768,38 @@ function hidePreview() {
 }
 
 function renderPreviewContent(game) {
-  // Ưu tiên dùng ảnh ngang Banner, nếu không có thì dùng ảnh dọc Cover
-  const imgUrl = game.bannerImage || game.coverImage || "https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png";
-  
-  // Xử lý đống thẻ Thể loại (Tags)
+  // 1. TẠO MẢNG ẢNH
+  let imagesToPlay = [];
+  if (game.bannerImage) imagesToPlay.push(game.bannerImage);
+  else if (game.coverImage) imagesToPlay.push(game.coverImage);
+
+  if (game.images && Array.isArray(game.images)) {
+    imagesToPlay = imagesToPlay.concat(game.images.slice(0, 4));
+  }
+  imagesToPlay = [...new Set(imagesToPlay)]; // Lọc trùng lặp
+
+  // 2. TẠO HTML CÁC LỚP ẢNH XẾP CHỒNG LÊN NHAU
+  const imagesHtml = imagesToPlay.map((imgUrl, i) => `
+    <img src="${imgUrl}" class="sp-img ${i === 0 ? 'active' : ''}" alt="Preview">
+  `).join('');
+
   let tagsHtml = '';
   if (game.tags && Array.isArray(game.tags)) {
-    tagsHtml = game.tags.slice(0, 6).map(t => `<span>${t}</span>`).join(''); // Lấy 6 tag đầu
+    tagsHtml = game.tags.slice(0, 6).map(t => `<span>${t}</span>`).join('');
   } else if (game.genre) {
     tagsHtml = `<span>${game.genre}</span>`;
   }
 
-  // Đổ data vào HTML
+  // 3. ĐỔ HTML VÀO BẢNG
   previewBox.innerHTML = `
-    <img src="${imgUrl}" class="steam-preview-banner" alt="Banner">
+    <div class="steam-preview-images">
+      ${imagesHtml}
+    </div>
     <div class="steam-preview-body">
       <div class="steam-preview-title">${game.titleVi || game.title} Việt Hóa</div>
       <div class="steam-preview-meta">
         <div><strong>Dịch giả:</strong> ${game.translator || 'CircleLifeTeam'}</div>
-        <div><strong>Nền tảng việt hóa:</strong> <span style="color:var(--primary-color)">${game.platform || 'PC'}</span></div>
+        <div><strong>Nền tảng việt hóa:</strong> <span style="color:var(--accent-yellow)">${game.platform || 'PC'}</span></div>
         <div><strong>Trạng thái:</strong> ${game.status || 'Hoàn thành'}</div>
       </div>
       <div class="steam-preview-tags">
@@ -789,51 +807,51 @@ function renderPreviewContent(game) {
       </div>
     </div>
   `;
+
+  // 4. KÍCH HOẠT LƯỚT ẢNH ĐỘNG
+  if (imagesToPlay.length > 1) {
+    const spImgs = previewBox.querySelectorAll('.sp-img');
+    let currentImgIdx = 0;
+
+    // Tạm dừng 0.8 giây đầu tiên cho người dùng ngắm Banner, rồi mới bắt đầu lướt
+    previewSwitchTimeout = setTimeout(() => {
+      if (!previewBox.classList.contains('show')) return;
+      
+      previewImageInterval = setInterval(() => {
+        spImgs[currentImgIdx].classList.remove('active');
+        currentImgIdx = (currentImgIdx + 1) % spImgs.length;
+        spImgs[currentImgIdx].classList.add('active');
+      }, 1500); 
+    }, 800);
+  }
 }
 
 function positionPreview(card) {
   const rect = card.getBoundingClientRect();
   const gap = 12; // Khoảng cách khe hở
   
-  // 🚀 Bộ lọc khử lỗi Zoom (Đề phòng giao diện đang bị thu nhỏ)
   const zoom = parseFloat(getComputedStyle(document.body).zoom) || 1;
   
-  // Hiển thị bảng lên trước
   previewBox.classList.add('show');
 
-  // Tính tọa độ thực tế để không bị sai lệch
   const cardLeft = rect.left / zoom;
   const cardRight = rect.right / zoom;
   const screenWidth = window.innerWidth / zoom;
   const screenHeight = window.innerHeight / zoom;
 
-  // ==========================================
-  // 1. XỬ LÝ TRÁI / PHẢI (TUYỆT CHIÊU CSS)
-  // ==========================================
-  // Giả định bảng rộng tầm 340px (tính cả gap). Nếu lòi ra mép phải:
   if (cardRight + 340 > screenWidth) {
-    // Neo thẳng vào mép TRÁI của thẻ game...
     previewBox.style.left = `${cardLeft - gap}px`;
-    // ...sau đó ép CSS tự động lùi bảng lại ĐÚNG 100% bề ngang thực tế của nó
     previewBox.style.transform = 'translateX(-100%)';
   } else {
-    // Đủ chỗ thì neo bên PHẢI như bình thường
     previewBox.style.left = `${cardRight + gap}px`;
     previewBox.style.transform = 'translateX(0)';
   }
 
-  // ==========================================
-  // 2. XỬ LÝ TRÊN / DƯỚI (Tránh lòi đáy màn hình)
-  // ==========================================
   let top = rect.top / zoom;
   const actualHeight = previewBox.offsetHeight;
   
   if (top + actualHeight > screenHeight) {
-    top = screenHeight - actualHeight - 16; // Cách đáy 16px
+    top = screenHeight - actualHeight - 16; 
   }
   previewBox.style.top = `${top}px`;
-}
-
-function hidePreview() {
-  if (previewBox) previewBox.classList.remove('show');
 }

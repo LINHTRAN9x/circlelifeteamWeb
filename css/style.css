@@ -2223,3 +2223,30 @@ body.dark-mode .game-price-tag {
     display: none !important;
   }
 }
+
+/* ============================================================
+   KHUNG CHỨA ẢNH SLIDESHOW CHO BẢNG STEAM PREVIEW
+   ============================================================ */
+.steam-preview-images {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  border-bottom: 2px solid var(--accent-yellow, #FFC312);
+  overflow: hidden;
+  background: #000;
+}
+
+.sp-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out; /* Tốc độ mờ chuyển cảnh */
+}
+
+.sp-img.active {
+  opacity: 1;
+}
