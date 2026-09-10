@@ -28,7 +28,7 @@ const API = (() => {
 
     try {
       // Gọi API lấy dữ liệu dạng JSON từ Firebase
-      const res = await fetch(`${CONFIG.FIREBASE_DB_URL}/.json`);
+      const res = await fetch(`${CONFIG.FIREBASE_DB_URL}/.json?_t=${Date.now()}`);
       if (!res.ok) throw new Error("Firebase fetch failed");
       let fetchedData = await res.json();
 
