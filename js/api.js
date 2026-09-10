@@ -27,8 +27,8 @@ const API = (() => {
     }
 
     try {
-      // Gọi API lấy dữ liệu dạng JSON từ Firebase
-      const res = await fetch(`${CONFIG.FIREBASE_DB_URL}/.json?_t=${Date.now()}`);
+      // 1. Gọi API lấy dữ liệu dạng JSON từ Firebase
+      const res = await fetch(`${CONFIG.FIREBASE_DB_URL}/.json`);
       if (!res.ok) throw new Error("Firebase fetch failed");
       let fetchedData = await res.json();
 
@@ -37,11 +37,21 @@ const API = (() => {
         fetchedData = JSON.parse(JSON.stringify(SAMPLE_DATA));
       }
 
+      // 2. Nạp data thật vào biến để web sẵn sàng hiển thị
       cachedData = fetchedData;
-      localStorage.setItem('clt_cache_data', JSON.stringify(cachedData));
-      localStorage.setItem('clt_cache_time', Date.now().toString());
 
+      // 3. 🚀 BỌC RIÊNG BỘ NHỚ VÀO TRY...CATCH
+      // Nếu điện thoại bị tràn bộ nhớ (>5MB), nó chỉ báo lỗi nhẹ chứ KHÔNG làm sập tiến trình tải game
+      try {
+        localStorage.setItem('clt_cache_data', JSON.stringify(cachedData));
+        localStorage.setItem('clt_cache_time', Date.now().toString());
+      } catch (storageError) {
+        console.warn("⚠️ Điện thoại không đủ bộ nhớ Cache, nhưng vẫn hiển thị Data thật:", storageError);
+      }
+
+      // Trả về data 250+ game thật cho web
       return cachedData;
+      
     } catch (e) {
       console.warn("Firebase unavailable, using sample data:", e);
       cachedData = JSON.parse(JSON.stringify(SAMPLE_DATA));
