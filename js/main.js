@@ -182,7 +182,7 @@ function renderFeaturedGames(games) {
 // ── All Games ──
 // ── All Games & Load More & Filters ──
 let allGamesCache = [];
-let displayLimit = 20;
+let displayLimit = 24;
 
 function renderAllGames(games) {
   allGamesCache = games;

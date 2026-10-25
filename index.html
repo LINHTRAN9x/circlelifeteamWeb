@@ -15,8 +15,8 @@
   <link rel="alternate" hreflang="x-default" href="https://circlelifeteam.top/">
 
   <!-- Open Graph -->
-   <meta property="fb:app_id"       content="2150545185759559">
-   <meta name="google-site-verification" content="4msWbj32CNGe6RKNhIvoBBJP2JA2KeDZbpvgNlj0RcE" />
+  <meta property="fb:app_id" content="2150545185759559">
+  <meta name="google-site-verification" content="4msWbj32CNGe6RKNhIvoBBJP2JA2KeDZbpvgNlj0RcE" />
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png">
   <meta name="twitter:image" content="https://i.ibb.co/j90KpF3x/gdyt4q4jhynd1-1.png">
@@ -25,7 +25,6 @@
   <meta property="og:url" content="https://circlelifeteam.top/">
   <meta property="og:site_name" content="CircleLifeTeam">
   <meta property="og:locale" content="vi_VN">
-  
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
@@ -47,9 +46,22 @@
     }
   }
   </script>
+  <!-- Dán ngay trên đầu thẻ <head> của index.html và category.html -->
+  <script>
+    window.lenis = {
+      raf: function() {},
+      scrollTo: function(target) {
+        try {
+          var el = (typeof target === 'string') ? document.querySelector(target) : target;
+          if (el && typeof el.scrollIntoView === 'function') {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        } catch (e) {}
+      }
+    };
+  </script>
 
   <link rel="stylesheet" href="css/style.css">
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="icon" type="image/svg+xml" href="/logo.png">
   <link rel="preconnect" href="https://circlelifeteam-default-rtdb.asia-southeast1.firebasedatabase.app" crossorigin>
@@ -58,312 +70,473 @@
 <body>
   <script>if(localStorage.getItem('clt_theme') === 'dark') document.body.classList.add('dark-mode');</script>
   
+  <!-- STEAM CLIENT LOADER -->
   <div id="ps5-loader" class="ps5-loader-screen">
-  <div class="brutalist-loader-box">
-    <div class="loader-content-inner">
-      <div class="loader-icons-block">
-        <span class="l-i tri">Δ</span>
-        <span class="l-i cir"><i class="fa-solid fa-o"></i></span>
-        <span class="l-i cro"><i class="fa-solid fa-x"></i></span>
-        <span class="l-i squ"><i class="fa-regular fa-square"></i></span>
-      </div>
-      <div class="loader-text-main">CIRCLE LIFE TEAM...</div>
-      <div class="loader-progress-bar">
-        <span class="progress-fill"></span>
+    <div class="brutalist-loader-box">
+      <div class="loader-content-inner">
+        <div class="loader-icons-block">
+          <!-- <span class="l-i tri"><i class="fa-brands fa-steam"></i></span> -->
+        </div>
+        <div class="loader-text-main">CIRCLE LIFE TEAM...</div>
+        <div class="loader-progress-bar">
+          <span class="progress-fill"></span>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Decorative -->
-<div class="wiiu-deco"></div>
-<div class="wiiu-deco-2"></div>
+  <div class="wiiu-deco"></div>
+  <div class="wiiu-deco-2"></div>
 
-<!-- NAVBAR -->
-<nav class="navbar" role="navigation" aria-label="Main navigation">
-  <a href="/" class="nav-logo" aria-label="CircleLifeTeam Home">
-    <div class="nav-logo-icon"><img class="logo-icon" src="/logo.png" alt=""></div>
-    <span>Circle<span>Life</span>Team</span>
-  </a>
+  <!-- STEAM GLOBAL HEADER & STORE SUBNAV -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <a href="/" class="nav-logo" aria-label="CircleLifeTeam Home">
+      <div class="nav-logo-icon"><img class="logo-icon" src="/logo.png" alt="Logo"></div>
+      <span>CIRCLE<span>LIFETEAM</span></span>
+    </a>
 
-  <ul class="nav-links" role="list">
-    <li class="mobile-only-search"><a href="#" id="menu-search-btn"><i class="fa-solid fa-magnifying-glass"></i> Tìm Kiếm</a></li>
-    <li><a href="/" class="active" aria-current="page">Trang Chủ</a></li>
-    <li><a href="/category.html">Thư Viện</a></li>
-    <li><a href="/#new-releases">Mới Ra</a></li>
-    <li><a href="/#about">Về Chúng Tôi</a></li>
-  </ul>
+    <!-- Thanh điều hướng Store Subnav chuẩn Steam -->
+    <ul class="nav-links" role="list">
+      <li class="mobile-only-search"><a href="#" id="menu-search-btn"><i class="fa-solid fa-magnifying-glass"></i> Tìm Kiếm</a></li>
+      <li><a href="/" class="active" aria-current="page">Trang Chủ</a></li>
+      <li><a href="/category.html">Kho Việt Hóa</a></li>
+      <!-- <li><a href="/category.html?platform=PC">PC</a></li>
+      <li><a href="/category.html?platform=PS5">PS4 / PS5</a></li>
+      <li><a href="/category.html?platform=Nintendo Switch">Switch</a></li> -->
+      <li><a href="/#new-releases">Mới Phát Hành</a></li>
+      <li><a href="/#about">Về Chúng Tôi</a></li>
+    </ul>
 
-  <div class="nav-spacer"></div>
+    <div class="nav-spacer"></div>
 
-  
+    <!-- Ô tìm kiếm nằm trên thanh Store Subnav -->
+    <div class="nav-search" role="search">
+      <span class="nav-search-icon" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
+      <input type="search" placeholder="Tìm kiếm bản việt hóa... (Ctrl+K)" aria-label="Search games">
+    </div>
 
-  <div class="nav-search" role="search">
-    <span class="nav-search-icon" aria-hidden="true">🔍</span>
-    <input type="search" placeholder="Tìm game việt hóa... (Ctrl+K)" aria-label="Search games">
-  </div>
+    <button id="theme-toggle" class="btn-outline" title="Chuyển chế độ màu">
+      <i class="fa-solid fa-moon"></i>
+    </button>
 
-  <button id="theme-toggle" class="btn-outline" style="padding: 8px; margin-left: 16px; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
-    <i class="fa-solid fa-moon"></i>
-  </button>
+    <a href="/admin.html" class="nav-admin-btn" aria-label="Admin panel">
+      <i class="fa-solid fa-Download"></i> <i class="fa-solid fa-gear"></i> Quản Trị
+    </a>
+    <button class="nav-mobile-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+  </nav>
 
-  <a href="/admin.html" class="nav-admin-btn" aria-label="Admin panel"><i class="fa-solid fa-gear"></i></a>
-  <button class="nav-mobile-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
-</nav>
+  <!-- MAIN CONTENT -->
+  <main class="page" id="top">
 
-<!-- MAIN CONTENT -->
-<main class="page" id="top">
+    <!-- STEAM STORE HERO + SIDEBAR GUTTER -->
+    <section class="hero" aria-label="Hero section">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-bg-grid" aria-hidden="true"></div>
 
-  <!-- HERO SECTION -->
-  <section class="hero" aria-label="Hero section">
-    <div class="hero-bg" aria-hidden="true"></div>
-    <div class="hero-bg-grid" aria-hidden="true"></div>
-
-    <div class="container">
-      <div class="hero-grid-layout">
-        
-        <div class="hero-left-col">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: 210px 1fr; gap: 24px; align-items: start;" class="steam-store-top-grid">
           
+          <!-- CỘT TRÁI: STEAM STORE GUTTER SIDEBAR -->
+          <aside class="steam-gutter" style="background: rgba(0,0,0,0.25); padding: 14px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.05);">
+            <div style="margin-bottom: 18px;">
+              <div style="font-size: 11px; font-weight: 700; color: #66c0f4; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px;">Duyệt Theo Hệ Máy</div>
+              <ul style="list-style: none; display: flex; flex-direction: column; gap: 5px; font-size: 12px; color: #8f98a0;">
+                <li><a href="/category.html?platform=PC" style="display:block; padding: 3px 0;"><i class="fa-brands fa-steam" style="width:18px;color:#66c0f4"></i> Game PC</a></li>
+                <li><a href="/category.html?platform=PS5" style="display:block; padding: 3px 0;"><i class="fa-brands fa-playstation" style="width:18px;color:#66c0f4"></i> PlayStation 5</a></li>
+                <li><a href="/category.html?platform=PS4" style="display:block; padding: 3px 0;"><i class="fa-brands fa-playstation" style="width:18px;color:#8f98a0"></i> PlayStation 4</a></li>
+                <li><a href="/category.html?platform=Nintendo Switch" style="display:block; padding: 3px 0;"><i class="fa-solid fa-gamepad" style="width:18px;color:#ff4554"></i> Nintendo Switch</a></li>
+              </ul>
+            </div>
 
-          <h1 class="hero-title" id="hero-title">
-            Việt Hóa <span>Game
-          </h1>
+            <div style="margin-bottom: 18px;">
+              <div style="font-size: 11px; font-weight: 700; color: #66c0f4; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px;">Danh Mục Nổi Bật</div>
+              <ul style="list-style: none; display: flex; flex-direction: column; gap: 5px; font-size: 12px; color: #8f98a0;">
+                <li><a href="/#new-releases" style="display:block; padding: 3px 0;">🔥 Bản Dịch Mới Ra</a></li>
+                <li><a href="/#featured" style="display:block; padding: 3px 0;">⚡ Mới Cập Nhật Patch</a></li>
+                <li><a href="/category.html" style="display:block; padding: 3px 0;">📚 Toàn Bộ Thư Viện</a></li>
+              </ul>
+            </div>
 
-          <p class="hero-sub" id="hero-sub">
-            CircleLifeTeam – Đưa ngôn ngữ Việt vào từng tựa game. Bản dịch chất lượng, cập nhật thường xuyên.
-          </p>
+            <div>
+              <div style="font-size: 11px; font-weight: 700; color: #66c0f4; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px;">Thẻ Phổ Biến</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                <a href="/category.html?tag=Thế Giới Mở" style="background:rgba(103,193,245,0.15);color:#67c1f5;padding:3px 7px;border-radius:2px;font-size:11px;">Thế Giới Mở</a>
+                <a href="/category.html?tag=Nhập Vai" style="background:rgba(103,193,245,0.15);color:#67c1f5;padding:3px 7px;border-radius:2px;font-size:11px;">Nhập Vai</a>
+                <a href="/category.html?tag=Kinh Dị" style="background:rgba(103,193,245,0.15);color:#67c1f5;padding:3px 7px;border-radius:2px;font-size:11px;">Kinh Dị</a>
+                <a href="/category.html?tag=Souls-like" style="background:rgba(103,193,245,0.15);color:#67c1f5;padding:3px 7px;border-radius:2px;font-size:11px;">Souls-like</a>
+                <a href="/category.html?tag=Cốt Truyện Hay" style="background:rgba(103,193,245,0.15);color:#67c1f5;padding:3px 7px;border-radius:2px;font-size:11px;">Cốt Truyện</a>
+                <a href="/category.html?tag=JRPG" style="background:rgba(103,193,245,0.15);color:#67c1f5;padding:3px 7px;border-radius:2px;font-size:11px;">JRPG</a>
+              </div>
+            </div>
+          </aside>
 
-          <div class="hero-cta">
-            <a href="/#library" class="btn-primary">
-              <i class="fa-brands fa-playstation"></i> Xem Thư Viện Việt Hóa
-            </a>
-            <a href="/#new-releases" class="btn-outline" id="hero-discord">
-              🔥 Mới Ra
-            </a>
+          <!-- CỘT PHẢI: KHUNG FEATURED & RECOMMENDED CAPSULE -->
+          <div class="hero-grid-layout">
+            <div class="hero-right-col">
+              <div class="premium-showcase" id="premium-showcase">
+                <div class="showcase-main-slides" id="showcase-main-slides"></div>
+                <div class="showcase-thumbnails" id="showcase-thumbnails"></div>
+              </div>
+            </div>
+
+            <!-- Thanh Thống kê & Giới thiệu gọn chuẩn Steam Banner -->
+            <div class="hero-left-col">
+              <div>
+                <h1 class="hero-title" id="hero-title">Việt Hóa <span>Game</span></h1>
+                <p class="hero-sub" id="hero-sub">
+                  CircleLifeTeam – Đưa ngôn ngữ Việt vào từng tựa game. Bản dịch chất lượng, cập nhật thường xuyên.
+                </p>
+              </div>
+
+              <div class="hero-stats">
+                <div>
+                  <span class="hero-stat-num" id="stat-total">—</span>
+                  <span class="hero-stat-label">Game Việt Hóa</span>
+                </div>
+                <div>
+                  <span class="hero-stat-num" id="stat-done">—</span>
+                  <span class="hero-stat-label">Hoàn Thành</span>
+                </div>
+                <div>
+                  <span class="hero-stat-num" id="stat-new">—</span>
+                  <span class="hero-stat-label">Mới Cập Nhật</span>
+                </div>
+              </div>
+
+              <div class="hero-cta">
+                <a href="/category.html" class="btn-primary">
+                  <i class="fa-solid fa-layer-group"></i> Duyệt Kho Game
+                </a>
+                <a href="/#new-releases" class="btn-outline" id="hero-discord">
+                  🔥 Mới Ra
+                </a>
+              </div>
+            </div>
           </div>
 
-          <div class="hero-stats">
-            <div>
-              <div class="hero-stat-num" id="stat-total">—</div>
-              <div class="hero-stat-label">Game Việt Hóa</div>
-            </div>
-            <div>
-              <div class="hero-stat-num" id="stat-done">—</div>
-              <div class="hero-stat-label">Hoàn Thành</div>
-            </div>
-            <div>
-              <div class="hero-stat-num" id="stat-new">—</div>
-              <div class="hero-stat-label">Mới Cập Nhật</div>
-            </div>
-          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true"></div>
+    </section>
+
+    <style>
+      @media (max-width: 992px) {
+        .steam-store-top-grid { grid-template-columns: 1fr !important; }
+        .steam-gutter { display: none; }
+      }
+    </style>
+
+    <!-- SPECIAL OFFERS / VIỆT HÓA NỔI BẬT -->
+    <section class="section-sm" id="new-releases" aria-labelledby="new-releases-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" id="new-releases-title"><i class="fa-solid fa-fire" style="color:#66c0f4"></i> Việt Hóa Nổi Bật</h2>
+          <a href="/category.html" class="section-link">Xem tất cả</a>
+        </div>
+        <div class="new-releases-scroll" id="new-releases-scroll" role="list" aria-label="New game releases">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- RECENTLY UPDATED / MỚI CẬP NHẬT -->
+    <section class="section" id="featured" aria-labelledby="featured-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" id="featured-title"><i class="fa-solid fa-bolt" style="color:#66c0f4"></i> Mới Cập Nhật Bản Dịch</h2>
+          <a href="/category.html" class="section-link">Duyệt thêm</a>
+        </div>
+        <div class="featured-scroll" id="featured-games" role="list">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- GAME LIBRARY / KHO GAME VIỆT HÓA -->
+    <section class="section" id="library" aria-labelledby="library-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" id="library-title"><i class="fa-brands fa-steam" style="color:#66c0f4"></i> Danh Mục Game Việt Hóa (PS4 / PS5 / SWITCH / PC)</h2>
         </div>
 
-        <div class="hero-right-col">
-          <div class="premium-showcase" id="premium-showcase">
-            <div class="showcase-main-slides" id="showcase-main-slides">
-               </div>
-            
-            <div class="showcase-thumbnails" id="showcase-thumbnails">
-               </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Wii U circle deco -->
-    <div class="hero-visual" aria-hidden="true">
-      <div class="hero-circle hero-circle-1"></div>
-      <div class="hero-circle hero-circle-2"></div>
-      <div class="hero-circle hero-circle-3"></div>
-      <div class="hero-glow"></div>
-    </div>
-  </section>
-
-  <!-- NEW RELEASES SECTION -->
-  <section class="section-sm" id="new-releases" aria-labelledby="new-releases-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title" id="new-releases-title">Việt Hóa Nổi Bật</h2>
-        <a href="/category.html" class="section-link">Xem tất cả <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-      <div class="new-releases-scroll" id="new-releases-scroll" role="list" aria-label="New game releases">
-        <!-- Rendered by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURED GAMES -->
-  <section class="section" id="featured" aria-labelledby="featured-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title" id="featured-title">Mới Update</h2>
-      </div>
-      <div class="featured-scroll" id="featured-games" role="list">
-        <!-- Rendered by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- GAME LIBRARY -->
-  <section class="section" id="library" aria-labelledby="library-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title" id="library-title">Thư Viện Game Việt Hóa PS4-PS5-SWITCH-PC</h2>
-      </div>
-
-      <!-- Genre Filter -->
-      <div class="filter-dashboard" id="filter-dashboard">
-        <div class="filter-group">
-          <label for="filter-genre">Thể Loại</label>
-          <select id="filter-genre" class="filter-select">
-            <option value="all">Tất Cả</option>
+        <!-- Thanh bộ lọc kiểu Steam Search Filter -->
+        <div class="filter-dashboard" id="filter-dashboard">
+          <div class="filter-group">
+            <label for="filter-genre">Thể Loại</label>
+            <select id="filter-genre" class="filter-select">
+              <option value="all">Tất Cả Thể Loại</option>
             </select>
-        </div>
-        
-        <div class="filter-group">
-          <label for="filter-platform">Nền Tảng</label>
-          <select id="filter-platform" class="filter-select">
-            <option value="all">Tất Cả</option>
-            <option value="PS5">PS5</option>
-            <option value="PS4">PS4</option>
-            <option value="Nintendo Switch">Nintendo Switch</option>
-            <option value="PC">PC</option>
-          </select>
+          </div>
+          
+          <div class="filter-group">
+            <label for="filter-platform">Hệ Máy</label>
+            <select id="filter-platform" class="filter-select">
+              <option value="all">Tất Cả Hệ Máy</option>
+              <option value="PC">PC (Steam/Epic)</option>
+              <option value="PS5">PlayStation 5</option>
+              <option value="PS4">PlayStation 4</option>
+              <option value="Nintendo Switch">Nintendo Switch</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="filter-status">Tiến Độ Dịch</label>
+            <select id="filter-status" class="filter-select">
+              <option value="all">Tất Cả Tiến Độ</option>
+              <option value="done">Hoàn Thành 100%</option>
+              <option value="wip">Đang Dịch</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="filter-sort">Sắp Xếp Theo</label>
+            <select id="filter-sort" class="filter-select">
+              <option value="newest">Mới Cập Nhật</option>
+              <option value="rating">Đánh Giá Cao Nhất</option>
+              <option value="a-z">Tên A - Z</option>
+            </select>
+          </div>
         </div>
 
-        <div class="filter-group">
-          <label for="filter-status">Tiến Độ</label>
-          <select id="filter-status" class="filter-select">
-            <option value="all">Tất Cả</option>
-            <option value="done">Hoàn Thành 100%</option>
-            <option value="wip">Đang Dịch</option>
-          </select>
+        <!-- Games Grid -->
+        <div class="games-grid" id="all-games-grid" role="list" aria-label="Game library">
+          <!-- Rendered by JS -->
         </div>
-
-        <div class="filter-group">
-          <label for="filter-sort">Sắp Xếp</label>
-          <select id="filter-sort" class="filter-select">
-            <option value="rating">Đánh Giá Cao Nhất</option>
-            <option value="newest">Mới Cập Nhật</option>
-            <option value="a-z">Tên A - Z</option>
-            
-          </select>
+        <div id="load-more-container" style="text-align:center; margin-top:32px; display:none;">
+          <button id="load-more-btn" class="btn-outline" style="padding: 10px 28px;"><i class="fa-solid fa-caret-down"></i> Hiển Thị Thêm Bản Dịch</button>
         </div>
       </div>
+    </section>
 
-      <!-- Games Grid -->
-      <div class="games-grid" id="all-games-grid" role="list" aria-label="Game library">
-        <!-- Rendered by JS -->
+    <!-- ABOUT SECTION (STEAM COMMUNITY BANNER) -->
+    <section class="section" id="about" aria-labelledby="about-title" style="background:rgba(0,0,0,0.3);margin:0">
+      <div class="container">
+        <div style="max-width:760px;margin:0 auto;text-align:center">
+          <div class="hero-eyebrow" style="margin:0 auto 12px">Về Chúng Tôi</div>
+          <h2 style="font-size:24px;font-weight:700;color:#ffffff;text-transform:uppercase;margin-bottom:12px" id="about-title">
+            CircleLifeTeam là ai?
+          </h2>
+          <p style="font-size:14px;color:#8f98a0;line-height:1.75;margin-bottom:24px">
+            Chúng tôi là nhóm tình nguyện đam mê gaming, chuyên việt hóa các tựa game trên nền nhiều tảng khác nhau để game thủ Việt Nam có thể trải nghiệm những tựa game hay nhất bằng tiếng mẹ đẻ. Mọi bản dịch đều được kiểm tra kỹ lưỡng, đảm bảo chất lượng cao. Website chỉ cung cấp BẢN MOD TIẾNG VIỆT cho game — KHÔNG cung cấp game (cr-ack hay bản quyền).
+          </p>
+          <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+            <a href="#" class="btn-primary" id="footer-discord"><i class="fa-brands fa-discord"></i> Tham Gia Discord</a>
+            <a href="#" class="btn-outline" id="footer-fb-page"><i class="fa-brands fa-facebook"></i> Fanpage</a>
+            <a href="#" class="btn-outline" id="footer-fb-group"><i class="fa-solid fa-users"></i> Group FB</a>
+            <a href="#" class="btn-outline" id="footer-yt"><i class="fa-brands fa-youtube"></i> YouTube</a>
+          </div>
+        </div>
       </div>
-      <div id="load-more-container" style="text-align:center; margin-top:40px; display:none;">
-        <button id="load-more-btn" class="btn-outline"><i class="fa-solid fa-caret-down"></i> Hiển Thị Thêm</button>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ABOUT SECTION -->
-  <section class="section" id="about" aria-labelledby="about-title" style="background:var(--bg-dark);margin:0">
+  </main>
+
+  <!-- STEAM FOOTER -->
+  <footer class="footer" role="contentinfo">
     <div class="container">
-      <div style="max-width:700px;margin:0 auto;text-align:center">
-        <div class="hero-eyebrow" style="margin:0 auto 20px">Về Chúng Tôi</div>
-        <h2 style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--black);text-transform:uppercase;margin-bottom:16px" id="about-title">
-          CircleLifeTeam là ai?
-        </h2>
-        <p style="font-family:var(--font-vi);font-size:15px;color:var(--text-muted);line-height:1.8;margin-bottom:24px">
-          Chúng tôi là nhóm tình nguyện đam mê gaming, chuyên việt hóa các tựa game trên nền nhiều tảng khác nhau để game thủ Việt Nam có thể trải nghiệm những tựa game hay nhất bằng tiếng mẹ đẻ. Mọi bản dịch đều được kiểm tra kỹ lưỡng, đảm bảo chất lượng cao. Website chỉ cung cấp BẢN MOD TIẾNG VIỆT cho game — KHÔNG cung cấp game (cr-ack hay bản quyền).
-        </p>
-        <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
-          <a href="#" class="btn-primary" id="footer-discord"><i class="fa-brands fa-discord"></i> Discord</a>
-          <a href="#" class="btn-outline " id="footer-fb-page"><i class="fa-brands fa-facebook"></i> Fanpage</a>
-          <a href="#" class="btn-outline " id="footer-fb-group"><i class="fa-solid fa-users"></i> Group FB</a>
-          <a href="#" class="btn-outline" id="footer-yt"><i class="fa-brands fa-youtube"></i> YouTube</a>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo" style="margin-bottom:12px">
+            <div class="nav-logo-icon"><img class="logo-icon" src="logo.png" alt="Logo"></div>
+            <span>CIRCLE<span>LIFETEAM</span></span>
+          </div>
+          <p style="font-size:12px;color:#8f98a0;line-height:1.6;">Website tổng hợp và lưu trữ các bản Patch Việt Hóa game trên PS4, PS5, Nintendo Switch và PC. Cập nhật liên tục bởi đội ngũ CircleLifeTeam.</p>
+          <div class="footer-social" style="margin-top:14px;">
+            <a href="#" class="social-btn" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+            <a href="#" class="social-btn" aria-label="Fanpage" title="Fanpage"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" class="social-btn" aria-label="Group FB" title="Group FB"><i class="fa-solid fa-users"></i></a>
+            <a href="#" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
         </div>
+
+        <div>
+          <div class="footer-col-title">Trang Chủ</div>
+          <ul class="footer-links">
+            <li><a href="/">Trang Chủ</a></li>
+            <li><a href="/category.html">Kho Việt Hóa</a></li>
+            <li><a href="#new-releases">Mới Phát Hành</a></li>
+            <li><a href="#about">Về CircleLifeTeam</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Hệ Máy Hỗ Trợ</div>
+          <ul class="footer-links" id="footer-genres">
+            <li><a href="/category.html">Tất Cả Nền Tảng</a></li>
+            <li><a href="/category.html?platform=PC">Game PC Việt Hóa</a></li>
+            <li><a href="/category.html?platform=PS5">Game PS5 Việt Hóa</a></li>
+            <li><a href="/category.html?platform=Nintendo Switch">Game Switch Việt Hóa</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Hỗ Trợ Kỹ Thuật</div>
+          <ul class="footer-links">
+            <li><a href="/admin.html">Quản Trị Viên (CMS)</a></li>
+            <li><a href="https://discord.com/invite/jgnaKxe2nh">Hướng dẫn cài đặt Patch</a></li>
+            <li><a href="https://discord.com/invite/jgnaKxe2nh">Báo lỗi dịch thuật</a></li>
+            <li><a href="https://discord.com/invite/jgnaKxe2nh">Đóng góp dự án</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2024–2026 <a href="/index.html" style="color:#c7d5e0">CircleLifeTeam</a>. Mọi nhãn hiệu và bản quyền trò chơi đều thuộc về nhà phát triển tương ứng.</p>
+        <p>Steam Inspired UI | Patch Tiếng Việt PS4 • PS5 • Switch • PC</p>
       </div>
     </div>
-  </section>
+  </footer>
 
-</main>
-
-<!-- FOOTER -->
-<footer class="footer" role="contentinfo">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="nav-logo" style="margin-bottom:12px">
-          <div class="nav-logo-icon"><img class="logo-icon" src="logo.png" alt=""></div>
-          <span>Circle<span>Life</span>Team</span>
-        </div>
-        <p>Website việt hóa game PS4-PS5-NintendoSwitch-PC. Bản dịch chất lượng cao, nhanh chóng, cập nhật thường xuyên.</p>
-        <div class="footer-social">
-          <a href="#" class="social-btn" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
-          <a href="#" class="social-btn" aria-label="Fanpage" title="Fanpage"><i class="fa-brands fa-facebook"></i></a>
-          <a href="#" class="social-btn" aria-label="Group FB" title="Group FB"><i class="fa-solid fa-users"></i></a>
-          <a href="#" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-        </div>
+  <!-- SEARCH OVERLAY -->
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search games">
+    <div class="search-box">
+      <div class="search-box-input">
+        <span style="font-size:16px;color:#66c0f4"><i class="fa-solid fa-magnifying-glass"></i></span>
+        <input type="search" id="search-input-main" placeholder="Nhập tên game cần tìm bản Việt hóa..." aria-label="Search input" autocomplete="off">
+        <button class="search-close" id="search-close" aria-label="Close search">✕</button>
       </div>
-
-      <div>
-        <div class="footer-col-title">Điều Hướng</div>
-        <ul class="footer-links">
-          <li><a href="/">Trang Chủ</a></li>
-          <li><a href="/category.html">Thư Viện Việt Hóa</a></li>
-          <li><a href="#new-releases">Việt Hóa Mới Ra</a></li>
-          <li><a href="#about">Về Chúng Tôi</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <div class="footer-col-title">Nền Tảng</div>
-        <ul class="footer-links" id="footer-genres">
-          <li><a href="/category.html">Tất Cả  Nền Tảng</a></li>
-          <li><a href="/category.html?platform=PC">Game PC Việt Hóa</a></li>
-          <li><a href="/category.html?platform=PS5">Game PS5 Việt Hóa</a></li>
-          <li><a href="/category.html?platform=Nintendo Switch">Game Switch Việt Hóa</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <div class="footer-col-title">Liên Kết</div>
-        <ul class="footer-links">
-          <li><a href="/admin.html">Admin Panel</a></li>
-          <li><a href="https://discord.com/invite/jgnaKxe2nh">Hướng dẫn cài đặt</a></li>
-          <li><a href="https://discord.com/invite/jgnaKxe2nh">Báo lỗi dịch thuật</a></li>
-          <li><a href="https://discord.com/invite/jgnaKxe2nh">Đóng góp bản dịch</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p>© 2024 <a href="/index.html">CircleLifeTeam</a>. Tất cả bản quyền thuộc về nhà phát hành game gốc.</p>
-      <p>Việt hóa game PS4-PS5-Switch-PC | Patch PS4-PS5 tiếng Việt | Tải việt hóa</p>
+      <div class="search-results-list" id="search-results-list" role="listbox" aria-label="Search results"></div>
     </div>
   </div>
-</footer>
 
-<!-- SEARCH OVERLAY -->
-<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search games">
-  <div class="search-box">
-    <div class="search-box-input">
-      <span style="font-size:18px">🔍</span>
-      <input type="search" id="search-input-main" placeholder="Tìm kiếm game việt hóa PS5..." aria-label="Search input" autocomplete="off">
-      <button class="search-close" id="search-close" aria-label="Close search">✕</button>
-    </div>
-    <div class="search-results-list" id="search-results-list" role="listbox" aria-label="Search results"></div>
-  </div>
-</div>
+  <!-- TOAST -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-<!-- TOAST -->
-<div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+  <!-- SCRIPTS (Giữ nguyên 100%) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-check-compat.js" defer></script>
+  <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js" defer></script>
+  <script src="/js/config.js?v=11" defer></script>
+  <script src="/js/api.js?v=11" defer></script>
+  <script src="/js/main.js" defer></script>
 
-<!-- SCRIPTS -->
- <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js" defer></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js" defer></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-check-compat.js defer"></script>
-<script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js" defer></script>
-<script src="/js/config.js?v=11" defer></script>
-<script src="/js/api.js?v=11" defer></script>
-<script src="/js/main.js" defer></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const navSearch = document.querySelector('.nav-search');
+    const navInput = navSearch?.querySelector('input');
+    if (!navSearch || !navInput) return;
 
+    let liveDropdown = document.getElementById('steam-live-dropdown');
+    if (!liveDropdown) {
+      liveDropdown = document.createElement('div');
+      liveDropdown.id = 'steam-live-dropdown';
+      liveDropdown.className = 'steam-live-search-dropdown';
+      navSearch.appendChild(liveDropdown);
+    }
+
+    navInput.addEventListener('focus', (e) => {
+      e.stopImmediatePropagation();
+      document.getElementById('search-overlay')?.classList.remove('open');
+      if (navInput.value.trim()) liveDropdown.classList.add('active');
+    }, true);
+
+    let timer;
+    navInput.addEventListener('input', () => {
+      clearTimeout(timer);
+      const q = navInput.value.trim().toLowerCase();
+      if (!q) {
+        liveDropdown.classList.remove('active');
+        liveDropdown.innerHTML = '';
+        return;
+      }
+      timer = setTimeout(async () => {
+        if (typeof API === 'undefined') return;
+        const games = await API.getGames();
+        const matches = games.filter(g =>
+          g.title.toLowerCase().includes(q) ||
+          (g.titleVi || '').toLowerCase().includes(q) ||
+          (g.genre || '').toLowerCase().includes(q)
+        ).slice(0, 6);
+
+        if (!matches.length) {
+          liveDropdown.innerHTML = `<div class="steam-live-empty">Không tìm thấy kết quả cho "${navInput.value}"</div>`;
+        } else {
+          liveDropdown.innerHTML = matches.map(g => `
+            <a href="/game.html?id=${g.slug}" class="steam-live-item">
+              <img src="${g.coverImage || '/logo.png'}" alt="${g.title}">
+              <div class="steam-live-info">
+                <div class="steam-live-title">${g.title}</div>
+                <div class="steam-live-meta">${g.platform || 'PC'} • <span style="color:#a4d007">${g.status || 'Việt Hóa'}</span></div>
+              </div>
+            </a>
+          `).join('');
+        }
+        liveDropdown.classList.add('active');
+      }, 150);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-search')) liveDropdown.classList.remove('active');
+    });
+  });
+</script>
+
+<script>
+    // TỰ ĐỘNG GẮN NÚT MŨI TÊN < > KHI DI CHUỘT TỚI GẦN 2 MÉP SLIDE NGANG
+    document.addEventListener('DOMContentLoaded', () => {
+      const scrollIds = ['new-releases-scroll', 'featured-games'];
+
+      scrollIds.forEach(id => {
+        const scroller = document.getElementById(id);
+        if (!scroller || !scroller.parentElement) return;
+
+        // Bọc scroller vào khung relative để đặt 2 nút mũi tên
+        const wrap = document.createElement('div');
+        wrap.className = 'steam-carousel-wrap';
+        scroller.parentElement.insertBefore(wrap, scroller);
+        wrap.appendChild(scroller);
+
+        const btnLeft = document.createElement('button');
+        btnLeft.type = 'button';
+        btnLeft.className = 'steam-paddle-btn left';
+        btnLeft.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+
+        const btnRight = document.createElement('button');
+        btnRight.type = 'button';
+        btnRight.className = 'steam-paddle-btn right';
+        btnRight.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+
+        wrap.appendChild(btnLeft);
+        wrap.appendChild(btnRight);
+
+        // Bấm mũi tên để trượt mượt
+        btnLeft.addEventListener('click', () => {
+          scroller.scrollBy({ left: -620, behavior: 'smooth' });
+        });
+        btnRight.addEventListener('click', () => {
+          scroller.scrollBy({ left: 620, behavior: 'smooth' });
+        });
+
+        // Kiểm tra vị trí chuột: Di chuột tới vùng 140px sát mép trái/phải thì hiện nút mũi tên tương ứng
+        wrap.addEventListener('mousemove', (e) => {
+          const rect = wrap.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const edgeZone = 140; // Khoảng cách nhận diện sát mép (px)
+
+          const canScrollLeft = scroller.scrollLeft > 10;
+          const canScrollRight = scroller.scrollLeft + scroller.clientWidth < scroller.scrollWidth - 10;
+
+          if (x <= edgeZone && canScrollLeft) {
+            btnLeft.classList.add('edge-visible');
+          } else {
+            btnLeft.classList.remove('edge-visible');
+          }
+
+          if (x >= rect.width - edgeZone && canScrollRight) {
+            btnRight.classList.add('edge-visible');
+          } else {
+            btnRight.classList.remove('edge-visible');
+          }
+        });
+
+        wrap.addEventListener('mouseleave', () => {
+          btnLeft.classList.remove('edge-visible');
+          btnRight.classList.remove('edge-visible');
+        });
+      });
+    });
+  </script>
 </body>
 </html>

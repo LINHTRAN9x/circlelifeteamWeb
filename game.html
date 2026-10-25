@@ -6,13 +6,25 @@
   <title>Tải Việt Hóa Game PS4/PS5/Switch/PC | CircleLifeTeam</title>
 
   <!-- SEO — updated by JS -->
-   <meta property="fb:app_id"       content="2150545185759559">
+  <meta property="fb:app_id" content="2150545185759559">
   <meta name="description" content="">
   <meta name="google-site-verification" content="4msWbj32CNGe6RKNhIvoBBJP2JA2KeDZbpvgNlj0RcE" />
   <meta name="keywords" content="">
   <meta name="robots" content="index, follow">
   <link rel="canonical" id="canonical" href="https://circlelifeteam.top/game.html">
   <script>
+    // Vá lỗi biến lenis bị comment trong game.js / main.js làm kẹt sự kiện JS
+    window.lenis = {
+      raf: function() {},
+      scrollTo: function(target) {
+        try {
+          var el = (typeof target === 'string') ? document.querySelector(target) : target;
+          if (el && typeof el.scrollIntoView === 'function') {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        } catch (e) {}
+      }
+    };
     (function () {
       var slug = new URLSearchParams(window.location.search).get('id');
       var canonical = document.getElementById('canonical');
@@ -21,7 +33,6 @@
       }
     })();
   </script>
-
 
   <link rel="alternate" hreflang="vi" href="https://circlelifeteam.top/">
   <link rel="alternate" hreflang="x-default" href="https://circlelifeteam.top/">
@@ -45,277 +56,638 @@
   <!-- JSON-LD — updated by JS -->
   <script type="application/ld+json" id="json-ld">{}</script>
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="icon" type="image/svg+xml" href="/logo.png">
   <link rel="preconnect" href="https://circlelifeteam-default-rtdb.asia-southeast1.firebasedatabase.app" crossorigin>
-  
 </head>
 <body>
   <script>if(localStorage.getItem('clt_theme') === 'dark') document.body.classList.add('dark-mode');</script>
 
-<!-- Decorative -->
-<div class="wiiu-deco"></div>
-<div class="wiiu-deco-2"></div>
+  <div class="wiiu-deco"></div>
+  <div class="wiiu-deco-2"></div>
 
-<!-- NAVBAR -->
-<nav class="navbar" role="navigation" aria-label="Main navigation">
-  <a href="/" class="nav-logo" aria-label="CircleLifeTeam Home">
-    <div class="nav-logo-icon"><img class="logo-icon" src="/logo.png" alt=""></div>
-    <span>Circle<span>Life</span>Team</span>
-  </a>
+  <!-- STEAM GLOBAL HEADER & STORE SUBNAV -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <a href="/" class="nav-logo" aria-label="CircleLifeTeam Home">
+      <div class="nav-logo-icon"><img class="logo-icon" src="/logo.png" alt="Logo"></div>
+      <span>CIRCLE<span>LIFETEAM</span></span>
+    </a>
 
-  <ul class="nav-links" role="list">
-    <li class="mobile-only-search"><a href="#" id="menu-search-btn"><i class="fa-solid fa-magnifying-glass"></i> Tìm Kiếm</a></li>
-    <li><a href="/">Trang Chủ</a></li>
-    <li><a href="/category.html">Thư Viện</a></li>
-    <li><a href="/#new-releases">Mới Ra</a></li>
-    <li><a href="/#about">Về Chúng Tôi</a></li>
-  </ul>
+    <ul class="nav-links" role="list">
+      <li class="mobile-only-search"><a href="#" id="menu-search-btn"><i class="fa-solid fa-magnifying-glass"></i> Tìm Kiếm</a></li>
+      <li><a href="/">Trang Chủ</a></li>
+      <li><a href="/category.html">Kho Việt Hóa</a></li>
+      <li><a href="/category.html?platform=PC">PC</a></li>
+      <li><a href="/category.html?platform=PS5">PS4 / PS5</a></li>
+      <li><a href="/category.html?platform=Nintendo Switch">Switch</a></li>
+      <li><a href="/#new-releases">Mới Phát Hành</a></li>
+    </ul>
 
-  <div class="nav-spacer"></div>
+    <div class="nav-spacer"></div>
 
-  <div class="nav-search" role="search">
-    <span class="nav-search-icon" aria-hidden="true">🔍</span>
-    <input type="search" placeholder="Tìm game việt hóa... (Ctrl+K)" aria-label="Search games">
-  </div>
+    <div class="nav-search" role="search">
+      <span class="nav-search-icon" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
+      <input type="search" id="nav-search-input" placeholder="Tìm kiếm bản việt hóa... (Ctrl+K)" aria-label="Search games" autocomplete="off">
+      <!-- Dropdown kết quả trực tiếp kiểu Steam -->
+      <div class="steam-live-search-dropdown" id="steam-live-dropdown"></div>
+    </div>
 
-  <button id="theme-toggle" class="btn-outline" style="padding: 8px; margin-left: 16px; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
-    <i class="fa-solid fa-moon"></i>
-  </button>
-  
-  <a href="/admin.html" class="nav-admin-btn" style="margin-left:8px"><i class="fa-solid fa-gear"></i></a>
-  <button class="nav-mobile-toggle" aria-label="Toggle menu">☰</button>
-</nav>
+    <button id="theme-toggle" class="btn-outline" title="Đổi giao diện">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+    
+    <a href="/admin.html" class="nav-admin-btn" style="margin-left:8px"><i class="fa-solid fa-gear"></i> Quản Trị</a>
+    <button class="nav-mobile-toggle" aria-label="Toggle menu">☰</button>
+  </nav>
 
-<!-- MAIN CONTENT -->
-<main class="page" id="game-content">
+  <!-- MAIN CONTENT (CHUẨN STEAM APP PAGE) -->
+  <main class="page" id="game-content">
 
-  <!-- BREADCRUMB -->
-  <div class="container">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="/"><i class="fa-solid fa-house"></i> Trang Chủ</a>
-      <span aria-hidden="true">›</span>
-      <a href="/category.html">Thư Viện</a>
-      <span aria-hidden="true">›</span>
-      <span id="bc-game" aria-current="page">Tải Việt Hóa Game...</span>
-    </nav>
-  </div>
+    <!-- 1. BREADCRUMB + APP HEADER -->
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Tất cả trò chơi</a>
+        <span aria-hidden="true">›</span>
+        <a href="/category.html">Kho Việt Hóa</a>
+        <span aria-hidden="true">›</span>
+        <span id="bc-game" aria-current="page">Đang tải...</span>
+      </nav>
 
-  <!-- GAME HERO -->
-  <section class="game-detail-hero" aria-label="Game detail">
-    <div class="game-detail-bg" id="game-detail-bg" aria-hidden="true"></div>
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,17,23,0.6) 0%,var(--bg-deep) 100%)" aria-hidden="true"></div>
+      <div class="steam-app-header-row">
+        <div>
+          <h1 class="game-detail-title" id="game-title">Đang tải...</h1>
+          <p class="game-detail-title-vi" id="game-title-vi"></p>
+        </div>
+        <a href="https://discord.com/invite/jgnaKxe2nh" target="_blank" class="steam-community-hub-btn">
+          <span>Trung tâm cộng đồng</span> <i class="fa-brands fa-discord"></i>
+        </a>
+      </div>
+    </div>
 
-    <div class="container" style="position:relative;z-index:2">
-      <div class="game-detail-layout">
+    <!-- 2. KHUNG STEAM HIGHLIGHT (TRÁI: MEDIA PLAYER + FILMSTRIP | PHẢI: HEADER CAPSULE + INFO TABLE) -->
+    <section class="game-detail-hero" aria-label="Game detail">
+      <div class="game-detail-bg" id="game-detail-bg" aria-hidden="true"></div>
 
-        <!-- Cover -->
-        <div class="game-detail-cover" id="game-cover">
-          <div class="game-detail-cover-placeholder">
-            <span style="font-size:48px">🎮</span>
+      <div class="container" style="position:relative;z-index:2">
+        <div class="steam-highlight-ctn">
+          
+          <!-- CỘT TRÁI (616px): MÀN HÌNH CHÍNH + THANH TRƯỢT FILMSTRIP -->
+          <div class="steam-highlight-left">
+            
+            <!-- Màn hình hiển thị chính (Đổi qua lại giữa Video Trailer và Ảnh chụp màn hình lớn) -->
+            <div class="steam-main-stage">
+              <div class="youtube-wrapper" id="youtube-wrapper">
+                <div class="skeleton" style="position:absolute;inset:0;border-radius:0"></div>
+              </div>
+              <!-- Khung hiển thị ảnh lớn khi người dùng click vào thumbnail bên dưới -->
+              <div class="steam-stage-photo" id="steam-stage-photo" style="display:none;">
+                <img id="steam-stage-photo-img" src="" alt="Screenshot Preview">
+                <button class="steam-zoom-btn" id="steam-zoom-btn" title="Phóng to toàn màn hình">
+                  <i class="fa-solid fa-expand"></i> Phóng to
+                </button>
+              </div>
+            </div>
+
+            <!-- Thanh Filmstrip cuộn ngang chứa chỉ mục Trailer + các Screenshot giống hệt Steam -->
+            <div class="steam-strip-wrapper">
+              <span id="screens-title" style="display:none;">Ảnh Màn Hình</span>
+              <div class="screenshots-grid" id="screenshots-grid"></div>
+              
+              <!-- Thanh điều khiển trái/phải kiểu Steam Slider -->
+              <div class="steam-slider-controls">
+                <button type="button" class="steam-slider-arrow" id="strip-prev" aria-label="Previous"><i class="fa-solid fa-caret-left"></i></button>
+                <div class="steam-slider-track" id="strip-track">
+                  <div class="steam-slider-handle" id="strip-handle"></div>
+                </div>
+                <button type="button" class="steam-slider-arrow" id="strip-next" aria-label="Next"><i class="fa-solid fa-caret-right"></i></button>
+              </div>
+            </div>
+
           </div>
+
+          <!-- CỘT PHẢI (324px): ẢNH HEADER NGANG + ĐÁNH GIÁ + BẢNG THÔNG TIN + TAGS -->
+          <div class="steam-highlight-right game-detail-info">
+            
+            <!-- Ảnh Header Capsule đầu cột phải chuẩn Steam -->
+            <div class="steam-header-capsule-wrap">
+              <div class="game-detail-cover" id="game-cover">
+                <div class="game-detail-cover-placeholder"><span>🎮</span></div>
+              </div>
+            </div>
+
+            <!-- Hàng Badges Hệ máy & Tiến độ -->
+            <div class="game-detail-badges" id="game-detail-badges"></div>
+
+            <!-- Hàng Đánh Giá kiểu "ALL REVIEWS: Very Positive" của Steam -->
+            <div class="steam-glance-row">
+              <span class="steam-glance-label">ĐÁNH GIÁ BẢN DỊCH:</span>
+              <div class="steam-glance-val" id="game-rating"></div>
+            </div>
+
+            <!-- Bảng thông số kỹ thuật xếp thành từng dòng ngang giống Steam -->
+             
+            <div class="game-detail-meta-grid" id="game-meta-grid">
+              <!-- Rendered by JS -->
+            </div>
+
+            
+          </div>
+
         </div>
 
-        <!-- Info -->
-        <div class="game-detail-info">
-          <div class="game-detail-badges" id="game-detail-badges"></div>
+        
 
-          <h1 class="game-detail-title" id="game-title">Tải Việt Hóa Game...</h1>
-          <p class="game-detail-title-vi" id="game-title-vi"></p>
+      </div>
+    </section>
 
-          <!-- Rating -->
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px" id="game-rating"></div>
+    <!-- 4. NỘI DUNG CHI TIẾT BÊN DƯỚI (2 CỘT: TRÁI NỘI DUNG CHÍNH - PHẢI SIDEBAR THÔNG TIN) -->
+    <div class="container">
+      <div class="game-detail-two-col">
 
-          <!-- Meta grid -->
-          <div class="game-detail-meta-grid" id="game-meta-grid">
-            <!-- Rendered by JS -->
+        <!-- CỘT TRÁI: VỀ TRÒ CHƠI NÀY & FAQ -->
+        <div class="steam-left-content-col">
+          <!-- 3. HỘP TẢI PATCH VIỆT HÓA (STEAM PURCHASE / DOWNLOAD BOX) -->
+        <div class="steam-purchase-box">
+          <div class="steam-purchase-left">
+            <div class="steam-purchase-title" id="purchase-box-title">Tải Bản Patch Tiếng Việt</div>
+            <div class="steam-purchase-sub">Phát hành bởi đội ngũ <strong>CircleLifeTeam</strong></div>
           </div>
-
-          <!-- Actions -->
           <div class="game-detail-actions">
             <a href="#" class="btn-download" id="download-btn" aria-label="Download Vietnamese patch">
-              <i class="fa-brands fa-discord"></i> Lấy Việt Hóa Ngay
+              <i class="fa-solid fa-download"></i> Lấy Việt Hóa Ngay
             </a>
             <a href="/category.html" class="btn-outline">
-              <i class="fa-solid fa-arrow-left"></i> Xem Thêm Game
+              Kho Việt Hóa
             </a>
           </div>
         </div>
+          <section aria-labelledby="desc-title" style="margin-bottom: 36px;">
+            <h2 class="steam-section-heading" id="desc-title">Giới Thiệu Game</h2>
+            <div id="game-description">
+              <div class="skeleton" style="height:120px;margin-bottom:12px"></div>
+              <div class="skeleton" style="height:80px"></div>
+            </div>
+          </section>
+
+          <!-- Download Box phụ cuối bài viết -->
+          <section class="steam-purchase-box" style="margin-bottom: 36px;" aria-label="Download section">
+            <div class="steam-purchase-left">
+              <div class="steam-purchase-title">Sẵn sàng trải nghiệm bằng tiếng Việt?</div>
+              <div class="steam-purchase-sub">Tải về patch việt hóa, dễ cài đặt, chất lượng cao từ CircleLifeTeam</div>
+            </div>
+            <div class="game-detail-actions">
+              <a href="#" class="btn-download" id="download-btn-2" aria-label="Download Vietnamese patch">
+                <i class="fa-solid fa-download"></i> Tải Ngay
+              </a>
+            </div>
+          </section>
+
+          <!-- FAQ -->
+          <section aria-labelledby="faq-title">
+            <h2 class="steam-section-heading" id="faq-title">Câu Hỏi Thường Gặp (FAQ)</h2>
+            <div class="steam-faq-list">
+              <div class="steam-faq-item">
+                <h3>Bản việt hóa này chơi được trên máy nào?</h3>
+                <p>Hiện tại bản việt hóa này hỗ trợ trên các hệ máy như đã niêm yết ở bảng thông tin phía trên. Bạn chỉ cần tải đúng file cài đặt tương ứng với hệ máy của mình.</p>
+              </div>
+              <div class="steam-faq-item">
+                <h3>Máy Console (PS4, PS5, Nintendo Switch) có cần Hack không?</h3>
+                <p>Với các máy console PS4, PS5, Nintendo Switch, bạn cần máy đã Bẻ khóa / Hack (CFW / GoldHEN) để chép gói ngôn ngữ. Với hệ máy PC (Steam/Epic), bạn có thể cài trực tiếp vào thư mục cài game.</p>
+              </div>
+              <div class="steam-faq-item">
+                <h3>Patch tiếng Việt do ai thực hiện?</h3>
+                <p>Bản dịch này được biên dịch, kỹ thuật đóng gói và kiểm duyệt bởi nhóm CircleLifeTeam cùng các cộng tác viên.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- CỘT PHẢI: SIDEBAR MỤC LỤC + BẢNG NGÔN NGỮ CHUẨN STEAM -->
+        <aside class="steam-right-sidebar-col">
+          
+          <!-- Mục lục tự động -->
+          <div class="toc-wrapper" id="toc-container" style="display: none;" aria-label="Table of Contents">
+            <div class="toc-title">
+              <i class="fa-solid fa-list-ul" style="color: #66c0f4;"></i> MỤC LỤC BÀI VIẾT
+            </div>
+            <ul class="toc-list" id="toc-list" role="list"></ul>
+          </div>
+
+          <!-- Khối Tính năng kiểu Steam Features Block -->
+          <div class="steam-sidebar-block">
+            <div class="steam-sidebar-block-title">TÍNH NĂNG BẢN PATCH</div>
+            <div class="steam-feature-pill"><i class="fa-solid fa-check"></i> Dịch thuật chuẩn ngữ cảnh</div>
+            <div class="steam-feature-pill"><i class="fa-solid fa-font"></i> Font chữ Tiếng Việt đầy đủ</div>
+            <div class="steam-feature-pill"><i class="fa-solid fa-shield-halved"></i> An toàn, không chứa mã độc</div>
+          </div>
+
+          <!-- Bảng Ngôn Ngữ chuẩn Steam -->
+          <div class="steam-sidebar-block">
+            <div class="steam-sidebar-block-title">NGÔN NGỮ</div>
+            <table class="steam-lang-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Giao diện</th>
+                  <th>Lồng tiếng</th>
+                  <th>Phụ đề</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="lang-name">Tiếng Việt (Patch)</td>
+                  <td>✔</td>
+                  <td>—</td>
+                  <td>✔</td>
+                </tr>
+                <tr>
+                  <td class="lang-name">Tiếng Anh (Gốc)</td>
+                  <td>✔</td>
+                  <td>✔</td>
+                  <td>✔</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <span id="trailer-title" style="display:none;">Video Section</span>
+        </aside>
 
       </div>
     </div>
-  </section>
 
-  <!-- DESCRIPTION + MEDIA -->
-  <div class="container">
-    <div class="toc-wrapper" id="toc-container" style="margin-top: 40px; display: none;" aria-label="Table of Contents">
-      <div class="toc-title">
-        <i class="fa-solid fa-list-ul" style="color: var(--accent-red);"></i> NỘI DUNG CHÍNH
+    <!-- 5. MORE LIKE THIS (CÙNG THỂ LOẠI) -->
+    <section class="section" aria-labelledby="related-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" id="related-title">CÁC SẢN PHẨM TƯƠNG TỰ</h2>
+          <a href="/category.html" class="section-link">Xem tất cả</a>
+        </div>
+        <div class="games-grid" id="related-games" role="list" aria-label="Related games"></div>
       </div>
-      <ul class="toc-list" id="toc-list" role="list">
-        </ul>
+    </section>
+
+    <!-- FLOATING RATING -->
+    <div class="floating-rating">
+      <div class="rating-panel" id="rating-panel">
+        <div style="font-size:12px; font-weight:700; color:#fff;">ĐÁNH GIÁ BẢN DỊCH</div>
+        <div class="rating-stars" id="rating-stars">
+          <span class="star" data-val="1"><i class="fa-solid fa-star"></i></span>
+          <span class="star" data-val="2"><i class="fa-solid fa-star"></i></span>
+          <span class="star" data-val="3"><i class="fa-solid fa-star"></i></span>
+          <span class="star" data-val="4"><i class="fa-solid fa-star"></i></span>
+          <span class="star" data-val="5"><i class="fa-solid fa-star"></i></span>
+        </div>
+        <div id="rating-thanks" style="display:none; font-size:12px; color:#a4d007; font-weight:700; margin-top:4px;">
+          💖 Cảm ơn đã đánh giá!
+        </div>
+      </div>
+      <button class="rating-btn" id="rating-toggle-btn" title="Đánh giá game này">⭐</button>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:48px 0;align-items:start" class="game-detail-two-col">
 
-      <section aria-labelledby="desc-title">
-        <h2 style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--black);text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;display:flex;align-items:center;gap:10px" id="desc-title">
-          <span style="display:block;width:4px;height:20px;background:linear-gradient(180deg,var(--blue-vivid),var(--cyan-accent));border-radius:2px"></span>
-          Giới Thiệu Game
-        </h2>
-        <div id="game-description">
-          <div class="skeleton" style="height:120px;border-radius:10px;margin-bottom:12px"></div>
-          <div class="skeleton" style="height:80px;border-radius:10px"></div>
+    <!-- SEARCH OVERLAY MODAL (Khi bấm Ctrl+K hoặc trên Mobile) -->
+    <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search games">
+      <div class="search-box">
+        <div class="search-box-input">
+          <span style="font-size:16px;color:#66c0f4"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input type="search" id="search-input-main" placeholder="Tìm kiếm bản việt hóa... (Ctrl+K)" aria-label="Search input" autocomplete="off">
+          <button class="search-close" id="search-close" aria-label="Close search">✕</button>
         </div>
-      </section>
-
-      <div style="position: sticky; top: 100px; display: flex; flex-direction: column; gap: 40px;">
-        
-        <section aria-labelledby="trailer-title">
-          <h2 style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--black);text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;display:flex;align-items:center;gap:10px" id="trailer-title">
-            <span style="display:block;width:4px;height:20px;background:linear-gradient(180deg,var(--blue-vivid),var(--cyan-accent));border-radius:2px"></span>
-            Video Section
-          </h2>
-          <div class="youtube-wrapper" id="youtube-wrapper">
-            <div class="skeleton" style="position:absolute;inset:0;border-radius:0"></div>
-          </div>
-        </section>
-
-        <div class="toc-wrapper" id="toc-container" style="display: none;" aria-label="Table of Contents">
-          <div class="toc-title">
-            <i class="fa-solid fa-list-ul" style="color: var(--accent-red);"></i> NỘI DUNG CHÍNH
-          </div>
-          <ul class="toc-list" id="toc-list" role="list" style="display:flex; flex-direction:column; gap:8px;">
-            </ul>
-        </div>
-        
-      </div> </div>
-
-    <!-- Screenshots -->
-    <section style="padding-bottom:48px" aria-labelledby="screens-title">
-      <h2 style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--black);text-transform:uppercase;letter-spacing:.5px;margin-bottom:20px;display:flex;align-items:center;gap:10px" id="screens-title">
-        <span style="display:block;width:4px;height:20px;background:linear-gradient(180deg,var(--blue-vivid),var(--cyan-accent));border-radius:2px"></span>
-        Ảnh Màn Hình
-      </h2>
-      <div class="screenshots-grid" id="screenshots-grid"></div>
-    </section>
-
-    <!-- Download CTA Banner -->
-    <section style="padding:32px;background:linear-gradient(135deg,var(--blue-dim),rgba(0,118,198,0.2));border:1px solid rgba(0,168,232,0.25);border-radius:var(--radius-xl);margin-bottom:48px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap" aria-label="Download section">
-      <div>
-        <h3 style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--black);text-transform:uppercase;margin-bottom:6px">Sẵn sàng trải nghiệm bằng tiếng Việt?</h3>
-        <p style="font-family:var(--font-vi);font-size:14px;color:var(--text-muted)">Tải về patch việt hóa, dễ cài đặt, chất lượng cao từ CircleLifeTeam</p>
+        <div class="search-results-list" id="search-results-list" role="listbox" aria-label="Search results"></div>
       </div>
-      <a href="#" class="btn-download" id="download-btn-2" aria-label="Download Vietnamese patch">
-        <i class="fa-solid fa-download"></i> Tải Ngay
-      </a>
-    </section>
-    <section style="padding-bottom:48px" aria-labelledby="faq-title">
-      <h2 style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--black);text-transform:uppercase;letter-spacing:.5px;margin-bottom:20px;display:flex;align-items:center;gap:10px" id="faq-title">
-        <span style="display:block;width:4px;height:20px;background:linear-gradient(180deg,var(--blue-vivid),var(--cyan-accent));border-radius:2px"></span>
-        Hỏi đáp nhanh (FAQ)
-      </h2>
-      
-      <div style="display: flex; flex-direction: column; gap: 16px;">
-        <div style="background: var(--white); border: 2px solid var(--black); border-radius: var(--radius-md); padding: 16px; box-shadow: 4px 4px 0 var(--black);">
-          <h3 style="font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 8px;">Bản việt hóa này chơi được trên máy nào?</h3>
-          <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">Hiện tại bản việt hóa này hỗ trợ trên các hệ máy như đã niêm yết ở trên. Bạn cần làm theo hướng dẫn cài đặt của CircleLifeTeam để trải nghiệm game.</p>
-        </div>
+    </div>
 
-        <div style="background: var(--white); border: 2px solid var(--black); border-radius: var(--radius-md); padding: 16px; box-shadow: 4px 4px 0 var(--black);">
-          <h3 style="font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 8px;">Có cần hack máy không?</h3>
-          <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">Với các máy console PS4, PS5, Nintendo Switch, bản việt hóa không thể cài trực tiếp như trên PC. Bạn cần phải hack / bẻ khóa máy trước thì mới cài được.</p>
-        </div>
-        
-        <div style="background: var(--white); border: 2px solid var(--black); border-radius: var(--radius-md); padding: 16px; box-shadow: 4px 4px 0 var(--black);">
-          <h3 style="font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 8px;">Patch tiếng Việt do ai thực hiện?</h3>
-          <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">Bản dịch này được thực hiện bởi nhóm CircleLifeTeam cùng các cộng tác viên với chất lượng cao nhất.</p>
-        </div>
+  </main>
 
-        <div style="background: var(--white); border: 2px solid var(--black); border-radius: var(--radius-md); padding: 16px; box-shadow: 4px 4px 0 var(--black);">
-          <h3 style="font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 8px;">Tiến độ việt hóa đến đâu rồi?</h3>
-          <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">Vui lòng xem trạng thái "Tiến độ" ở phần thông tin game phía trên để biết % hoàn thành mới nhất.</p>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- RELATED GAMES -->
-  <section class="section" aria-labelledby="related-title" style="background:var(--bg-dark)">
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title" id="related-title">Việt Hóa Cùng Thể Loại</h2>
-        <a href="/category.html" class="section-link">Xem tất cả <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-      <div class="games-grid" id="related-games" role="list" aria-label="Related games"></div>
-    </div>
-  </section>
-
-  <div class="floating-rating">
-    <div class="rating-panel" id="rating-panel">
-      <div style="font-size:13px; font-weight:900; text-transform:uppercase;">Bạn Cho Mấy Sao?</div>
-      <div class="rating-stars" id="rating-stars">
-        <span class="star" data-val="1"><i class="fa-solid fa-star"></i></span>
-        <span class="star" data-val="2"><i class="fa-solid fa-star"></i></span>
-        <span class="star" data-val="3"><i class="fa-solid fa-star"></i></span>
-        <span class="star" data-val="4"><i class="fa-solid fa-star"></i></span>
-        <span class="star" data-val="5"><i class="fa-solid fa-star"></i></span>
-      </div>
-      <div id="rating-thanks" style="display:none; font-size:13px; color:var(--accent-green); font-weight:800; margin-top:4px;">
-        💖 Cảm ơn đã đánh giá!
+      <div class="footer-bottom" style="border-top:none;padding-top:0">
+        <p>© 2024–2026 <a href="/" style="color:#c7d5e0">CircleLifeTeam</a>. Game PS4 PS5 Nintendo Switch PC Việt Hóa | Patch Tiếng Việt</p>
+        <a href="/" class="btn-outline" style="font-size:12px;padding:6px 14px"><i class="fa-solid fa-arrow-left"></i> Về Trang Chủ</a>
       </div>
     </div>
-    <button class="rating-btn" id="rating-toggle-btn" title="Đánh giá game này">
-      ⭐
-    </button>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <img id="lightbox-img" src="" alt="Screenshot">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
   </div>
-  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search games">
-  <div class="search-box">
-    <div class="search-box-input">
-      <span style="font-size:18px">🔍</span>
-      <input type="search" id="search-input-main" placeholder="Tìm kiếm game việt hóa..." aria-label="Search input" autocomplete="off">
-      <button class="search-close" id="search-close" aria-label="Close search">✕</button>
-    </div>
-    <div class="search-results-list" id="search-results-list" role="listbox" aria-label="Search results"></div>
-  </div>
-</div>
 
-</main>
+  <!-- TOAST -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
-<!-- FOOTER -->
-<footer class="footer" role="contentinfo">
-  <div class="container">
-    <div class="footer-bottom" style="border-top:none;padding-top:0">
-      <p>© 2024 <a href="/">CircleLifeTeam</a>. Game PS4 PS5 Nintendo Switch PC Việt Hóa | Patch Tiếng Việt</p>
-      <a href="/" class="btn-outline" style="font-size:12px;padding:6px 14px"><i class="fa-solid fa-arrow-left"></i> Về Trang Chủ</a>
-    </div>
-  </div>
-</footer>
+  <!-- SCRIPTS GỐC -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-check-compat.js"></script>
+  <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+  <script src="/js/config.js?v=11" defer></script>
+  <script src="/js/api.js?v=11" defer></script>
+  <script src="/js/game.js"></script>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-  <img id="lightbox-img" src="" alt="Screenshot">
-  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
-</div>
+  <!-- SCRIPT CẦU NỐI TỰ ĐỘNG BIẾN SCREENSHOTS THÀNH STEAM PLAYER FILMSTRIP & LIVE SEARCH -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const screensGrid = document.getElementById('screenshots-grid');
+      const ytWrapper = document.getElementById('youtube-wrapper');
+      const stagePhoto = document.getElementById('steam-stage-photo');
+      const stagePhotoImg = document.getElementById('steam-stage-photo-img');
+      const zoomBtn = document.getElementById('steam-zoom-btn');
+      const stripPrev = document.getElementById('strip-prev');
+      const stripNext = document.getElementById('strip-next');
+      const stripHandle = document.getElementById('strip-handle');
 
-<!-- TOAST -->
-<div class="toast-container" id="toast-container" aria-live="polite"></div>
+      // 1. Tự động theo dõi khi game.js nạp xong danh sách ảnh để gắn nút Trailer đầu tiên và biến thành thanh Filmstrip chuẩn Steam
+      // 1. XỬ LÝ CLICK ẢNH CON -> HIỂN THỊ LÊN KHUNG LỚN CHUẨN STEAM (CHẶN LIGHTBOX MẶC ĐỊNH)
+      if (screensGrid) {
+        // Bắt sự kiện ở pha Capture (true) để chặn đứng onclick="openLightbox()" của game.js
+        screensGrid.addEventListener('click', (e) => {
+          const item = e.target.closest('.screenshot-item');
+          if (!item) return;
 
-<!-- Responsive fix for two columns -->
-<style>
-@media (max-width: 768px) {
-  .game-detail-two-col { grid-template-columns: 1fr !important; gap: 32px !important; }
-}
-</style>
+          // Chặn hoàn toàn việc nhảy sang hàm openLightbox() của game.js
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
 
-<!-- SCRIPTS -->
- <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-check-compat.js"></script>
- <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
-<script src="/js/config.js?v=11" defer></script>
-<script src="/js/api.js?v=11" defer></script>
-<script src="/js/game.js"></script>
+          // Đổi viền sáng trắng cho ảnh con đang được chọn
+          screensGrid.querySelectorAll('.screenshot-item').forEach(el => el.classList.remove('active'));
+          item.classList.add('active');
 
+          // Nếu bấm vào ô Thumbnail Video Trailer đầu tiên -> Hiện lại YouTube, ẩn khung ảnh
+          if (item.classList.contains('steam-video-thumb')) {
+            stagePhoto.style.display = 'none';
+            ytWrapper.style.display = 'block';
+            if (ytWrapper.dataset.embedSrc) {
+              const iframe = ytWrapper.querySelector('iframe');
+              if (iframe && !iframe.src) iframe.src = ytWrapper.dataset.embedSrc;
+            }
+            return;
+          }
+
+          // Nếu bấm vào ảnh chụp màn hình -> Ẩn YouTube, đưa ảnh lên khung lớn
+          const imgEl = item.querySelector('img');
+          if (imgEl && imgEl.src) {
+            // Tạm ngắt tiếng/dừng video YouTube nếu đang phát và giấu khung YouTube đi
+            const iframe = ytWrapper?.querySelector('iframe');
+            if (iframe && iframe.src) {
+              ytWrapper.dataset.embedSrc = iframe.src;
+            }
+            if (ytWrapper) ytWrapper.style.display = 'none';
+
+            // Hiển thị ảnh lên khung chính
+            stagePhoto.style.display = 'block';
+            stagePhotoImg.src = imgEl.src;
+          }
+        }, true); // <-- Dấu true này cực kỳ quan trọng để ưu tiên chạy trước onclick của game.js
+
+        // Tự động thêm ô Thumbnail Trailer (có nút Play) vào đầu danh sách khi game.js tải xong
+        // Tự động thêm ô Thumbnail Trailer (có nút Play) vào đầu danh sách khi game.js tải xong
+        function initSteamFilmstrip() {
+          const items = screensGrid.querySelectorAll('.screenshot-item:not(.steam-video-thumb)');
+          const iframe = ytWrapper?.querySelector('iframe');
+
+          // Nếu cả ảnh và iframe đều chưa nạp xong thì chờ tiếp
+          if (!items.length && !iframe) return;
+          if (screensGrid.dataset.steamInitialized === 'true') return;
+          screensGrid.dataset.steamInitialized = 'true';
+
+          // Xóa toàn bộ onclick="openLightbox(...)" trên từng thẻ ảnh con
+          items.forEach(el => {
+            el.onclick = null;
+            el.removeAttribute('onclick');
+          });
+
+          const firstShotImg = items[0]?.querySelector('img')?.src || '/logo.png';
+
+          if (iframe && !screensGrid.querySelector('.steam-video-thumb')) {
+            // Tách lấy YouTube ID từ src của iframe
+            let ytThumbUrl = firstShotImg;
+            const srcStr = iframe.getAttribute('src') || '';
+            const match = srcStr.match(/embed\/([^?&/"']+)/);
+            if (match && match[1]) {
+              ytThumbUrl = `https://i.ytimg.com/vi/${match[1]}/mqdefault.jpg`;
+            }
+
+            const videoThumb = document.createElement('div');
+            videoThumb.className = 'screenshot-item steam-video-thumb active';
+
+            const thumbImg = document.createElement('img');
+            thumbImg.src = ytThumbUrl;
+            thumbImg.alt = 'Video Trailer';
+            // Nếu link ảnh YouTube lỗi thì tự lấy ảnh Screenshot đầu tiên thế vào, tuyệt đối không ẩn ô!
+            thumbImg.onerror = function() {
+              this.onerror = null;
+              this.src = firstShotImg;
+            };
+
+            const playBadge = document.createElement('div');
+            playBadge.className = 'steam-play-badge';
+            playBadge.innerHTML = '<i class="fa-solid fa-play"></i>';
+
+            videoThumb.appendChild(thumbImg);
+            videoThumb.appendChild(playBadge);
+
+            // Luôn chèn vào vị trí đầu tiên của thanh Filmstrip
+            screensGrid.prepend(videoThumb);
+          } else if (!iframe && firstShotImg) {
+            // Nếu game không có video trailer thì ẩn khung YouTube và hiện ảnh đầu tiên
+            if (ytWrapper) ytWrapper.style.display = 'none';
+            stagePhoto.style.display = 'block';
+            stagePhotoImg.src = firstShotImg;
+            items[0]?.classList.add('active');
+          }
+
+          // Cập nhật lại thanh kéo sau khi chèn ô Video
+          if (typeof updateSliderHandle === 'function') setTimeout(updateSliderHandle, 250);
+        }
+
+        const observer = new MutationObserver(() => initSteamFilmstrip());
+        observer.observe(screensGrid, { childList: true });
+        if (ytWrapper) observer.observe(ytWrapper, { childList: true });
+        // Gọi dự phòng trường hợp game.js đã render xong trước khi observer kịp gắn
+        setTimeout(initSteamFilmstrip, 150);
+        setTimeout(initSteamFilmstrip, 600);
+
+        observer.observe(screensGrid, { childList: true });
+
+        // Chỉ khi nào người dùng bấm vào BỨC ẢNH LỚN trên khung chính (hoặc nút Phóng to) mới mở Lightbox
+        stagePhotoImg?.addEventListener('click', () => {
+          if (typeof openLightbox === 'function' && stagePhotoImg.src) openLightbox(stagePhotoImg.src);
+        });
+        zoomBtn?.addEventListener('click', () => {
+          if (typeof openLightbox === 'function' && stagePhotoImg.src) openLightbox(stagePhotoImg.src);
+        });
+
+        const stripTrack = document.getElementById('strip-track');
+
+        function updateSliderHandle() {
+          if (!stripHandle || !stripTrack) return;
+          const maxScroll = screensGrid.scrollWidth - screensGrid.clientWidth;
+          if (maxScroll <= 0) {
+            stripHandle.style.width = '100%';
+            stripHandle.style.left = '0px';
+            return;
+          }
+          const trackW = stripTrack.clientWidth;
+          const ratio = screensGrid.clientWidth / screensGrid.scrollWidth;
+          const handleW = Math.max(40, trackW * ratio);
+          const maxLeft = trackW - handleW;
+          const currentLeft = (screensGrid.scrollLeft / maxScroll) * maxLeft;
+
+          stripHandle.style.width = `${handleW}px`;
+          stripHandle.style.left = `${currentLeft}px`;
+        }
+
+        // Bấm nút < và > để chuyển từng ảnh hoặc cuộn dải ảnh
+        function stepHighlightItem(direction) {
+          const allItems = Array.from(screensGrid.querySelectorAll('.screenshot-item'));
+          if (!allItems.length) return;
+
+          // Tìm vị trí ảnh/video đang active hiện tại
+          let currentIdx = allItems.findIndex(el => el.classList.contains('active'));
+          if (currentIdx === -1) currentIdx = 0;
+
+          // Tính vị trí tiếp theo (có quay vòng tròn từ cuối về đầu và ngược lại)
+          const nextIdx = (currentIdx + direction + allItems.length) % allItems.length;
+          const targetItem = allItems[nextIdx];
+
+          if (targetItem) {
+            // Kích hoạt click vào ô đó để đổi ảnh trên màn hình lớn
+            targetItem.click();
+
+            // Tự động cuộn thanh Filmstrip bên dưới để ô đang chọn luôn nằm trong tầm mắt
+            const gridRect = screensGrid.getBoundingClientRect();
+            const itemRect = targetItem.getBoundingClientRect();
+
+            if (itemRect.left < gridRect.left) {
+              screensGrid.scrollBy({ left: itemRect.left - gridRect.left - 8, behavior: 'smooth' });
+            } else if (itemRect.right > gridRect.right) {
+              screensGrid.scrollBy({ left: itemRect.right - gridRect.right + 8, behavior: 'smooth' });
+            }
+          }
+        }
+
+        // Bấm nút < và > để chuyển sang ảnh/video trước hoặc sau
+        stripPrev?.addEventListener('click', () => stepHighlightItem(-1));
+        stripNext?.addEventListener('click', () => stepHighlightItem(1));
+
+        screensGrid.addEventListener('scroll', updateSliderHandle);
+        window.addEventListener('resize', updateSliderHandle);
+        setTimeout(updateSliderHandle, 400);
+
+        // Giữ chuột kéo thanh trượt hoặc click lên rãnh trượt
+        let isDraggingStrip = false;
+        let startX = 0;
+        let startScrollLeft = 0;
+
+        stripHandle?.addEventListener('mousedown', (e) => {
+          isDraggingStrip = true;
+          startX = e.clientX;
+          startScrollLeft = screensGrid.scrollLeft;
+          stripHandle.classList.add('dragging');
+          document.body.style.userSelect = 'none';
+          e.stopPropagation();
+        });
+
+        stripTrack?.addEventListener('mousedown', (e) => {
+          if (e.target === stripHandle) return;
+          const rect = stripTrack.getBoundingClientRect();
+          const clickPos = (e.clientX - rect.left) / rect.width;
+          const maxScroll = screensGrid.scrollWidth - screensGrid.clientWidth;
+          screensGrid.scrollLeft = clickPos * maxScroll;
+
+          isDraggingStrip = true;
+          startX = e.clientX;
+          startScrollLeft = screensGrid.scrollLeft;
+          stripHandle?.classList.add('dragging');
+          document.body.style.userSelect = '';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (!isDraggingStrip || !stripTrack || !stripHandle) return;
+          const dx = e.clientX - startX;
+          const trackW = stripTrack.clientWidth;
+          const handleW = stripHandle.clientWidth;
+          const maxLeft = Math.max(1, trackW - handleW);
+          const maxScroll = screensGrid.scrollWidth - screensGrid.clientWidth;
+          screensGrid.scrollLeft = startScrollLeft + (dx / maxLeft) * maxScroll;
+        });
+
+        window.addEventListener('mouseup', () => {
+          if (isDraggingStrip) {
+            isDraggingStrip = false;
+            stripHandle?.classList.remove('dragging');
+            document.body.style.userSelect = '';
+          }
+        });
+
+        // Lăn con lăn chuột trên dải ảnh để cuộn ngang
+        screensGrid.addEventListener('wheel', (e) => {
+          if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+            e.preventDefault();
+            screensGrid.scrollLeft += e.deltaY;
+          }
+        }, { passive: false });
+      }
+
+      // 2. Sửa dứt điểm thanh Tìm kiếm trực tiếp trên thanh Subnav chuẩn Steam
+      const navInput = document.querySelector('.nav-search input');
+      const liveDropdown = document.getElementById('steam-live-dropdown');
+
+      if (navInput && liveDropdown) {
+        // Ngăn sự kiện focus cũ làm bật bảng trắng lỗi
+        navInput.addEventListener('focus', (e) => {
+          e.stopImmediatePropagation();
+          document.getElementById('search-overlay')?.classList.remove('open');
+          if (navInput.value.trim()) liveDropdown.classList.add('active');
+        }, true);
+
+        let timer;
+        navInput.addEventListener('input', () => {
+          clearTimeout(timer);
+          const q = navInput.value.trim().toLowerCase();
+          if (!q) {
+            liveDropdown.classList.remove('active');
+            liveDropdown.innerHTML = '';
+            return;
+          }
+          timer = setTimeout(async () => {
+            if (typeof API === 'undefined') return;
+            const games = await API.getGames();
+            const matches = games.filter(g =>
+              g.title.toLowerCase().includes(q) ||
+              (g.titleVi || '').toLowerCase().includes(q) ||
+              (g.genre || '').toLowerCase().includes(q)
+            ).slice(0, 6);
+
+            if (!matches.length) {
+              liveDropdown.innerHTML = `<div class="steam-live-empty">Không tìm thấy kết quả cho "${navInput.value}"</div>`;
+            } else {
+              liveDropdown.innerHTML = matches.map(g => `
+                <a href="/game.html?id=${g.slug}" class="steam-live-item">
+                  <img src="${g.coverImage || '/logo.png'}" alt="${g.title}">
+                  <div class="steam-live-info">
+                    <div class="steam-live-title">${g.title}</div>
+                    <div class="steam-live-meta">${g.platform || 'PC'} • <span style="color:#a4d007">${g.status || 'Việt Hóa'}</span></div>
+                  </div>
+                </a>
+              `).join('');
+            }
+            liveDropdown.classList.add('active');
+          }, 150);
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.nav-search')) {
+            liveDropdown.classList.remove('active');
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>

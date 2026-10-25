@@ -12,9 +12,10 @@
 
   <link rel="alternate" hreflang="vi" href="https://circlelifeteam.top/">
   <link rel="alternate" hreflang="x-default" href="https://circlelifeteam.top/">
+
   <!-- Open Graph / Facebook -->
-   <meta property="fb:app_id"       content="2150545185759559">
-   <meta name="google-site-verification" content="4msWbj32CNGe6RKNhIvoBBJP2JA2KeDZbpvgNlj0RcE" />
+  <meta property="fb:app_id" content="2150545185759559">
+  <meta name="google-site-verification" content="4msWbj32CNGe6RKNhIvoBBJP2JA2KeDZbpvgNlj0RcE" />
   <meta property="og:type" content="website">
   <meta property="og:title" content="Danh Sách Game Việt Hóa | CircleLifeTeam">
   <meta property="og:description" content="Tổng hợp danh sách game việt hóa chất lượng cao từ CircleLifeTeam.">
@@ -22,11 +23,23 @@
   <meta property="og:url" content="https://circlelifeteam.top/category.html">
   <meta property="og:site_name" content="CircleLifeTeam">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="">
-  <meta name="twitter:description" content="">
   <meta name="twitter:image" content="https://i.ibb.co/QzhhPWP/dhiuwh89d72gfuiefsefe.png">
   <meta name="twitter:title" content="Danh Sách Game Việt Hóa | CircleLifeTeam">
   <meta name="twitter:description" content="Tổng hợp danh sách game việt hóa chất lượng cao từ CircleLifeTeam.">
+
+  <script>
+    window.lenis = {
+      raf: function() {},
+      scrollTo: function(target) {
+        try {
+          var el = (typeof target === 'string') ? document.querySelector(target) : target;
+          if (el && typeof el.scrollIntoView === 'function') {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        } catch (e) {}
+      }
+    };
+  </script>
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -40,69 +53,114 @@
   <div class="wiiu-deco"></div>
   <div class="wiiu-deco-2"></div>
 
+  <!-- STEAM GLOBAL HEADER & STORE SUBNAV -->
   <nav class="navbar" role="navigation">
     <a href="/" class="nav-logo">
-      <div class="nav-logo-icon"><img class="logo-icon" src="/logo.png" alt=""></div>
-      <span>Circle<span>Life</span>Team</span>
+      <div class="nav-logo-icon"><img class="logo-icon" src="/logo.png" alt="Logo"></div>
+      <span>CIRCLE<span>LIFETEAM</span></span>
     </a>
 
     <ul class="nav-links" role="list">
       <li class="mobile-only-search"><a href="#" id="menu-search-btn"><i class="fa-solid fa-magnifying-glass"></i> Tìm Kiếm</a></li>
       <li><a href="/">Trang Chủ</a></li>
       <li><a href="/category.html">Tất Cả</a></li>
+      <li><a href="/category.html?platform=PC">Game PC</a></li>
       <li><a href="/category.html?platform=PS5">Game PS5</a></li>
       <li><a href="/category.html?platform=Nintendo Switch">Game Switch</a></li>
-      <li><a href="/category.html?platform=PC">Game PC</a></li>
     </ul>
 
     <div class="nav-spacer"></div>
 
     <div class="nav-search" role="search">
-      <span class="nav-search-icon" aria-hidden="true">🔍</span>
+      <span class="nav-search-icon" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
       <input type="search" placeholder="Tìm game việt hóa... (Ctrl+K)" id="nav-search-input">
     </div>
 
-    <button id="theme-toggle" class="btn-outline" style="padding: 8px; margin-left: 16px; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+    <button id="theme-toggle" class="btn-outline" title="Đổi giao diện">
       <i class="fa-solid fa-moon"></i>
     </button>
 
-    <a href="/admin.html" class="nav-admin-btn"><i class="fa-solid fa-gear"></i></a>
+    <a href="/admin.html" class="nav-admin-btn"><i class="fa-solid fa-gear"></i> Quản Trị</a>
     <button class="nav-mobile-toggle">☰</button>
   </nav>
 
   <main class="page" id="top">
     <div class="container">
       
-      <nav class="breadcrumb" aria-label="Breadcrumb" style="padding-top: 24px;">
-        <a href="/"><i class="fa-solid fa-house"></i> Trang Chủ</a>
+      <nav class="breadcrumb" aria-label="Breadcrumb" style="padding-top: 20px;">
+        <a href="/">Trang Chủ</a>
         <span aria-hidden="true">›</span>
         <span id="bc-category" aria-current="page">Danh mục...</span>
       </nav>
 
-      <div class="section-header" style="flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 20px; border-bottom: var(--border-solid); padding-bottom: 32px; margin-bottom: 40px;">
+      <!-- STEAM HUB BANNER HEADER -->
+      <div class="section-header" style="flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 10px; background: linear-gradient(90deg, rgba(42,71,94,0.6) 0%, rgba(22,32,45,0.4) 100%); border-left: 4px solid #66c0f4; padding: 22px 24px; border-radius: 3px; margin-bottom: 28px;">
         <div class="hero-eyebrow" id="cat-eyebrow" style="margin-bottom: 0;">Chuyên Mục</div>
-        <h1 id="cat-title" style="font-family: var(--font-display); font-size: clamp(32px, 5vw, 48px); font-weight: 900; color: var(--black); text-transform: uppercase;">
+        <h1 id="cat-title" style="font-size: clamp(24px, 3.5vw, 34px); font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px;">
           Tất Cả Game
         </h1>
-        <p id="cat-desc" style="font-family: var(--font-vi); font-size: 16px; color: var(--text-muted); max-width: 800px; line-height: 1.6;">
+        <p id="cat-desc" style="font-size: 14px; color: #8f98a0; max-width: 800px; line-height: 1.6;">
           Đang tải danh sách game...
         </p>
       </div>
 
-      <div class="games-grid" id="category-games-grid" style="margin-bottom: 80px;">
-        <div class="skeleton skeleton-card"></div>
-        <div class="skeleton skeleton-card"></div>
-        <div class="skeleton skeleton-card"></div>
-        <div class="skeleton skeleton-card"></div>
+      <!-- 1. DẢI NÚT BẤM TAG PHỔ BIẾN KIỂU STEAM (Tự động đếm số game) -->
+      <div id="steam-popular-tags-bar" style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px;"></div>
+
+      <!-- 2. THANH BỘ LỌC THEO TAG & HỆ MÁY CHUẨN STEAM -->
+      <div class="filter-dashboard" id="cat-filter-dashboard">
+        <div class="filter-group">
+          <label for="cat-filter-tag"><i class="fa-solid fa-tags"></i> Lọc Theo Nhãn (Tag)</label>
+          <select id="cat-filter-tag" class="filter-select">
+            <option value="all">Tất Cả Nhãn (Tags)</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="cat-filter-platform"><i class="fa-solid fa-gamepad"></i> Hệ Máy</label>
+          <select id="cat-filter-platform" class="filter-select">
+            <option value="all">Tất Cả Hệ Máy</option>
+            <option value="PC">PC</option>
+            <option value="PS5">PlayStation 5</option>
+            <option value="PS4">PlayStation 4</option>
+            <option value="Nintendo Switch">Nintendo Switch</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="cat-filter-status"><i class="fa-solid fa-circle-check"></i> Tiến Độ Dịch</label>
+          <select id="cat-filter-status" class="filter-select">
+            <option value="all">Tất Cả Tiến Độ</option>
+            <option value="done">Hoàn Thành 100%</option>
+            <option value="wip">Đang Dịch</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="cat-filter-sort"><i class="fa-solid fa-sort"></i> Sắp Xếp Theo</label>
+          <select id="cat-filter-sort" class="filter-select">
+            <option value="newest">Mới Cập Nhật</option>
+            <option value="rating">Đánh Giá Cao Nhất</option>
+            <option value="a-z">Tên A - Z</option>
+          </select>
+        </div>
       </div>
-        <div id="pagination-container" class="pagination-container" style="margin-bottom: 80px;"></div>
+
+      <div class="games-grid" id="category-games-grid" style="margin-bottom: 48px;">
+        <div class="skeleton skeleton-card" style="height:280px;"></div>
+        <div class="skeleton skeleton-card" style="height:280px;"></div>
+        <div class="skeleton skeleton-card" style="height:280px;"></div>
+        <div class="skeleton skeleton-card" style="height:280px;"></div>
+      </div>
+
+      <div id="pagination-container" class="pagination-container" style="margin-bottom: 60px;"></div>
     </div>
   </main>
 
   <footer class="footer" role="contentinfo">
     <div class="container">
-      <div class="footer-bottom">
-        <p>© 2024 <a href="/">CircleLifeTeam</a>. Game PS4 PS5 Nintendo Switch PC Việt Hóa | Patch Tiếng Việt</p>
+      <div class="footer-bottom" style="border-top:none;padding-top:0">
+        <p>© 2024–2026 <a href="/" style="color:#c7d5e0">CircleLifeTeam</a>. Game PS4 PS5 Nintendo Switch PC Việt Hóa | Patch Tiếng Việt</p>
         <a href="/" class="btn-outline" style="font-size:12px;padding:6px 14px"><i class="fa-solid fa-arrow-left"></i> Về Trang Chủ</a>
       </div>
     </div>
@@ -111,7 +169,7 @@
   <div class="search-overlay" id="search-overlay">
     <div class="search-box">
       <div class="search-box-input">
-        <span style="font-size:18px">🔍</span>
+        <span style="font-size:16px;color:#66c0f4"><i class="fa-solid fa-magnifying-glass"></i></span>
         <input type="search" id="search-input-main" placeholder="Tìm kiếm game việt hóa..." autocomplete="off">
         <button class="search-close" id="search-close">✕</button>
       </div>
@@ -119,11 +177,203 @@
     </div>
   </div>
 
+  <!-- SCRIPTS (Giữ nguyên 100%) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-check-compat.js"></script>
   <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
   <script src="/js/config.js?v=11" defer></script>
   <script src="/js/api.js?v=11" defer></script>
-  <script src="js/category.js"></script> </body>
+  <script src="js/category.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const navSearch = document.querySelector('.nav-search');
+    const navInput = navSearch?.querySelector('input');
+    if (!navSearch || !navInput) return;
+
+    let liveDropdown = document.getElementById('steam-live-dropdown');
+    if (!liveDropdown) {
+      liveDropdown = document.createElement('div');
+      liveDropdown.id = 'steam-live-dropdown';
+      liveDropdown.className = 'steam-live-search-dropdown';
+      navSearch.appendChild(liveDropdown);
+    }
+
+    navInput.addEventListener('focus', (e) => {
+      e.stopImmediatePropagation();
+      document.getElementById('search-overlay')?.classList.remove('open');
+      if (navInput.value.trim()) liveDropdown.classList.add('active');
+    }, true);
+
+    let timer;
+    navInput.addEventListener('input', () => {
+      clearTimeout(timer);
+      const q = navInput.value.trim().toLowerCase();
+      if (!q) {
+        liveDropdown.classList.remove('active');
+        liveDropdown.innerHTML = '';
+        return;
+      }
+      timer = setTimeout(async () => {
+        if (typeof API === 'undefined') return;
+        const games = await API.getGames();
+        const matches = games.filter(g =>
+          g.title.toLowerCase().includes(q) ||
+          (g.titleVi || '').toLowerCase().includes(q) ||
+          (g.genre || '').toLowerCase().includes(q)
+        ).slice(0, 6);
+
+        if (!matches.length) {
+          liveDropdown.innerHTML = `<div class="steam-live-empty">Không tìm thấy kết quả cho "${navInput.value}"</div>`;
+        } else {
+          liveDropdown.innerHTML = matches.map(g => `
+            <a href="/game.html?id=${g.slug}" class="steam-live-item">
+              <img src="${g.coverImage || '/logo.png'}" alt="${g.title}">
+              <div class="steam-live-info">
+                <div class="steam-live-title">${g.title}</div>
+                <div class="steam-live-meta">${g.platform || 'PC'} • <span style="color:#a4d007">${g.status || 'Việt Hóa'}</span></div>
+              </div>
+            </a>
+          `).join('');
+        }
+        liveDropdown.classList.add('active');
+      }, 150);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-search')) liveDropdown.classList.remove('active');
+    });
+  });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const tagSel = document.getElementById('cat-filter-tag');
+      const platSel = document.getElementById('cat-filter-platform');
+      const statusSel = document.getElementById('cat-filter-status');
+      const sortSel = document.getElementById('cat-filter-sort');
+      const tagsBar = document.getElementById('steam-popular-tags-bar');
+      if (!tagSel || typeof API === 'undefined') return;
+
+      // 1. Lấy toàn bộ game và thống kê tất cả các Tag đang có trong kho
+      const allGames = await API.getGames();
+      const tagCounts = {};
+
+      allGames.forEach(g => {
+        if (g.tags && Array.isArray(g.tags)) {
+          g.tags.forEach(t => {
+            const cleanTag = t.trim();
+            if (cleanTag) {
+              tagCounts[cleanTag] = (tagCounts[cleanTag] || 0) + 1;
+            }
+          });
+        }
+      });
+
+      // Sắp xếp danh sách Tag: Ưu tiên hiển thị theo bảng chữ cái trong ô Select
+      const allUniqueTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b, 'vi'));
+      tagSel.innerHTML = `<option value="all">Tất Cả Nhãn (${allUniqueTags.length} Tags)</option>` +
+        allUniqueTags.map(t => `<option value="${t}">#${t} (${tagCounts[t]})</option>`).join('');
+
+      // Sắp xếp 15 Tag có nhiều game nhất để làm nút bấm nhanh kiểu Steam Pills
+      const topTags = Object.keys(tagCounts)
+        .sort((a, b) => tagCounts[b] - tagCounts[a])
+        .slice(0, 15);
+
+      function renderPopularTagPills(activeTag) {
+        if (!tagsBar) return;
+        let pillsHTML = `
+          <button type="button" class="steam-tag-pill ${activeTag === 'all' ? 'active' : ''}" data-tag="all">
+            Tất cả (${allGames.length})
+          </button>
+        `;
+        pillsHTML += topTags.map(t => `
+          <button type="button" class="steam-tag-pill ${activeTag === t ? 'active' : ''}" data-tag="${t}">
+            #${t} <span style="opacity:0.65;font-size:10px;margin-left:3px;">(${tagCounts[t]})</span>
+          </button>
+        `).join('');
+        tagsBar.innerHTML = pillsHTML;
+
+        // Bấm vào nút Tag nhanh -> Tự động đổi ô Select và lọc ngay
+        tagsBar.querySelectorAll('.steam-tag-pill').forEach(btn => {
+          btn.addEventListener('click', () => {
+            tagSel.value = btn.dataset.tag;
+            applyCategoryFilters();
+          });
+        });
+      }
+
+      // 2. Đồng bộ với URL hiện tại (?tag=... hoặc ?platform=...)
+      const params = new URLSearchParams(window.location.search);
+      const urlPlatform = params.get('platform');
+      const urlTag = params.get('tag');
+
+      if (urlPlatform && platSel) platSel.value = urlPlatform;
+      if (urlTag && allUniqueTags.includes(urlTag)) {
+        tagSel.value = urlTag;
+      }
+
+      renderPopularTagPills(tagSel.value);
+
+      // 3. Hàm lọc theo Tag + Hệ máy + Tiến độ và vẽ lại phân trang
+      function applyCategoryFilters() {
+        const tVal = tagSel.value;
+        const pVal = platSel.value;
+        const stVal = statusSel.value;
+        const soVal = sortSel.value;
+
+        renderPopularTagPills(tVal);
+
+        let filtered = [...allGames];
+
+        // Lọc theo Tag (g.tags)
+        if (tVal !== 'all') {
+          filtered = filtered.filter(g => g.tags && Array.isArray(g.tags) && g.tags.includes(tVal));
+        }
+
+        // Lọc theo Hệ máy
+        if (pVal !== 'all') {
+          filtered = filtered.filter(g => (g.platform || '').includes(pVal));
+        }
+
+        // Lọc theo Tiến độ
+        if (stVal === 'done') {
+          filtered = filtered.filter(g => g.status && g.status.includes('100%'));
+        } else if (stVal === 'wip') {
+          filtered = filtered.filter(g => !g.status || !g.status.includes('100%'));
+        }
+
+        // Sắp xếp
+        if (soVal === 'newest') {
+          filtered.sort((a, b) => (b.updatedAt || new Date(b.releaseDate || 0).getTime()) - (a.updatedAt || new Date(a.releaseDate || 0).getTime()));
+        } else if (soVal === 'a-z') {
+          filtered.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (soVal === 'rating') {
+          filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+        }
+
+        // Cập nhật tiêu đề và số lượng kết quả
+        const titleEl = document.getElementById('cat-title');
+        const descEl = document.getElementById('cat-desc');
+        if (titleEl) {
+          titleEl.textContent = tVal !== 'all' ? `Game Có Nhãn: #${tVal}` : (pVal !== 'all' ? `Game ${pVal} Việt Hóa` : 'Tất Cả Game Việt Hóa');
+        }
+        if (descEl) {
+          descEl.textContent = `Tìm thấy ${filtered.length} bản việt hóa phù hợp.`;
+        }
+
+        // Cập nhật lại biến phân trang của category.js
+        if (typeof catFilteredGames !== 'undefined' && typeof renderCategoryPage === 'function') {
+          catFilteredGames = filtered;
+          renderCategoryPage(1);
+        }
+      }
+
+      [tagSel, platSel, statusSel, sortSel].forEach(el => {
+        el?.addEventListener('change', applyCategoryFilters);
+      });
+    });
+  </script>
+</body>
 </html>

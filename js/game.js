@@ -480,7 +480,7 @@ async function loadRelatedGames(currentGame) {
     const all = await API.getGames();
     const related = all
       .filter(g => g.id !== currentGame.id && g.genre === currentGame.genre)
-      .slice(0, 10);
+      .slice(0, 24);
     if (!related.length) {
       container.closest('.section').style.display = 'none';
       return;
