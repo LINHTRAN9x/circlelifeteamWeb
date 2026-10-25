@@ -1273,3 +1273,442 @@ h1, h2, h3, .game-detail-title, .hero-title { overflow-wrap: anywhere; }
   .games-grid { grid-template-columns: minmax(0, 1fr) !important; }
   .new-card, .featured-scroll .game-card { width: 138px; }
 }
+
+
+
+/* ============================================================
+   KHÔI PHỤC BẢNG MÀU GỐC CỦA CIRCLELIFETEAM (LIGHT + DARK MODE)
+   TRÊN BỐ CỤC CHỨC NĂNG CỦA STEAM
+   ============================================================ */
+
+:root {
+  /* Màu nền & Chữ gốc (Light Mode) */
+  --bg-deep:        #F4F5F0 !important;
+  --bg-dark:        #E8EAE3 !important;
+  --bg-card:        #FFFFFF !important;
+  --bg-card-hover:  #FFFFFA !important;
+
+  --white:          #FFFFFF !important;
+  --black:          #000000 !important;
+
+  --text-main:      #000000 !important;
+  --text-bright:    #000000 !important;
+  --text-muted:     #4A4A4A !important;
+  --text-dim:       #666666 !important;
+
+  /* 5 màu Playful Accents gốc của web bạn */
+  --accent-yellow:  #FFC312 !important;
+  --accent-blue:    #17C0EB !important;
+  --accent-pink:    #FF9FF3 !important;
+  --accent-green:   #32FF7E !important;
+  --accent-red:     #FF4757 !important;
+
+  --blue-vivid:     #17C0EB !important;
+  --cyan-accent:    #00a8e8 !important;
+}
+
+/* ── Nền trang chính có họa tiết ngôi sao gốc ── */
+body {
+  background-color: var(--bg-deep) !important;
+  background-image: url('../star1.svg'), url('../star2.svg') !important;
+  background-repeat: repeat, repeat !important;
+  background-size: 600px 600px, 400px 400px !important;
+  background-position: 0 0, 50% 50% !important;
+  color: var(--text-main) !important;
+}
+
+/* ── Thanh cuộn gốc ── */
+::-webkit-scrollbar-track { background: var(--bg-deep) !important; }
+::-webkit-scrollbar-thumb {
+  background: var(--accent-blue) !important;
+  border: 2px solid var(--black) !important;
+  border-radius: 10px !important;
+}
+
+/* ── 1. Thanh Navbar 2 tầng với màu gốc ── */
+.navbar {
+  background: var(--white) !important;
+  border-bottom: 2px solid var(--black) !important;
+  box-shadow: none !important;
+}
+/* Thanh Sub-Navbar tầng 2 màu Xanh Cyan (#17C0EB) đặc trưng của bạn */
+.navbar::after {
+  background: var(--accent-blue) !important;
+  border-bottom: 2px solid var(--black) !important;
+  box-shadow: 0 3px 0 var(--black) !important;
+}
+.nav-logo { color: var(--black) !important; }
+.nav-logo span span { color: var(--accent-blue) !important; }
+
+.nav-links a {
+  color: #000000 !important;
+  text-shadow: none !important;
+  font-weight: 800 !important;
+}
+.nav-links a:hover, .nav-links a.active {
+  background: var(--accent-yellow) !important;
+  color: #000000 !important;
+  box-shadow: inset 0 -3px 0 #000000 !important;
+}
+
+/* Ô tìm kiếm trên thanh Subnav */
+.nav-search {
+  background: #FFFFFF !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0 #000000 !important;
+}
+.nav-search:focus-within {
+  background: var(--accent-yellow) !important;
+}
+.nav-search input { color: #000000 !important; font-style: normal !important; font-weight: 700 !important; }
+.nav-search input::placeholder { color: #555555 !important; }
+.nav-search-icon {
+  background: var(--accent-yellow) !important;
+  color: #000000 !important;
+  border: 1.5px solid #000000 !important;
+}
+
+/* Dropdown kết quả tìm kiếm trực tiếp */
+.steam-live-search-dropdown {
+  background: var(--white) !important;
+  border: 2px solid var(--black) !important;
+  box-shadow: 5px 5px 0 var(--black) !important;
+}
+.steam-live-item {
+  background: var(--white) !important;
+  border-bottom: 1px solid rgba(0,0,0,0.12) !important;
+}
+.steam-live-item:hover {
+  background: var(--accent-pink) !important;
+}
+.steam-live-title { color: var(--text-main) !important; }
+.steam-live-meta { color: var(--text-muted) !important; }
+
+/* Nút Đổi giao diện & Nút Quản trị hồng (#FF9FF3) gốc */
+#theme-toggle {
+  background: var(--white) !important;
+  color: var(--black) !important;
+  border: 2px solid var(--black) !important;
+  box-shadow: 2px 2px 0 var(--black) !important;
+}
+#theme-toggle:hover { background: var(--accent-pink) !important; }
+
+.nav-admin-btn {
+  background: var(--accent-pink) !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0 #000000 !important;
+  font-weight: 800 !important;
+}
+.nav-admin-btn:hover {
+  background: var(--accent-yellow) !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #000000 !important;
+}
+
+/* ── 2. Các nút bấm (Vàng #FFC312 & Xanh lá #32FF7E gốc) ── */
+.btn-primary, .btn-block, .game-card-play-btn {
+  background: var(--accent-yellow) !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 3px 3px 0 #000000 !important;
+  font-weight: 800 !important;
+}
+.btn-primary:hover, .btn-block:hover {
+  background: var(--accent-green) !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0 #000000 !important;
+}
+
+.btn-download, .p-btn-view {
+  background: var(--accent-green) !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 3px 3px 0 #000000 !important;
+  font-weight: 900 !important;
+  text-shadow: none !important;
+}
+.btn-download:hover, .p-btn-view:hover {
+  background: var(--accent-yellow) !important;
+  color: #000000 !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0 #000000 !important;
+}
+
+.btn-outline, .section-link, .steam-community-hub-btn {
+  background: var(--white) !important;
+  color: var(--text-main) !important;
+  border: 2px solid var(--black) !important;
+  box-shadow: 2px 2px 0 var(--black) !important;
+  font-weight: 800 !important;
+}
+.btn-outline:hover, .section-link:hover, .steam-community-hub-btn:hover {
+  background: var(--accent-pink) !important;
+  color: #000000 !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 4px 4px 0 var(--black) !important;
+}
+
+/* ── 3. Trang chủ: Cột Sidebar, Showcase & Thẻ Game ── */
+.steam-gutter, .hero-left-col, .filter-dashboard {
+  background: var(--bg-card) !important;
+  border: 2px solid var(--black) !important;
+  box-shadow: 4px 4px 0 var(--black) !important;
+  border-radius: 8px !important;
+}
+.steam-gutter div[style*="color: #66c0f4"],
+.filter-group label {
+  color: var(--text-main) !important;
+  font-weight: 900 !important;
+}
+.steam-gutter ul li a {
+  color: var(--text-muted) !important;
+  font-weight: 700 !important;
+}
+.steam-gutter ul li a:hover { color: var(--accent-red) !important; }
+
+.hero-right-col::before, .section-title, .hero-left-col .hero-title {
+  color: var(--text-main) !important;
+  font-weight: 900 !important;
+}
+.hero-left-col .hero-title span {
+  color: var(--accent-blue) !important;
+  -webkit-text-fill-color: var(--accent-blue) !important;
+}
+.hero-left-col .hero-sub { color: var(--text-muted) !important; font-weight: 600 !important; }
+.hero-left-col .hero-stat-num { color: var(--text-main) !important; text-shadow: 2px 2px 0 var(--accent-yellow) !important; font-weight: 900 !important; }
+.hero-left-col .hero-stat-label { color: var(--text-dim) !important; font-weight: 700 !important; }
+
+/* Khung Showcase 65/35 với viền & màu gốc */
+.premium-showcase {
+  background: var(--bg-card) !important;
+  border: 3px solid var(--black) !important;
+  box-shadow: 6px 6px 0 var(--black) !important;
+  border-radius: 10px !important;
+}
+.p-slide-info {
+  background: var(--bg-card) !important;
+  border-left: 3px solid var(--black) !important;
+}
+.p-slide-info h3 { color: var(--text-main) !important; font-weight: 900 !important; }
+.p-slide-info h3::after { color: var(--accent-red) !important; font-weight: 800 !important; }
+.thumb-item {
+  border: 2px solid var(--black) !important;
+  opacity: 0.75;
+}
+.thumb-item.active, .thumb-item:hover {
+  border-color: var(--accent-yellow) !important;
+  box-shadow: 3px 3px 0 var(--black) !important;
+  opacity: 1;
+}
+
+/* Card Game & New Releases */
+.game-card, .new-card {
+  background: var(--bg-card) !important;
+  border: 2px solid var(--black) !important;
+  box-shadow: 4px 4px 0 var(--black) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+.game-card:hover, .new-card:hover {
+  transform: translate(-4px, -4px) !important;
+  box-shadow: 7px 7px 0 var(--black) !important;
+}
+.game-card-body, .new-card-body {
+  background: var(--bg-card) !important;
+  border-top: 2px solid var(--black) !important;
+}
+.game-card-title, .new-card-title { color: var(--text-main) !important; font-weight: 800 !important; }
+.game-card-title-vi, .new-card-date { color: var(--text-dim) !important; font-weight: 600 !important; }
+.game-card-genre {
+  background: var(--bg-dark) !important;
+  color: var(--text-main) !important;
+  border: 1.5px solid var(--black) !important;
+  font-weight: 700 !important;
+}
+
+/* Badges gốc */
+.badge { border: 1.5px solid #000000 !important; box-shadow: 2px 2px 0 #000000 !important; font-weight: 800 !important; }
+.badge-new { background: var(--accent-red) !important; color: #FFFFFF !important; }
+.badge-done { background: var(--accent-green) !important; color: #000000 !important; }
+.badge-wip { background: var(--accent-yellow) !important; color: #000000 !important; }
+.badge-platform { background: #FFFFFF !important; color: #000000 !important; }
+.badge-switch { background: #E60012 !important; color: #FFFFFF !important; }
+.badge-pc { background: #2651af !important; color: #FFFFFF !important; }
+
+/* Ô Select lọc */
+.filter-select {
+  background-color: var(--white) !important;
+  color: var(--text-main) !important;
+  border: 2px solid var(--black) !important;
+  font-weight: 700 !important;
+}
+.filter-select:hover, .filter-select:focus {
+  background-color: var(--accent-yellow) !important;
+  color: #000000 !important;
+  box-shadow: 2px 2px 0 var(--black) !important;
+}
+.filter-select option { background: var(--white) !important; color: var(--text-main) !important; }
+
+/* Các thẻ Tag (Pills) */
+.steam-tag-pill, .steam-highlight-right a.badge, .steam-gutter a[href*="tag="] {
+  background: var(--white) !important;
+  color: var(--text-main) !important;
+  border: 1.5px solid var(--black) !important;
+  box-shadow: 2px 2px 0 var(--black) !important;
+  font-weight: 700 !important;
+}
+.steam-tag-pill:hover, .steam-tag-pill.active, .steam-highlight-right a.badge:hover {
+  background: var(--accent-yellow) !important;
+  color: #000000 !important;
+}
+
+/* ── 4. Trang Chi Tiết Game (game.html) với màu gốc ── */
+.breadcrumb, .breadcrumb a { color: var(--text-muted) !important; font-weight: 700 !important; }
+.game-detail-title { color: var(--text-main) !important; font-weight: 900 !important; }
+.game-detail-title-vi { color: var(--text-muted) !important; font-weight: 700 !important; }
+
+.steam-highlight-ctn {
+  background: var(--bg-card) !important;
+  border: 3px solid var(--black) !important;
+  box-shadow: 6px 6px 0 var(--black) !important;
+  border-radius: 10px !important;
+}
+.steam-main-stage, .steam-header-capsule-wrap {
+  border: 2px solid var(--black) !important;
+  border-radius: 6px !important;
+}
+#screenshots-grid .screenshot-item {
+  border: 2px solid var(--black) !important;
+  border-radius: 4px !important;
+}
+#screenshots-grid .screenshot-item.active {
+  border-color: var(--accent-red) !important;
+  box-shadow: 2px 2px 0 var(--black) !important;
+}
+.steam-slider-track {
+  background: var(--bg-dark) !important;
+  border: 1.5px solid var(--black) !important;
+}
+.steam-slider-handle {
+  background: var(--accent-blue) !important;
+  border: 1px solid var(--black) !important;
+}
+.steam-slider-handle:hover, .steam-slider-handle.dragging {
+  background: var(--accent-yellow) !important;
+}
+.steam-slider-arrow {
+  background: var(--white) !important;
+  color: var(--text-main) !important;
+  border: 1.5px solid var(--black) !important;
+}
+.steam-slider-arrow:hover { background: var(--accent-yellow) !important; color: #000 !important; }
+
+.steam-glance-label, .game-meta-label, #game-meta-grid + div::before {
+  color: var(--text-dim) !important;
+  font-weight: 800 !important;
+}
+.steam-glance-val, .game-meta-value {
+  color: var(--text-main) !important;
+  font-weight: 800 !important;
+}
+.game-meta-value.status-done {
+  color: #0b8a3e !important;
+}
+
+/* Hộp Tải Patch Việt Hóa */
+.steam-purchase-box {
+  background: var(--accent-blue) !important;
+  border: 3px solid var(--black) !important;
+  box-shadow: 5px 5px 0 var(--black) !important;
+  border-radius: 8px !important;
+}
+.steam-purchase-title { color: #000000 !important; font-weight: 900 !important; }
+.steam-purchase-sub { color: #111111 !important; font-weight: 600 !important; }
+.game-detail-actions { background: transparent !important; padding: 0 !important; gap: 10px !important; }
+.game-price-tag {
+  background: var(--accent-red) !important;
+  color: #FFFFFF !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0 #000000 !important;
+  font-weight: 900 !important;
+}
+
+/* Nội dung bài viết, FAQ & Sidebar phải */
+.steam-section-heading {
+  color: var(--text-main) !important;
+  border-bottom: 3px solid var(--black) !important;
+  font-weight: 900 !important;
+}
+.game-desc-html p, .game-desc-html ul, .game-desc-html ol {
+  color: var(--text-main) !important;
+  font-weight: 600 !important;
+}
+.game-desc-html h2 {
+  color: var(--text-main) !important;
+  border-bottom: 2px dashed var(--black) !important;
+}
+.game-desc-html h3 { color: var(--text-main) !important; }
+
+.steam-faq-item, .steam-sidebar-block, .toc-wrapper {
+  background: var(--bg-card) !important;
+  border: 2px solid var(--black) !important;
+  box-shadow: 4px 4px 0 var(--black) !important;
+  border-radius: 8px !important;
+}
+.steam-faq-item h3, .steam-sidebar-block-title, .toc-title {
+  color: var(--text-main) !important;
+  font-weight: 900 !important;
+}
+.steam-faq-item p { color: var(--text-muted) !important; font-weight: 600 !important; }
+.toc-list a, .steam-feature-pill {
+  background: var(--bg-dark) !important;
+  color: var(--text-main) !important;
+  border: 1.5px solid var(--black) !important;
+  font-weight: 700 !important;
+}
+.toc-list a:hover { background: var(--accent-yellow) !important; color: #000 !important; }
+.steam-lang-table { color: var(--text-main) !important; font-weight: 700 !important; }
+.steam-lang-table th, .steam-lang-table td.lang-name { color: var(--text-muted) !important; }
+
+/* Section Về Chúng Tôi & Footer */
+#about { background: var(--bg-dark) !important; border-top: 2px solid var(--black) !important; }
+#about-title { color: var(--text-main) !important; }
+#about p { color: var(--text-muted) !important; font-weight: 600 !important; }
+
+.footer {
+  background: var(--bg-card) !important;
+  border-top: 3px solid var(--black) !important;
+}
+.footer-col-title { color: var(--text-main) !important; font-weight: 900 !important; }
+.footer-links a, .footer-bottom, .footer-bottom p, .footer-brand p {
+  color: var(--text-muted) !important; font-weight: 600 !important;
+}
+.social-btn {
+  background: var(--white) !important;
+  color: var(--black) !important;
+  border: 2px solid var(--black) !important;
+  box-shadow: 2px 2px 0 var(--black) !important;
+}
+.social-btn:hover { background: var(--accent-yellow) !important; }
+
+/* ── 5. Tương thích hoàn hảo khi bật DARK MODE (Nút Mặt Trăng) ── */
+body.dark-mode {
+  --bg-deep:        #121212 !important;
+  --bg-dark:        #1e1e1e !important;
+  --bg-card:        #1a1a1a !important;
+  --bg-card-hover:  #252525 !important;
+  --white:          #161616 !important;
+  /* --black:          #e0e0e0 !important; */
+  --text-main:      #ffffff !important;
+  --text-bright:    #ffffff !important;
+  --text-muted:     #b3b3b3 !important;
+  --text-dim:       #888888 !important;
+}
+body.dark-mode .game-meta-value.status-done {
+  color: var(--accent-green) !important;
+}
+
+body.dark-mode .nav-logo {
+  color: #ffffff !important;
+}
