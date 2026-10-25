@@ -1209,6 +1209,7 @@ h1, h2, h3, .game-detail-title, .hero-title { overflow-wrap: anywhere; }
   background: linear-gradient(to top, rgba(11, 19, 27, 0.95) 0%, rgba(11, 19, 27, 0.7) 60%, rgba(11, 19, 27, 0) 100%);
   z-index: 5;
 }
+
 .p-slide-info h3 { font-size: 14px; flex: 1 1 auto; min-width: 0; -webkit-line-clamp: 1; }
 .p-slide-info h3::after { display: none; }
 .p-slide-info .p-btn-view { flex: 0 0 auto; align-self: center; white-space: nowrap; padding: 6px 12px; }
@@ -1712,3 +1713,8 @@ body.dark-mode .game-meta-value.status-done {
 body.dark-mode .nav-logo {
   color: #ffffff !important;
 }
+
+body.dark-mode .p-slide-info{
+  background: none !important;
+}
+
