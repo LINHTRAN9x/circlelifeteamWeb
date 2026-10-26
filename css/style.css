@@ -1727,3 +1727,339 @@ body:has(#dashboard-section) .navbar::after {
 body:has(#dashboard-section) #dashboard-section.page {
   padding-top: 64px !important;
 }
+
+
+/* ============================================================
+   11. CUTE KAWAII ADMIN LOGIN & ROAMING PETS
+   ============================================================ */
+
+#login-section.admin-login-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 30%, #fff0f6 0%, #f3f0ff 50%, #e5f6ff 100%) !important;
+}
+
+body.dark-mode #login-section.admin-login-page {
+  background: radial-gradient(circle at 50% 30%, #2b1f38 0%, #191624 55%, #111018 100%) !important;
+}
+
+/* Đám mây và ngôi sao trôi bồng bềnh */
+.cute-sky-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.floating-cloud {
+  position: absolute;
+  font-size: 54px;
+  opacity: 0.45;
+  animation: floatCloud 18s infinite ease-in-out alternate;
+}
+.floating-cloud.c1 { top: 12%; left: 10%; animation-duration: 16s; }
+.floating-cloud.c2 { top: 22%; right: 12%; font-size: 68px; animation-duration: 22s; }
+.floating-cloud.c3 { bottom: 14%; left: 18%; font-size: 46px; animation-duration: 19s; }
+
+.floating-star {
+  position: absolute;
+  font-size: 24px;
+  animation: twinkleStar 3s infinite ease-in-out alternate;
+}
+.floating-star.s1 { top: 18%; left: 32%; }
+.floating-star.s2 { top: 30%; right: 28%; animation-delay: 0.8s; }
+.floating-star.s3 { bottom: 22%; right: 20%; animation-delay: 1.5s; }
+.floating-star.s4 { bottom: 28%; left: 25%; animation-delay: 2.1s; }
+
+@keyframes floatCloud {
+  from { transform: translateX(-25px) translateY(0); }
+  to { transform: translateX(35px) translateY(-12px); }
+}
+@keyframes twinkleStar {
+  from { transform: scale(0.8) rotate(-10deg); opacity: 0.5; }
+  to { transform: scale(1.2) rotate(12deg); opacity: 1; }
+}
+
+/* Sân chơi cho đàn thú chạy lon ton */
+.cute-pets-playground {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.roaming-pet {
+  position: absolute;
+  top: 0; left: 0;
+  pointer-events: auto;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: filter 0.2s;
+}
+.roaming-pet .pet-sprite {
+  display: inline-block;
+  font-size: 34px;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.15));
+  animation: petWaddle 0.55s infinite ease-in-out alternate;
+}
+@keyframes petWaddle {
+  0% { margin-top: 0px; rotate: -6deg; }
+  100% { margin-top: -7px; rotate: 6deg; }
+}
+
+/* Bong bóng thoại khi di chuột hoặc bấm vào thú */
+.roaming-pet .pet-bubble {
+  background: #ffffff;
+  color: #ff477e;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 2px 2px 0 #000000;
+  margin-bottom: 4px;
+  opacity: 0;
+  transform: translateY(6px) scale(0.8);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.roaming-pet:hover .pet-bubble,
+.roaming-pet.happy .pet-bubble {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.roaming-pet.happy .pet-sprite {
+  animation: petJump 0.45s ease 2;
+}
+@keyframes petJump {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-22px) scale(1.25); }
+}
+
+/* Khung Card Login Cute */
+.admin-login-card.cute-card {
+  position: relative;
+  z-index: 10;
+  width: 410px !important;
+  background: #ffffff !important;
+  border: 3px solid #2d232e !important;
+  border-radius: 26px !important;
+  box-shadow: 0 14px 0 #ff9ff3, 0 14px 0 3px #2d232e, 0 24px 40px rgba(0,0,0,0.18) !important;
+  padding: 42px 34px 32px !important;
+  margin-top: 40px;
+}
+body.dark-mode .admin-login-card.cute-card {
+  background: #231d2e !important;
+  border-color: #ff9ff3 !important;
+  box-shadow: 0 12px 0 #7048e8, 0 20px 45px rgba(0,0,0,0.6) !important;
+}
+
+/* Mèo con ngồi trên nóc thẻ Login */
+.peeking-cat {
+  position: absolute;
+  top: -62px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cat-head {
+  width: 74px;
+  height: 54px;
+  background: #ffffff;
+  border: 3px solid #2d232e;
+  border-bottom: none;
+  border-radius: 38px 38px 0 0;
+  position: relative;
+  z-index: 2;
+}
+.cat-ears {
+  position: absolute;
+  top: -10px;
+  width: 68px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+}
+.cat-ears .ear {
+  width: 24px;
+  height: 26px;
+  background: #ffffff;
+  border: 3px solid #2d232e;
+  border-radius: 6px 18px 0 0;
+  transform: rotate(-15deg);
+}
+.cat-ears .ear.right {
+  border-radius: 18px 6px 0 0;
+  transform: rotate(15deg);
+}
+.cat-ears .ear::after {
+  content: '';
+  display: block;
+  width: 12px; height: 12px;
+  background: #ffb8d1;
+  border-radius: 50%;
+  margin: 5px auto 0;
+}
+.cat-eyes {
+  display: flex;
+  justify-content: space-between;
+  width: 38px;
+  margin: 18px auto 0;
+}
+.cat-eyes .eye {
+  width: 8px; height: 10px;
+  background: #2d232e;
+  border-radius: 50%;
+  animation: catBlink 4s infinite;
+}
+@keyframes catBlink {
+  0%, 94%, 100% { transform: scaleY(1); }
+  97% { transform: scaleY(0.1); }
+}
+.cat-blush {
+  position: absolute;
+  top: 26px;
+  width: 11px; height: 6px;
+  background: #ff9ff3;
+  border-radius: 50%;
+}
+.cat-blush.left { left: 8px; }
+.cat-blush.right { right: 8px; }
+.cat-nose {
+  width: 6px; height: 4px;
+  background: #ff6b81;
+  border-radius: 50%;
+  margin: 2px auto 0;
+}
+.cat-mouth {
+  font-size: 11px;
+  font-weight: 900;
+  color: #2d232e;
+  line-height: 1;
+  margin-top: -1px;
+}
+
+/* Hai chân mèo đưa lên che mắt khi gõ mật khẩu */
+.cat-paws {
+  position: absolute;
+  bottom: -10px;
+  width: 78px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 4;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.cat-paws .paw {
+  font-size: 20px;
+  background: #ffffff;
+  border: 2.5px solid #2d232e;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.peeking-cat.shy .paw.left {
+  transform: translate(11px, -24px) rotate(20deg);
+}
+.peeking-cat.shy .paw.right {
+  transform: translate(-11px, -24px) rotate(-20deg);
+}
+
+.cat-speech {
+  position: absolute;
+  top: -34px;
+  background: #ffc312;
+  color: #000000;
+  border: 2px solid #000000;
+  border-radius: 14px;
+  padding: 3px 12px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 2px 2px 0 #000000;
+}
+
+/* Chuột Hamster chạy vòng quanh mép viền thẻ Login */
+.card-border-runner {
+  position: absolute;
+  font-size: 22px;
+  top: -18px; left: 20px;
+  z-index: 5;
+  pointer-events: none;
+  animation: runAroundCard 10s linear infinite;
+}
+@keyframes runAroundCard {
+  0%   { top: -18px; left: 20px; transform: rotate(0deg); }
+  25%  { top: -18px; left: calc(100% - 40px); transform: rotate(90deg); }
+  50%  { top: calc(100% - 14px); left: calc(100% - 40px); transform: rotate(180deg); }
+  75%  { top: calc(100% - 14px); left: 10px; transform: rotate(270deg); }
+  100% { top: -18px; left: 20px; transform: rotate(360deg); }
+}
+
+/* Nút & Ô nhập liệu Cute */
+.cute-card .admin-login-icon {
+  width: 64px; height: 64px;
+  background: #fff3bf !important;
+  border: 3px solid #2d232e !important;
+  font-size: 32px;
+  animation: bounceCute 2s infinite ease-in-out;
+}
+@keyframes bounceCute {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.cute-card .form-input.cute-input {
+  border-radius: 14px !important;
+  padding: 13px 16px !important;
+  border: 2.5px solid #2d232e !important;
+  background: #fdf8ff !important;
+  color: #2d232e !important;
+  text-align: center;
+  font-size: 15px !important;
+}
+body.dark-mode .cute-card .form-input.cute-input {
+  background: #171321 !important;
+  color: #ffffff !important;
+  border-color: #ff9ff3 !important;
+}
+.cute-card .cute-login-btn {
+  border-radius: 14px !important;
+  background: linear-gradient(90deg, #ff9ff3 0%, #ffc312 100%) !important;
+  color: #000000 !important;
+  border: 2.5px solid #000000 !important;
+  box-shadow: 0 5px 0 #000000 !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  padding: 13px !important;
+}
+.cute-card .cute-login-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 7px 0 #000000 !important;
+  filter: brightness(1.05);
+}
+.cute-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #e64980 !important;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(255, 159, 243, 0.2);
+  transition: 0.2s;
+}
+.cute-back-link:hover {
+  background: #ff9ff3;
+  color: #000000 !important;
+  transform: scale(1.05);
+}

@@ -32,41 +32,164 @@
 <div id="login-section" class="admin-login-page">
   <div class="admin-login-bg" aria-hidden="true"></div>
 
-  <div class="admin-login-card">
+  <!-- Đám mây & Ngôi sao lơ lửng nền sau -->
+  <div class="cute-sky-decor" aria-hidden="true">
+    <span class="floating-cloud c1">☁️</span>
+    <span class="floating-cloud c2">☁️</span>
+    <span class="floating-cloud c3">☁️</span>
+    <span class="floating-star s1">✨</span>
+    <span class="floating-star s2">🌟</span>
+    <span class="floating-star s3">🐾</span>
+    <span class="floating-star s4">🌸</span>
+  </div>
+
+  <!-- Đàn thú nhỏ xinh chạy vòng quanh màn hình (Click vào thú sẽ nảy lên thả tim) -->
+  <div class="cute-pets-playground" id="cute-pets-playground" aria-hidden="true"></div>
+
+  <div class="admin-login-card cute-card">
+    <!-- Mèo con ngồi trên nóc khung Login (Gõ mật khẩu sẽ che mắt) -->
+    <div class="peeking-cat" id="peeking-cat" aria-hidden="true">
+      <div class="cat-ears">
+        <span class="ear left"></span>
+        <span class="ear right"></span>
+      </div>
+      <div class="cat-head">
+        <div class="cat-eyes">
+          <span class="eye"></span>
+          <span class="eye"></span>
+        </div>
+        <div class="cat-blush left"></div>
+        <div class="cat-blush right"></div>
+        <div class="cat-nose"></div>
+        <div class="cat-mouth">w</div>
+      </div>
+      <div class="cat-paws">
+        <span class="paw left">🐾</span>
+        <span class="paw right">🐾</span>
+      </div>
+      <div class="cat-speech" id="cat-speech">Meow~ Chào sếp! 🐾</div>
+    </div>
+
+    <!-- Thú nhỏ chạy dọc quanh viền khung Login -->
+    <div class="card-border-runner" aria-hidden="true">🐹</div>
+
     <div class="admin-login-logo">
-      <div class="admin-login-icon">🛡️</div>
-      <div class="admin-login-title">Admin Panel</div>
-      <div class="admin-login-sub">CircleLifeTeam – Quản lý nội dung</div>
+      <div class="admin-login-icon">🐣</div>
+      <div class="admin-login-title">Góc Quản Trị</div>
+      <div class="admin-login-sub">CircleLifeTeam</div>
     </div>
 
     <form id="login-form" novalidate>
       <div class="form-group">
-        <label class="form-label" for="admin-pass">Mật Khẩu Admin</label>
+        <label class="form-label" for="admin-pass">🔑 Mật Khẩu</label>
         <input
           type="password"
           id="admin-pass"
-          class="form-input"
-          placeholder="Nhập mật khẩu..."
+          class="form-input cute-input"
+          placeholder="Suỵt... nhập mật khẩu vào đây nha..."
           autocomplete="current-password"
           required
         >
         <div class="form-error" id="login-error" style="display:none"></div>
       </div>
 
-      <button type="submit" class="btn-block">
-        🔐 Đăng Nhập
+      <button type="submit" class="btn-block cute-login-btn">
+        🐾 Mở Cửa Vào Ngay
       </button>
     </form>
 
-    <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(0,168,232,0.1);text-align:center">
-      
-    </div>
-
-    <div style="margin-top:16px;text-align:center">
-      <a href="index.html" style="font-weight:bold;font-size:13px;color:var(--blue-vivid)"><i class="fa-solid fa-arrow-left"></i> Về trang chủ</a>
+    <div style="margin-top:20px;padding-top:14px;border-top:2px dashed rgba(255,159,243,0.4);text-align:center">
+      <a href="index.html" class="cute-back-link"><i class="fa-solid fa-house-chimney"></i> Quay về trang chủ</a>
     </div>
   </div>
 </div>
+
+<script>
+  // Script điều khiển đàn thú con chạy lon ton quanh màn hình & Mèo che mắt khi nhập pass
+  document.addEventListener('DOMContentLoaded', () => {
+    const passInput = document.getElementById('admin-pass');
+    const peekingCat = document.getElementById('peeking-cat');
+    const catSpeech = document.getElementById('cat-speech');
+    const playground = document.getElementById('cute-pets-playground');
+
+    // 1. Hiệu ứng Mèo che mắt khi nhập mật khẩu
+    if (passInput && peekingCat) {
+      passInput.addEventListener('focus', () => {
+        peekingCat.classList.add('shy');
+        if (catSpeech) catSpeech.textContent = 'Em nhắm mắt rồi, sếp gõ đi! 🙈';
+      });
+      passInput.addEventListener('blur', () => {
+        peekingCat.classList.remove('shy');
+        if (catSpeech) catSpeech.textContent = 'Meow~ Chào sếp! 🐾';
+      });
+      passInput.addEventListener('input', () => {
+        if (passInput.value.length > 0 && catSpeech) {
+          catSpeech.textContent = `Đã gõ ${passInput.value.length} ký tự bí mật 🤫`;
+        }
+      });
+    }
+
+    // 2. Tạo đàn thú cưng chạy lon ton tự do khắp màn hình Login
+    if (playground) {
+      const petList = [
+        { emoji: '🐕', name: 'Shiba', msg: 'Gâu gâu! 🦴' },
+        { emoji: '🐈', name: 'Mèo Mướp', msg: 'Meow~ 🐟' },
+        { emoji: '🐇', name: 'Thỏ Trắng', msg: 'Cà rốt không sếp? 🥕' },
+        { emoji: '🐥', name: 'Vịt Ú', msg: 'Quạc quạc! 🌼' },
+        { emoji: '🦊', name: 'Cáo Nhỏ', msg: 'Chúc sếp 1 ngày vui! ✨' },
+        { emoji: '🐼', name: 'Gấu Trúc', msg: 'Măm măm trúc 🎋' },
+        { emoji: '🐿️', name: 'Sóc Nâu', msg: 'Hạt dẻ thơm quá 🌰' },
+        { emoji: '🦔', name: 'Nhím Nhỏ', msg: 'Chăm chỉ up game nha! 🎮' }
+      ];
+
+      const pets = petList.map((item) => {
+        const el = document.createElement('div');
+        el.className = 'roaming-pet';
+        el.innerHTML = `<span class="pet-bubble">${item.msg}</span><span class="pet-sprite">${item.emoji}</span>`;
+        playground.appendChild(el);
+
+        // Vị trí và vận tốc ngẫu nhiên
+        let x = Math.random() * (window.innerWidth - 80) + 20;
+        let y = Math.random() * (window.innerHeight - 100) + 40;
+        let vx = (Math.random() * 1.4 + 0.6) * (Math.random() < 0.5 ? 1 : -1);
+        let vy = (Math.random() * 1.0 + 0.4) * (Math.random() < 0.5 ? 1 : -1);
+
+        // Bấm vào thú cưng sẽ nhảy lên thả tim
+        el.addEventListener('click', () => {
+          el.classList.add('happy');
+          setTimeout(() => el.classList.remove('happy'), 900);
+        });
+
+        return { el, x, y, vx, vy, paused: false };
+      });
+
+      function animatePets() {
+        if (document.getElementById('login-section')?.style.display === 'none') return;
+        const maxW = window.innerWidth - 60;
+        const maxH = window.innerHeight - 60;
+
+        pets.forEach(p => {
+          // Thỉnh thoảng thú dừng lại nghỉ ngơi ngẫu nhiên
+          if (Math.random() < 0.004) p.paused = !p.paused;
+          if (!p.paused) {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x <= 15 || p.x >= maxW) p.vx *= -1;
+            if (p.y <= 15 || p.y >= maxH) p.vy *= -1;
+
+            // Lật hướng mặt thú theo chiều chạy
+            const flip = p.vx > 0 ? -1 : 1;
+            p.el.style.transform = `translate3d(${p.x}px, ${p.y}px, 0)`;
+            p.el.querySelector('.pet-sprite').style.transform = `scaleX(${flip})`;
+          }
+        });
+        requestAnimationFrame(animatePets);
+      }
+      requestAnimationFrame(animatePets);
+    }
+  });
+</script>
 
 <!-- ════════════════════════════
   DASHBOARD SECTION
