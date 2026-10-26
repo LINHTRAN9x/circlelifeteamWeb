@@ -1717,3 +1717,13 @@ body.dark-mode .nav-logo {
 body.dark-mode .p-slide-info{
   background: none !important;
 }
+
+
+/* Ẩn thanh Sub-Navbar màu xanh trống không cần thiết trong trang Admin */
+#dashboard-section ~ * .navbar::after,
+body:has(#dashboard-section) .navbar::after {
+  display: none !important;
+}
+body:has(#dashboard-section) #dashboard-section.page {
+  padding-top: 64px !important;
+}

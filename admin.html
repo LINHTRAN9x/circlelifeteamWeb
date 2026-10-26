@@ -13,7 +13,7 @@
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 <body>
-
+<script>if(localStorage.getItem('clt_theme') === 'dark') document.body.classList.add('dark-mode');</script>
 <!-- NAVBAR (hidden until logged in) -->
 <nav class="navbar" style="display:none" role="navigation">
   <a href="index.html" class="nav-logo">
@@ -142,12 +142,12 @@
 
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:16px;flex-wrap:wrap">
           <div class="nav-search" style="margin:0; flex:1; max-width:400px; box-shadow: 2px 2px 0 var(--black);">
-            <span class="nav-search-icon" aria-hidden="true">🔍</span>
+            <span class="nav-search-icon" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
             <input type="search" id="admin-search-input" placeholder="Tìm game, thể loại..." style="width:100%">
           </div>
 
           <button class="btn-primary" id="add-game-btn" style="white-space:nowrap">
-            ➕ Thêm Game Mới
+            <i class="fa-solid fa-plus"></i> Thêm Game Mới
           </button>
         </div>
 
